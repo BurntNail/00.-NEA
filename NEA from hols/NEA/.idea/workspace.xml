@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="adafda04-aca3-4402-bcfb-4f1651a3f54a" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="1VFOPCV6BkSbsQv5UPzFwABTVLP" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="experimental" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="classes.util" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Prototypes/CfgReader/src" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/CfgReader" />
+    </key>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="adafda04-aca3-4402-bcfb-4f1651a3f54a" name="Default Changelist" comment="" />
+      <created>1576845349882</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1576845349882</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="283" y="49" key="#Code_Folding" timestamp="1577969098784">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="283" y="49" key="#Code_Folding/0.0.1366.768@0.0.1366.768" timestamp="1577969098784" />
+    <state x="496" y="107" key="#com.intellij.ide.util.MemberChooser" timestamp="1578042097298">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="496" y="107" key="#com.intellij.ide.util.MemberChooser/0.0.1366.768@0.0.1366.768" timestamp="1578042097298" />
+    <state x="810" y="436" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1578338782428">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="810" y="436" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1578338782427" />
+    <state x="304" y="66" key="#com.intellij.openapi.keymap.impl.ui.EditKeymapsDialog" timestamp="1577033654233">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="304" y="66" key="#com.intellij.openapi.keymap.impl.ui.EditKeymapsDialog/0.0.1366.768@0.0.1366.768" timestamp="1577033654233" />
+    <state x="471" y="297" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages" timestamp="1576845603085">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="471" y="297" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages/0.0.1366.768@0.0.1366.768" timestamp="1576845603085" />
+    <state x="372" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1577039694255">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="372" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1366.768@0.0.1366.768" timestamp="1577039694255" />
+    <state x="192" y="23" key="SettingsEditor" timestamp="1578041730128">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="192" y="23" key="SettingsEditor/0.0.1366.768@0.0.1366.768" timestamp="1578041730128" />
+    <state x="376" y="233" key="com.intellij.ide.util.TipDialog" timestamp="1578048870739">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="376" y="233" key="com.intellij.ide.util.TipDialog/0.0.1366.768@0.0.1366.768" timestamp="1578048870739" />
+    <state x="488" y="308" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1577033418529">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="488" y="308" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.768@0.0.1366.768" timestamp="1577033418529" />
+    <state x="348" y="92" width="670" height="158" key="search.everywhere.popup" timestamp="1578042040742">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="348" y="92" width="670" height="158" key="search.everywhere.popup/0.0.1366.768@0.0.1366.768" timestamp="1578042040742" />
+  </component>
+</project>
