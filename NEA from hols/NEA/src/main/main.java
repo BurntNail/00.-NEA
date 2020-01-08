@@ -35,9 +35,14 @@ public class main {
     public static final int TILE_WIDTH = WINDOW_WIDTH / NUM_OF_TILES_WIDTH;
     //endregion
 
+    //region GameData
+    public static final enemyDictionary e = new enemyDictionary(new String[]{"fastButWeakEnemy.cfg", "slowButStrong.cfg"});
+
+    //endregion
+
 
     public static void main(String[] args) {
-        enemyDictionary e = new enemyDictionary(new String[]{"fastButWeakEnemy.cfg", "slowButStrong.cfg"});
+
     }
 
 

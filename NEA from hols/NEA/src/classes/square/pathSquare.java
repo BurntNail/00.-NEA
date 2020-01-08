@@ -14,14 +14,15 @@ public class pathSquare{ //Doesn't extend from Square due to fn issues
     private boolean hasEnemy;
 
 
-    public pathSquare(Coordinate enterFrom, Coordinate exitTo, Coordinate xy) {
+    public pathSquare(Coordinate enterFrom, Coordinate exitTo, Coordinate xy, String fn_) {
         this.enterFrom = enterFrom;
         this.exitTo = exitTo;
 
         hasEnemy = false;
 
-        setFN();
 
+
+        fn = fn_;
         this.xy = xy;
     }
 
@@ -39,29 +40,6 @@ public class pathSquare{ //Doesn't extend from Square due to fn issues
 
     public Coordinate getExitTo() {
         return exitTo;
-    }
-
-    private void setFN () {
-        dir d = enterFrom.directionTo(exitTo);
-
-        switch (d) {
-            case E:
-                fn = "horiz.png";
-            case N:
-                fn = "vert.png";
-            case S:
-                fn = "vert.png";
-            case W:
-                fn = "horiz.png";
-            case NE:
-                fn = "topToLeft.png";
-            case NW:
-                fn = "topToRight.png";
-            case SE:
-                fn = "bottomToLeft.png";
-            case SW:
-                fn = "bottomToRight.png";
-        }
     }
 
 
