@@ -99,11 +99,19 @@ public class CfgReader {
     }
 
     public Object get (String module, String property) {
-        int moduleIndex = moduleNames.indexOf(module);
-        HashMap<String, Object> moduleToGet = hashMaps.get(moduleIndex);
-        String propValue = moduleToGet.get(property).toString();
+        String propValue = getModule(module).get(property).toString();
 
         return propValue;
+    }
+
+    public int getL (String module) {
+        return getModule(module).size();
+    }
+
+    public HashMap<String, Object> getModule (String module) {
+        int modIndex = moduleNames.indexOf(module);
+        HashMap<String, Object> modToGet = hashMaps.get(modIndex);
+        return modToGet;
     }
 
 }

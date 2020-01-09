@@ -1,6 +1,10 @@
 package main;
 
-import classes.enemy.enemyDictionary;
+import classes.canvas;
+//import classes.enemy.enemyDictionary;
+import com.sun.xml.internal.ws.developer.UsesJAXBContextFeature;
+
+import javax.swing.*;
 
 public class main {
 
@@ -15,6 +19,7 @@ public class main {
     public static final String ENEMIES_LOC = BASE_LOCATION + "enemies/";
     public static final String TURRETS_LOC = BASE_LOCATION + "turrets/";
     public static final String WAVES_LOC = BASE_LOCATION + "waves/";
+    public static final String MAPS_LOC = BASE_LOCATION + "maps/";
 
     public static final String ENEMY_IMAGES_LOC = IMAGES_LOC + "enemies/";
     public static final String TURRET_IMAGES_LOC = IMAGES_LOC + "turrets/";
@@ -36,13 +41,19 @@ public class main {
     //endregion
 
     //region GameData
-    public static final enemyDictionary e = new enemyDictionary(new String[]{"fastButWeakEnemy.cfg", "slowButStrong.cfg"});
+//    public static final enemyDictionary e = new enemyDictionary(new String[]{"fastButWeakEnemy.cfg", "slowButStrong.cfg"});
 
     //endregion
 
 
     public static void main(String[] args) {
+        canvas c = new canvas(1);
 
+        JFrame window = new JFrame("apex turrets");
+        window.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        window.add(c);
+        window.pack();
+        window.setVisible(true);
     }
 
 

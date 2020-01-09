@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="fc1b43da-a243-4e2c-945c-31d44d4eb3ea" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/NEA from hols/NEA/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/NEA from hols/NEA/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NEA from hols/NEA/src/CfgReader/CfgReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/NEA from hols/NEA/src/CfgReader/CfgReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NEA from hols/NEA/src/Gameplay/GameManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/NEA from hols/NEA/src/Gameplay/GameManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NEA from hols/NEA/src/Gameplay/gameLvlManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/NEA from hols/NEA/src/Gameplay/gameLvlManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NEA from hols/NEA/src/Gameplay/waves/WaveParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/NEA from hols/NEA/src/Gameplay/waves/WaveParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NEA from hols/NEA/src/UI/Canvas.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NEA from hols/NEA/src/classes/enemy/enemyActual.java" beforeDir="false" afterPath="$PROJECT_DIR$/NEA from hols/NEA/src/classes/enemy/enemyActual.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NEA from hols/NEA/src/classes/enemy/enemyDictionary.java" beforeDir="false" afterPath="$PROJECT_DIR$/NEA from hols/NEA/src/classes/enemy/enemyDictionary.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NEA from hols/NEA/src/classes/square/ScenerySquare.java" beforeDir="false" afterPath="$PROJECT_DIR$/NEA from hols/NEA/src/classes/square/ScenerySquare.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NEA from hols/NEA/src/classes/square/TurretSquare.java" beforeDir="false" afterPath="$PROJECT_DIR$/NEA from hols/NEA/src/classes/square/TurretSquare.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NEA from hols/NEA/src/classes/square/enemyStartSquare.java" beforeDir="false" afterPath="$PROJECT_DIR$/NEA from hols/NEA/src/classes/square/enemyStartSquare.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NEA from hols/NEA/src/classes/square/homeBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/NEA from hols/NEA/src/classes/square/homeBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NEA from hols/NEA/src/classes/square/pathSquare.java" beforeDir="false" afterPath="$PROJECT_DIR$/NEA from hols/NEA/src/classes/square/pathSquare.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NEA from hols/NEA/src/main/main.java" beforeDir="false" afterPath="$PROJECT_DIR$/NEA from hols/NEA/src/main/main.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1WAP6TjxWD4A31WelfuybZiGrbO" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="fc1b43da-a243-4e2c-945c-31d44d4eb3ea" name="Default Changelist" comment="" />
+      <created>1578589250584</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1578589250584</updated>
+    </task>
+    <servers />
+  </component>
+</project>

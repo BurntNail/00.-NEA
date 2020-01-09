@@ -4,9 +4,8 @@ import classes.util.Coordinate;
 
 public class enemyStartSquare extends Square{
 
-    public static final String fn = "enemyStart.jpg";
 
     public enemyStartSquare(Coordinate xY) {
-        super(fn, xY);
+        super("satan_big.png", xY);
     }
 }
