@@ -1,7 +1,6 @@
 package classes.square;
 
 import classes.util.Coordinate;
-import classes.util.dir;
 
 public class pathSquare extends Square{ //TODO: Corners
 

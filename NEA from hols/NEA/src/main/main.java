@@ -1,8 +1,7 @@
 package main;
 
 import classes.canvas;
-//import classes.enemy.enemyDictionary;
-import com.sun.xml.internal.ws.developer.UsesJAXBContextFeature;
+import classes.enemy.enemyDictionary;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,15 +21,15 @@ public class main {
     public static final String WAVES_LOC = BASE_LOCATION + "waves/";
     public static final String MAPS_LOC = BASE_LOCATION + "maps/";
 
-    public static final String ENEMY_IMAGES_LOC = IMAGES_LOC + "enemies/"; //TODO: Enemies
-    public static final String TURRET_IMAGES_LOC = IMAGES_LOC + "turrets/"; //TODO: Turrets
+    public static final String ENEMY_IMAGES_LOC = IMAGES_LOC + "enemies/";
+    public static final String TURRET_IMAGES_LOC = IMAGES_LOC + "turrets/";
     public static final String PATHS_IMAGES_LOC = IMAGES_LOC + "paths/";
-    public static final String BULLET_IMAGE_LOC = IMAGES_LOC + "bullets/"; //TODO: Bullets
+    public static final String BULLET_IMAGE_LOC = IMAGES_LOC + "bullets/";
     //endregion
 
     //region UI sizes
     public static final int NUM_OF_TILES_WIDTH = 5;
-    public static final int NUM_OF_TILES_HEIGHT = 2;
+    public static final int NUM_OF_TILES_HEIGHT = 3;
 
     public static final int WINDOW_WIDTH = 600; //px
     public static final int WINDOW_HEIGHT = 630; //px
@@ -43,6 +42,7 @@ public class main {
     public static final int TILE_HEIGHT = REST_OF_FRAME_HEIGHT / NUM_OF_TILES_HEIGHT; //px
     public static final int TILE_WIDTH = WINDOW_WIDTH / NUM_OF_TILES_WIDTH;
 
+    //region widths and heights of entities
     public static final int TURRET_WIDTH = TILE_HEIGHT * 2 / 3;
     public static final int TURRET_HEIGHT = TILE_HEIGHT * 2 / 3;
 
@@ -51,6 +51,18 @@ public class main {
 
     public static final int ENEMY_WIDTH = TILE_WIDTH * 2 / 5;
     public static final int ENEMY_HEIGHT = TILE_HEIGHT * 2 / 5;
+    //endregion
+
+    public static final int TURRET_X_ON_TILE = TILE_WIDTH / 2;
+    public static final int TURRET_Y_ON_TILE = TILE_HEIGHT / 10 + 3;
+
+    //endregion
+
+    //region fileNameArrays
+
+    public static final String[] levelFns = {"lvl01.cfg"};
+
+
     //endregion
 
     //region GameData

@@ -10,8 +10,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Enum" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -112,42 +112,50 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="372" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1366.768@0.0.1366.768" timestamp="1577039694255" />
+    <state x="698" y="294" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1578829235517">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="698" y="294" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1578829235517" />
     <state x="849" y="250" key="#xdebugger.evaluate" timestamp="1578768077518">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="849" y="250" key="#xdebugger.evaluate/0.0.1920.1080@0.0.1920.1080" timestamp="1578768077518" />
-    <state width="1878" height="304" key="GridCell.Tab.0.bottom" timestamp="1578768177609">
+    <state width="1878" height="375" key="GridCell.Tab.0.bottom" timestamp="1578846692880">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1878" height="304" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1578768177609" />
-    <state width="1878" height="304" key="GridCell.Tab.0.center" timestamp="1578768177608">
+    <state width="1878" height="375" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1578846692880" />
+    <state width="1878" height="375" key="GridCell.Tab.0.center" timestamp="1578846692878">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1878" height="304" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1578768177608" />
-    <state width="1878" height="304" key="GridCell.Tab.0.left" timestamp="1578768177607">
+    <state width="1878" height="375" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1578846692878" />
+    <state width="1878" height="375" key="GridCell.Tab.0.left" timestamp="1578846692877">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1878" height="304" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1578768177607" />
-    <state width="1878" height="304" key="GridCell.Tab.0.right" timestamp="1578768177608">
+    <state width="1878" height="375" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1578846692877" />
+    <state width="1878" height="375" key="GridCell.Tab.0.right" timestamp="1578846692879">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1878" height="304" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1578768177608" />
-    <state width="1878" height="375" key="GridCell.Tab.1.bottom" timestamp="1578768163495">
+    <state width="1878" height="375" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1578846692879" />
+    <state width="1878" height="375" key="GridCell.Tab.1.bottom" timestamp="1578846692883">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1878" height="375" key="GridCell.Tab.1.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1578768163495" />
-    <state width="1878" height="375" key="GridCell.Tab.1.center" timestamp="1578768163492">
+    <state width="1878" height="375" key="GridCell.Tab.1.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1578846692883" />
+    <state width="1878" height="375" key="GridCell.Tab.1.bottom/0.23.1920.995@0.23.1920.995" timestamp="1578846322813" />
+    <state width="1878" height="375" key="GridCell.Tab.1.center" timestamp="1578846692881">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1878" height="375" key="GridCell.Tab.1.center/0.0.1920.1080@0.0.1920.1080" timestamp="1578768163492" />
-    <state width="1878" height="375" key="GridCell.Tab.1.left" timestamp="1578768163491">
+    <state width="1878" height="375" key="GridCell.Tab.1.center/0.0.1920.1080@0.0.1920.1080" timestamp="1578846692881" />
+    <state width="1878" height="375" key="GridCell.Tab.1.center/0.23.1920.995@0.23.1920.995" timestamp="1578846322811" />
+    <state width="1878" height="375" key="GridCell.Tab.1.left" timestamp="1578846692881">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1878" height="375" key="GridCell.Tab.1.left/0.0.1920.1080@0.0.1920.1080" timestamp="1578768163491" />
-    <state width="1878" height="375" key="GridCell.Tab.1.right" timestamp="1578768163494">
+    <state width="1878" height="375" key="GridCell.Tab.1.left/0.0.1920.1080@0.0.1920.1080" timestamp="1578846692881" />
+    <state width="1878" height="375" key="GridCell.Tab.1.left/0.23.1920.995@0.23.1920.995" timestamp="1578846322811" />
+    <state width="1878" height="375" key="GridCell.Tab.1.right" timestamp="1578846692882">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1878" height="375" key="GridCell.Tab.1.right/0.0.1920.1080@0.0.1920.1080" timestamp="1578768163494" />
+    <state width="1878" height="375" key="GridCell.Tab.1.right/0.0.1920.1080@0.0.1920.1080" timestamp="1578846692882" />
+    <state width="1878" height="375" key="GridCell.Tab.1.right/0.23.1920.995@0.23.1920.995" timestamp="1578846322812" />
     <state x="192" y="23" key="SettingsEditor" timestamp="1578041730128">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
@@ -184,27 +192,52 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/classes/square/sqaureParser.java</url>
-          <line>21</line>
-          <option name="timeStamp" value="86" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/classes/square/sqaureParser.java</url>
-          <line>20</line>
-          <option name="timeStamp" value="87" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/classes/square/sqaureParser.java</url>
-          <line>26</line>
-          <option name="timeStamp" value="88" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/classes/square/sqaureParser.java</url>
-          <line>85</line>
+          <line>87</line>
           <option name="timeStamp" value="94" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/classes/square/sqaureParser.java</url>
+          <line>29</line>
+          <option name="timeStamp" value="98" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/classes/square/sqaureParser.java</url>
+          <line>30</line>
+          <option name="timeStamp" value="99" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/classes/square/sqaureParser.java</url>
+          <line>34</line>
+          <option name="timeStamp" value="100" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/classes/square/sqaureParser.java</url>
+          <line>33</line>
+          <option name="timeStamp" value="101" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/classes/square/sqaureParser.java</url>
+          <line>60</line>
+          <option name="timeStamp" value="102" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/classes/square/sqaureParser.java</url>
+          <line>62</line>
+          <option name="timeStamp" value="103" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/classes/square/sqaureParser.java</url>
+          <line>66</line>
+          <option name="timeStamp" value="105" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/classes/square/sqaureParser.java</url>
+          <line>67</line>
+          <option name="timeStamp" value="106" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/classes/square/sqaureParser.java</url>
-          <line>84</line>
+          <line>86</line>
           <properties class="classes.square.sqaureParser" method="getSquares">
             <option name="EMULATED" value="true" />
           </properties>

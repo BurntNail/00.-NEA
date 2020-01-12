@@ -51,6 +51,8 @@ public class sqaureParser {
                 case "turret_base_big.png":
                     newBoi = new turretSquare(ici);
                     break;
+                case "nothing_big.png":
+                    newBoi = new nothingSquare(ici);
                 default:
                     newBoi = new cornerSquare(fn, ici);
                     break;
@@ -60,7 +62,7 @@ public class sqaureParser {
 
             x++;
 
-            if(w == x)
+            if(x == w)
             {
                 x = 0;
                 y++;
