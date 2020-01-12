@@ -91,11 +91,11 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="283" y="49" key="#Code_Folding/0.0.1366.768@0.0.1366.768" timestamp="1577969098784" />
-    <state x="697" y="150" key="#com.intellij.ide.util.MemberChooser" timestamp="1578823526466">
+    <state x="697" y="150" key="#com.intellij.ide.util.MemberChooser" timestamp="1578847082626">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="496" y="107" key="#com.intellij.ide.util.MemberChooser/0.0.1366.768@0.0.1366.768" timestamp="1578042097298" />
-    <state x="697" y="150" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1080@0.0.1920.1080" timestamp="1578823526466" />
+    <state x="697" y="150" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1080@0.0.1920.1080" timestamp="1578847082626" />
     <state x="810" y="436" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1578338782428">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -194,46 +194,6 @@
           <url>file://$PROJECT_DIR$/src/classes/square/sqaureParser.java</url>
           <line>87</line>
           <option name="timeStamp" value="94" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/classes/square/sqaureParser.java</url>
-          <line>29</line>
-          <option name="timeStamp" value="98" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/classes/square/sqaureParser.java</url>
-          <line>30</line>
-          <option name="timeStamp" value="99" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/classes/square/sqaureParser.java</url>
-          <line>34</line>
-          <option name="timeStamp" value="100" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/classes/square/sqaureParser.java</url>
-          <line>33</line>
-          <option name="timeStamp" value="101" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/classes/square/sqaureParser.java</url>
-          <line>60</line>
-          <option name="timeStamp" value="102" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/classes/square/sqaureParser.java</url>
-          <line>62</line>
-          <option name="timeStamp" value="103" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/classes/square/sqaureParser.java</url>
-          <line>66</line>
-          <option name="timeStamp" value="105" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/classes/square/sqaureParser.java</url>
-          <line>67</line>
-          <option name="timeStamp" value="106" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/classes/square/sqaureParser.java</url>
