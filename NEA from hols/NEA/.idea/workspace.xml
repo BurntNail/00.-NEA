@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="adafda04-aca3-4402-bcfb-4f1651a3f54a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../../JackMaguireNEA.docx" beforeDir="false" afterPath="$PROJECT_DIR$/../../JackMaguireNEA.docx" afterDir="false" />
-    </list>
+    <list default="true" id="adafda04-aca3-4402-bcfb-4f1651a3f54a" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -93,11 +91,11 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="283" y="49" key="#Code_Folding/0.0.1366.768@0.0.1366.768" timestamp="1577969098784" />
-    <state x="697" y="150" key="#com.intellij.ide.util.MemberChooser" timestamp="1578821200921">
+    <state x="697" y="150" key="#com.intellij.ide.util.MemberChooser" timestamp="1578823526466">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="496" y="107" key="#com.intellij.ide.util.MemberChooser/0.0.1366.768@0.0.1366.768" timestamp="1578042097298" />
-    <state x="697" y="150" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1080@0.0.1920.1080" timestamp="1578821200921" />
+    <state x="697" y="150" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1080@0.0.1920.1080" timestamp="1578823526466" />
     <state x="810" y="436" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1578338782428">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
