@@ -22,7 +22,7 @@ public class main {
     public static final String WAVES_LOC = BASE_LOCATION + "waves/";
     public static final String MAPS_LOC = BASE_LOCATION + "maps/";
 
-    public static final String ENEMY_IMAGES_LOC = IMAGES_LOC + "enemies/"; //TODO: Enemies
+    public static final String ENEMY_IMAGES_LOC = IMAGES_LOC + "enemies/";
     public static final String TURRET_IMAGES_LOC = IMAGES_LOC + "turrets/"; //TODO: Turrets
     public static final String PATHS_IMAGES_LOC = IMAGES_LOC + "paths/";
     public static final String BULLET_IMAGE_LOC = IMAGES_LOC + "bullets/"; //TODO: Bullets
