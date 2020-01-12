@@ -1,4 +1,6 @@
 package classes.turret;
 
-public class turretActual {
+import classes.Entity.Entity;
+
+public class turretActual extends Entity {
 }
