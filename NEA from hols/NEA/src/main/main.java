@@ -5,6 +5,7 @@ import classes.canvas;
 import com.sun.xml.internal.ws.developer.UsesJAXBContextFeature;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class main {
 
@@ -21,23 +22,35 @@ public class main {
     public static final String WAVES_LOC = BASE_LOCATION + "waves/";
     public static final String MAPS_LOC = BASE_LOCATION + "maps/";
 
-    public static final String ENEMY_IMAGES_LOC = IMAGES_LOC + "enemies/";
-    public static final String TURRET_IMAGES_LOC = IMAGES_LOC + "turrets/";
+    public static final String ENEMY_IMAGES_LOC = IMAGES_LOC + "enemies/"; //TODO: Enemies
+    public static final String TURRET_IMAGES_LOC = IMAGES_LOC + "turrets/"; //TODO: Turrets
     public static final String PATHS_IMAGES_LOC = IMAGES_LOC + "paths/";
+    public static final String BULLET_IMAGE_LOC = IMAGES_LOC + "bullets/"; //TODO: Bullets
     //endregion
 
     //region UI sizes
-    public static final int NUM_OF_TILES_WIDTH = 20;
-    public static final int NUM_OF_TILES_HEIGHT = 20;
+    public static final int NUM_OF_TILES_WIDTH = 5;
+    public static final int NUM_OF_TILES_HEIGHT = 2;
 
     public static final int WINDOW_WIDTH = 600; //px
     public static final int WINDOW_HEIGHT = 630; //px
+
+    private static Dimension size = new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT);
 
     public static final int TOP_JPANEL_HEIGHT = 30; //px
     public static final int REST_OF_FRAME_HEIGHT = WINDOW_HEIGHT - TOP_JPANEL_HEIGHT; //px
 
     public static final int TILE_HEIGHT = REST_OF_FRAME_HEIGHT / NUM_OF_TILES_HEIGHT; //px
     public static final int TILE_WIDTH = WINDOW_WIDTH / NUM_OF_TILES_WIDTH;
+
+    public static final int TURRET_WIDTH = TILE_HEIGHT * 2 / 3;
+    public static final int TURRET_HEIGHT = TILE_HEIGHT * 2 / 3;
+
+    public static final int BULLET_WIDTH = TILE_WIDTH / 10;
+    public static final int BULLET_HEIGHT = TILE_HEIGHT / 20;
+
+    public static final int ENEMY_WIDTH = TILE_WIDTH * 2 / 5;
+    public static final int ENEMY_HEIGHT = TILE_HEIGHT * 2 / 5;
     //endregion
 
     //region GameData
@@ -51,6 +64,7 @@ public class main {
 
         JFrame window = new JFrame("apex turrets");
         window.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        window.setPreferredSize(size);
         window.add(c);
         window.pack();
         window.setVisible(true);

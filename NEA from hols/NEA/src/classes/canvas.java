@@ -1,6 +1,7 @@
 package classes;
 
 import CfgReader.CfgReader;
+import classes.Entity.Entity;
 import main.main;
 
 import javax.swing.*;
@@ -9,10 +10,12 @@ import classes.square.*;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 public class canvas extends JComponent {
 
     private sqaureParser sqp;
+    private ArrayList<Entity> entities;
 
     public canvas (int stage) {
 
@@ -34,16 +37,15 @@ public class canvas extends JComponent {
 
         Square[][] squares = sqp.getSquares();
 
-        for (int xInArr = 0; xInArr < squares.length; xInArr++) {
-            for (int yInArr = 0; yInArr < squares[0].length; yInArr++) {
-
+        for(int yInArr = 0; yInArr < squares[0].length; yInArr++) {
+            for(int xInArr = 0; xInArr < squares.length; xInArr++){
                 BufferedImage img = squares[xInArr][yInArr].getImg();
-                getGraphics().drawImage(img, xOnScrn, yOnScrn, null);
+                g.drawImage(img, xOnScrn, yOnScrn, null);
 
                 xOnScrn += w;
 
             }
-
+            xOnScrn = 0;
             yOnScrn += h;
         }
 

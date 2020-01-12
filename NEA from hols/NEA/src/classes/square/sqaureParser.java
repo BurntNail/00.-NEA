@@ -2,6 +2,7 @@ package classes.square;
 
 import CfgReader.CfgReader;
 import classes.util.Coordinate;
+import main.main;
 
 import java.security.UnrecoverableEntryException;
 import java.util.HashMap;
@@ -17,8 +18,8 @@ public class sqaureParser {
     public sqaureParser(CfgReader r) {
         this.r = r;
 
-        int w = Integer.parseInt(r.get("mapDeets", "rows").toString());
-        int h = Integer.parseInt(r.get("mapDeets", "cols").toString());
+        int w = main.NUM_OF_TILES_WIDTH;
+        int h = main.NUM_OF_TILES_HEIGHT;
         fns = new HashMap<>();
         setUpHashMap();
 
@@ -37,14 +38,11 @@ public class sqaureParser {
 
             switch (fn) {
                 case "general_big.png":
-                    newBoi = new pathSquare(ici); //TODO: Corners
+                    newBoi = new pathSquare(ici);
                     break;
                 case "happy_big.png":
                     newBoi = new homeBase(ici);
                     home = ici;
-                    break;
-                case "nothing_big.png":
-                    newBoi = new scenerySquare(ici);
                     break;
                 case "satan_big.png":
                     newBoi = new enemyStartSquare(ici);
@@ -58,9 +56,11 @@ public class sqaureParser {
                     break;
             }
 
+            squares[x][y] = newBoi;
+
             x++;
 
-            if(x > w - 1)
+            if(w == x)
             {
                 x = 0;
                 y++;
