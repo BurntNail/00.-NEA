@@ -13,12 +13,9 @@ public abstract class Entity {
 
     private BufferedImage img;
     private Coordinate XYInArr, XYInTile;
+    private entityType type;
 
-    public Entity(Coordinate XYInArr, String fn, entityType type) {
-        this.XYInArr = XYInArr;
-        int x = main.TILE_WIDTH / 2 + XYInArr.getX();
-        int y = main.TILE_WIDTH / 2 + XYInArr.getY();
-        XYInTile = new Coordinate(x, y);
+    public Entity(Coordinate XYInArr, String fn, entityType type, Coordinate XYInTile) {
 
         String fqdn = "";
 
@@ -38,14 +35,24 @@ public abstract class Entity {
         try {
             temp = ImageIO.read(new URL(fqdn));
         } catch (IOException e) {
-            temp = null;
+            temp = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
         }
 
         Coordinate wh = getWHOnType(type); //wh == width and height
         temp = temp.getScaledInstance(wh.getX(), wh.getY(), Image.SCALE_SMOOTH);
+        img = new BufferedImage(temp.getWidth(null), temp.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+        img.getGraphics().drawImage(temp, 0, 0, null);
+
+
+        this.XYInArr = XYInArr;
+        this.XYInTile = XYInTile;
     }
 
     //region getters and setters
+    public entityType getType() {
+        return type;
+    }
+
     public BufferedImage getImg() {
         return img;
     }
@@ -90,4 +97,8 @@ public abstract class Entity {
                 return new Coordinate(main.TURRET_WIDTH, main.TURRET_HEIGHT);
         }
     }
+
+    public abstract void step (long msSinceLast);
+
+
 }

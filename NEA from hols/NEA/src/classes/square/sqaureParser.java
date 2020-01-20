@@ -1,10 +1,10 @@
 package classes.square;
 
 import CfgReader.CfgReader;
+import classes.square.types.*;
 import classes.util.Coordinate;
 import main.main;
 
-import java.security.UnrecoverableEntryException;
 import java.util.HashMap;
 
 public class sqaureParser {
@@ -53,6 +53,7 @@ public class sqaureParser {
                     break;
                 case "nothing_big.png":
                     newBoi = new nothingSquare(ici);
+                    break;
                 default:
                     newBoi = new cornerSquare(fn, ici);
                     break;
@@ -86,5 +87,9 @@ public class sqaureParser {
 
     public Square[][] getSquares() {
         return squares;
+    }
+
+    public CfgReader getR() {
+        return r;
     }
 }

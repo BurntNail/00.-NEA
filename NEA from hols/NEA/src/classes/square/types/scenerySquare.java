@@ -1,4 +1,4 @@
-package classes.square;
+package classes.square.types;
 
 import classes.util.Coordinate;
 

@@ -1,4 +1,4 @@
-package classes.square;
+package classes.square.types;
 
 import classes.util.Coordinate;
 import main.main;
@@ -17,7 +17,7 @@ public abstract class Square {
     protected BufferedImage img;
 
     public Square (String fn, Coordinate xY) {
-        img = new BufferedImage(main.TILE_WIDTH, main.TILE_HEIGHT, BufferedImage.TYPE_INT_RGB);
+        img = new BufferedImage(main.TILE_WIDTH, main.TILE_HEIGHT, BufferedImage.TYPE_INT_ARGB);
 
         try {
             URL earl = new URL(main.PATHS_IMAGES_LOC + fn);

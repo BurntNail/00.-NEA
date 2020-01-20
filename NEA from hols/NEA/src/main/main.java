@@ -1,10 +1,18 @@
 package main;
 
+import CfgReader.CfgReader;
+import Gameplay.waves.waveManager;
+import classes.Entity.Entity;
 import classes.canvas;
+import classes.enemy.enemyActual;
 import classes.enemy.enemyDictionary;
+import javafx.application.Application;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class main {
 
@@ -28,7 +36,9 @@ public class main {
     //endregion
 
     //region UI sizes
-    public static final int NUM_OF_TILES_WIDTH = 5;
+    public static int CURRENT_LEVEL = 1;
+    private static final CfgReader stage = new CfgReader(MAPS_LOC + "stg" + CURRENT_LEVEL + ".cfg");
+    public static final int NUM_OF_TILES_WIDTH = 10;
     public static final int NUM_OF_TILES_HEIGHT = 3;
 
     public static final int WINDOW_WIDTH = 600; //px
@@ -49,8 +59,8 @@ public class main {
     public static final int BULLET_WIDTH = TILE_WIDTH / 10;
     public static final int BULLET_HEIGHT = TILE_HEIGHT / 20;
 
-    public static final int ENEMY_WIDTH = TILE_WIDTH * 2 / 5;
-    public static final int ENEMY_HEIGHT = TILE_HEIGHT * 2 / 5;
+    public static final int ENEMY_WIDTH = TILE_WIDTH * 2 / 3;
+    public static final int ENEMY_HEIGHT = TILE_HEIGHT * 4 / 5;
     //endregion
 
     public static final int TURRET_X_ON_TILE = TILE_WIDTH / 2;
@@ -58,28 +68,53 @@ public class main {
 
     //endregion
 
-    //region fileNameArrays
+    //region fn arrays
 
-    public static final String[] levelFns = {"lvl01.cfg"};
+    public static final String[] TURRET_FNS = {"wizard.cfg", "dropTower.cfg"};
+    public static final String[] ENEMY_FNS = {"fastButWeak.cfg", "slowButStrong.cfg"};
 
-
-    //endregion
-
-    //region GameData
-//    public static final enemyDictionary e = new enemyDictionary(new String[]{"fastButWeakEnemy.cfg", "slowButStrong.cfg"});
+    public static final String[] TURRET_IMG_FNS = {"dropper_big.png", "sorcerer_big.png"};
+    public static final String[] ENEMY_IMG_FNS = {"skeleton_big.png", "bigButSlow_big.png"};
 
     //endregion
 
+    public static void lvl1 () {
+        canvas c = new canvas(CURRENT_LEVEL);
 
-    public static void main(String[] args) {
-        canvas c = new canvas(1);
+        JFrame window = new JFrame("Apex Turrets");
 
-        JFrame window = new JFrame("apex turrets");
         window.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         window.setPreferredSize(size);
         window.add(c);
         window.pack();
         window.setVisible(true);
+        window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        waveManager waves = new waveManager("lvl1.cfg", "stg1.cfg");
+
+        long timeSinceLast = 0;
+        long currentTime = 0;
+        long previousLoopTime = System.currentTimeMillis();
+
+        Dimension newSize = new Dimension(main.TILE_WIDTH * main.NUM_OF_TILES_WIDTH, main.TILE_HEIGHT * main.NUM_OF_TILES_HEIGHT);
+        window.setSize(newSize);
+
+        while (true) {
+            currentTime = System.currentTimeMillis();
+            timeSinceLast = (currentTime == previousLoopTime ? 1000 : currentTime - previousLoopTime);
+            previousLoopTime = System.currentTimeMillis();
+
+
+            ArrayList<Entity> enemyActuals = waves.step(timeSinceLast);
+
+            c.setEntities(enemyActuals);
+
+            window.pack();
+        }
+    }
+
+    public static void main(String[] args) {
+        lvl1();
     }
 
 

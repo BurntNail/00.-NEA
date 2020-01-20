@@ -9,4 +9,8 @@ public class Wave {
     public Wave(HashMap<Character, Integer> wave) {
         this.wave = wave;
     }
+
+    public HashMap<Character, Integer> getWave() {
+        return wave;
+    }
 }
