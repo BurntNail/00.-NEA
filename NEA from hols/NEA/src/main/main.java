@@ -52,6 +52,8 @@ public class main {
     public static final int TILE_HEIGHT = REST_OF_FRAME_HEIGHT / NUM_OF_TILES_HEIGHT; //px
     public static final int TILE_WIDTH = WINDOW_WIDTH / NUM_OF_TILES_WIDTH;
 
+    public static final int BOUND = ((TILE_WIDTH + TILE_HEIGHT) / 2);
+
     //region widths and heights of entities
     public static final int TURRET_WIDTH = TILE_HEIGHT * 2 / 3;
     public static final int TURRET_HEIGHT = TILE_HEIGHT * 2 / 3;
@@ -108,6 +110,10 @@ public class main {
             ArrayList<Entity> enemyActuals = waves.step(timeSinceLast);
 
             c.setEntities(enemyActuals);
+
+            while(!c.isFinishedRendering()) {
+                continue;
+            }
 
             window.pack();
         }

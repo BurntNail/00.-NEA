@@ -49,7 +49,7 @@ public class sqaureParser {
                     satan = ici;
                     break;
                 case "turret_base_big.png":
-                    newBoi = new turretSquare(ici);
+                    newBoi = new TurretSquare(ici);
                     break;
                 case "nothing_big.png":
                     newBoi = new nothingSquare(ici);

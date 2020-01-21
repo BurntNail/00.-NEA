@@ -22,6 +22,7 @@ public class canvas extends JComponent {
 
     private squareCollection sqc;
     private ArrayList<Entity> entities;
+    private boolean finishedRendering;
 
     public canvas (int stage) {
 
@@ -29,9 +30,11 @@ public class canvas extends JComponent {
         sqaureParser sqp = new sqaureParser(sqpCfg);
         sqc = new squareCollection(sqp);
         entities = new ArrayList<>();
+        finishedRendering = true;
     }
 
     public void setEntities (ArrayList<Entity> entities) {
+        finishedRendering = false;
         this.entities = entities;
     }
 
@@ -68,14 +71,8 @@ public class canvas extends JComponent {
 
                 int x = entity.getXYOnScrn().getX();
                 int y = entity.getXYOnScrn().getY();
+
                 System.out.println(entity.getXYInArr().toString());
-
-                if(entity.getType().equals(entityType.enemy)){
-                    enemyActual ea = ((enemyActual) entity);
-                    if(ea.getXYInArr().equals(ea.getTarget()))
-                        ea.incrementStep(); //TODO: Fix
-                }
-
 
                 vCanvas.getGraphics().drawImage(img, x, y, null);
             }
@@ -85,7 +82,11 @@ public class canvas extends JComponent {
 
         repaint();
 
+        finishedRendering = true;
+
     }
 
-
+    public boolean isFinishedRendering() {
+        return finishedRendering;
+    }
 }

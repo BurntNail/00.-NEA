@@ -3,10 +3,9 @@ package classes.square;
 import classes.square.types.Square;
 import classes.util.Coordinate;
 
-    public class turretSquare extends Square {
+public class TurretSquare extends Square {
 
-
-    public turretSquare(Coordinate xY) {
+    public TurretSquare(Coordinate xY) {
         super("turret_base_big.png", xY);
     }
 }

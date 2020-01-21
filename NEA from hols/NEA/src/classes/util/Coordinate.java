@@ -89,4 +89,27 @@ public class Coordinate {
                 .add("y=" + y)
                 .toString();
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        Coordinate obj2 = ((Coordinate) obj);
+
+        return obj2.x == x && obj2.y == y;
+
+    }
+
+    public boolean isWithinBounds (int bound, Coordinate other, dir direction) { //We need to know direction, becuase otherwise enemies may get locked in a cycle of back and forth to get closer
+        switch (direction) {
+            case N:
+                return y > other.y || other.y - y <= bound;
+            case S:
+                return y < other.y || other.y - y >= bound;
+            case W:
+                return x > other.x || other.x - x <= bound;
+            case E:
+                return x < other.x || other.x - x >= bound;
+        }
+
+        return false;
+    }
 }
