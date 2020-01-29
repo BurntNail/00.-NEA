@@ -1,6 +1,7 @@
 package main;
 
 import CfgReader.CfgReader;
+import Gameplay.player.PlayerManager;
 import Gameplay.turrets.TurretManager;
 import Gameplay.waves.waveManager;
 import classes.Entity.Entity;
@@ -8,7 +9,6 @@ import classes.canvas;
 import classes.square.sqaureParser;
 import classes.square.squareCollection;
 import classes.util.Coordinate;
-import org.omg.IOP.ENCODING_CDR_ENCAPS;
 
 import javax.swing.*;
 import java.awt.*;
@@ -35,11 +35,14 @@ public class main {
     public static final String TURRET_IMAGES_LOC = IMAGES_LOC + "turrets/";
     public static final String PATHS_IMAGES_LOC = IMAGES_LOC + "paths/";
     public static final String BULLET_IMAGE_LOC = IMAGES_LOC + "bullets/";
+
+    public static final String ICON_LOCATIONS = IMAGES_LOC + "icns/";
     //endregion
 
     //region UI sizes
     public static int CURRENT_LEVEL = 1;
-    private static final CfgReader stage;
+    public static final CfgReader stage;
+    public static final CfgReader level;
     public static final int NUM_OF_TILES_WIDTH;
     public static final int NUM_OF_TILES_HEIGHT;
 
@@ -81,7 +84,16 @@ public class main {
 
     //endregion
 
+    //region NAMES
+
+
+    //endregion
+
     public static void lvl1() {
+        int money = Integer.parseInt(level.get("playerGets", "money").toString());
+        int hearts = Integer.parseInt(level.get("playerGets", "hp").toString());
+
+        PlayerManager pm = new PlayerManager(money, hearts);
         squareCollection sqc = new squareCollection(new sqaureParser(new CfgReader(main.MAPS_LOC + "stg1.cfg")));
 
         //region main window
@@ -96,8 +108,8 @@ public class main {
         window.setVisible(true);
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        waveManager waves = new waveManager("lvl1.cfg", sqc);
-        TurretManager tm = new TurretManager(sqc);
+        waveManager waves = new waveManager("lvl1.cfg", sqc, pm);
+        TurretManager tm = new TurretManager(sqc, pm);
 
         Dimension newSize = new Dimension(main.TILE_WIDTH * main.NUM_OF_TILES_WIDTH, main.TILE_HEIGHT * main.NUM_OF_TILES_HEIGHT);
         window.setSize(newSize);
@@ -145,6 +157,8 @@ public class main {
 
     static {
         stage = new CfgReader(MAPS_LOC + "stg" + CURRENT_LEVEL + ".cfg");
+        level = new CfgReader(WAVES_LOC + "lvl" + CURRENT_LEVEL + ".cfg");
+
         NUM_OF_TILES_WIDTH = Integer.parseInt(stage.get("mapDeets", "rows").toString());
         NUM_OF_TILES_HEIGHT = Integer.parseInt(stage.get("mapDeets", "cols").toString());
 

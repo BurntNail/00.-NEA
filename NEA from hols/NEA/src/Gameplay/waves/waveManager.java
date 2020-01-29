@@ -1,6 +1,7 @@
 package Gameplay.waves;
 
 import CfgReader.CfgReader;
+import Gameplay.player.PlayerManager;
 import classes.Entity.Entity;
 import classes.enemy.enemyActual;
 import classes.enemy.enemyDictionary;
@@ -36,7 +37,10 @@ public class waveManager {
 
     private Thread runThread;
 
-    public waveManager(String fnOfWave, squareCollection sqc_) {
+    private PlayerManager pm;
+
+    public waveManager(String fnOfWave, squareCollection sqc_, PlayerManager pm_) {
+        pm = pm_;
         reader = new CfgReader(main.WAVES_LOC + fnOfWave);
         waves = WaveParser.enemiesBetweenGaps(reader);
         enemyActuals = new ArrayList<>();
@@ -71,11 +75,21 @@ public class waveManager {
         }
 
         Runnable runnable = new Runnable() {
+
+            long now = 0;
+            long then = 0;
+
             @Override
             public void run() {
+                now = System.currentTimeMillis();
+
                 for (ArrayList<Character> thisWave : wavesInBetterForm) {
                     try {
-                        TimeUnit.MILLISECONDS.sleep(waveDist);
+                        long gap = then - now;
+                        long dist = (gap > waveDist ?
+                                0 : gap - waveDist);
+
+                        TimeUnit.MILLISECONDS.sleep(dist);
                     } catch (InterruptedException e) {
                         System.out.println("Wave wait interrupted");
                     }
@@ -94,6 +108,19 @@ public class waveManager {
                         enemyActuals.add(eA);
                     }
 
+                    then = System.currentTimeMillis();
+                }
+
+                while(true) {
+                    for(Entity e1 : enemyActuals) {
+                        enemyActual e = ((enemyActual) e1);
+
+                        if(e.isHasHit())
+                        {
+                            enemyActuals.remove(e1);
+                            pm.takeHearts(e.getTemplate().getHeartsCost());
+                        }
+                    }
                 }
             }
         };

@@ -106,15 +106,11 @@ public class enemyActual extends Entity {
         return hasHit;
     }
 
-///    public void incrementStep () {
-///        currentStep++;
-///    }
-///
-///    public Coordinate getTarget () {
-///        return currentCoord;
-///    }
-
     public void damage (int dmg) {
         currentHP -= dmg;
+    }
+
+    public enemyTemplate getTemplate() {
+        return template;
     }
 }

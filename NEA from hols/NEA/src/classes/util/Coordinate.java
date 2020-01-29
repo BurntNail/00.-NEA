@@ -1,5 +1,7 @@
 package classes.util;
 
+import Gameplay.turrets.turretFrame.TurretFrame;
+
 import java.util.StringJoiner;
 
 public class Coordinate {
@@ -90,11 +92,32 @@ public class Coordinate {
                 .toString();
     }
 
+    public static Coordinate parseFromTS (String tbp) {
+        if(tbp.length() <= 5 || tbp == null)
+            return TurretFrame.NULL_COORD;
+
+        int xIndexStart = tbp.indexOf('x') + 2;
+        int xIndexEnd = tbp.indexOf('y') - 2;
+
+        int yIndexStart = tbp.indexOf('y') + 2;
+        int yIndexEnd = tbp.length() - 1;
+
+        int x = Integer.parseInt(tbp.substring(xIndexStart, xIndexEnd));
+        int y = Integer.parseInt(tbp.substring(yIndexStart, yIndexEnd));
+
+        return new Coordinate(x, y);
+    }
+
     @Override
     public boolean equals(Object obj) {
-        Coordinate obj2 = ((Coordinate) obj);
 
-        return obj2.x == x && obj2.y == y;
+        try {
+            Coordinate obj2 = ((Coordinate) obj);
+
+            return obj2.x == x && obj2.y == y;
+        } catch (Exception e) {
+            return false;
+        }
 
     }
 
