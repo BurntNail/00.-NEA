@@ -18,6 +18,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -41,15 +42,15 @@
     <property name="settings.editor.selected.configurable" value="experimental" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/CfgReader" />
-    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="Gameplay.turrets" />
       <recent name="classes.util" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/Prototypes/CfgReader/src" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/CfgReader" />
     </key>
   </component>
   <component name="RunManager" selected="Application.main">
@@ -127,10 +128,10 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="283" y="65" key="#Template/0.0.1366.768@0.0.1366.768" timestamp="1579366500569" />
-    <state x="496" y="107" key="#com.intellij.ide.util.MemberChooser" timestamp="1580320400136">
+    <state x="496" y="107" key="#com.intellij.ide.util.MemberChooser" timestamp="1580552887808">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="496" y="107" key="#com.intellij.ide.util.MemberChooser/0.0.1366.768@0.0.1366.768" timestamp="1580320400136" />
+    <state x="496" y="107" key="#com.intellij.ide.util.MemberChooser/0.0.1366.768@0.0.1366.768" timestamp="1580552887808" />
     <state x="697" y="150" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1080@0.0.1920.1080" timestamp="1578851497612" />
     <state x="442" y="175" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1579629423771">
       <screen x="0" y="0" width="1366" height="768" />
@@ -170,30 +171,30 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="328" y="0" key="CommitChangelistDialog2/0.0.1366.768@0.0.1366.768" timestamp="1580032375632" />
-    <state width="1324" height="250" key="GridCell.Tab.0.bottom" timestamp="1580321900066">
+    <state width="1324" height="216" key="GridCell.Tab.0.bottom" timestamp="1580558173027">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1324" height="250" key="GridCell.Tab.0.bottom/0.0.1366.768@0.0.1366.768" timestamp="1580321900066" />
+    <state width="1324" height="216" key="GridCell.Tab.0.bottom/0.0.1366.768@0.0.1366.768" timestamp="1580558173027" />
     <state width="1878" height="375" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1578864102495" />
-    <state width="1324" height="216" key="GridCell.Tab.0.bottom/0.23.1366.745@0.23.1366.745" timestamp="1580239209957" />
-    <state width="1324" height="250" key="GridCell.Tab.0.center" timestamp="1580321900064">
+    <state width="1324" height="216" key="GridCell.Tab.0.bottom/0.23.1366.745@0.23.1366.745" timestamp="1580413524014" />
+    <state width="1324" height="216" key="GridCell.Tab.0.center" timestamp="1580558173025">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1324" height="250" key="GridCell.Tab.0.center/0.0.1366.768@0.0.1366.768" timestamp="1580321900064" />
+    <state width="1324" height="216" key="GridCell.Tab.0.center/0.0.1366.768@0.0.1366.768" timestamp="1580558173025" />
     <state width="1878" height="375" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1578864102493" />
-    <state width="1324" height="216" key="GridCell.Tab.0.center/0.23.1366.745@0.23.1366.745" timestamp="1580239209955" />
-    <state width="1324" height="250" key="GridCell.Tab.0.left" timestamp="1580321900063">
+    <state width="1324" height="216" key="GridCell.Tab.0.center/0.23.1366.745@0.23.1366.745" timestamp="1580413523929" />
+    <state width="1324" height="216" key="GridCell.Tab.0.left" timestamp="1580558173023">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1324" height="250" key="GridCell.Tab.0.left/0.0.1366.768@0.0.1366.768" timestamp="1580321900063" />
+    <state width="1324" height="216" key="GridCell.Tab.0.left/0.0.1366.768@0.0.1366.768" timestamp="1580558173023" />
     <state width="1878" height="375" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1578864102493" />
-    <state width="1324" height="216" key="GridCell.Tab.0.left/0.23.1366.745@0.23.1366.745" timestamp="1580239209954" />
-    <state width="1324" height="250" key="GridCell.Tab.0.right" timestamp="1580321900065">
+    <state width="1324" height="216" key="GridCell.Tab.0.left/0.23.1366.745@0.23.1366.745" timestamp="1580413523927" />
+    <state width="1324" height="216" key="GridCell.Tab.0.right" timestamp="1580558173026">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1324" height="250" key="GridCell.Tab.0.right/0.0.1366.768@0.0.1366.768" timestamp="1580321900065" />
+    <state width="1324" height="216" key="GridCell.Tab.0.right/0.0.1366.768@0.0.1366.768" timestamp="1580558173026" />
     <state width="1878" height="375" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1578864102494" />
-    <state width="1324" height="216" key="GridCell.Tab.0.right/0.23.1366.745@0.23.1366.745" timestamp="1580239209956" />
+    <state width="1324" height="216" key="GridCell.Tab.0.right/0.23.1366.745@0.23.1366.745" timestamp="1580413523941" />
     <state width="1878" height="375" key="GridCell.Tab.1.bottom" timestamp="1578864102498">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -224,10 +225,10 @@
     </state>
     <state width="683" height="384" key="XDebugger.FullValuePopup/0.0.1366.768@0.0.1366.768" timestamp="1579546544622" />
     <state width="960" height="540" key="XDebugger.FullValuePopup/0.0.1920.1080@0.0.1920.1080" timestamp="1578765020743" />
-    <state x="293" y="280" key="com.intellij.ide.util.TipDialog" timestamp="1580319738928">
+    <state x="293" y="280" key="com.intellij.ide.util.TipDialog" timestamp="1580409858113">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="293" y="280" key="com.intellij.ide.util.TipDialog/0.0.1366.768@0.0.1366.768" timestamp="1580319738928" />
+    <state x="293" y="280" key="com.intellij.ide.util.TipDialog/0.0.1366.768@0.0.1366.768" timestamp="1580409858113" />
     <state x="528" y="328" key="com.intellij.ide.util.TipDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1578943357086" />
     <state x="293" y="280" key="com.intellij.ide.util.TipDialog/0.23.1366.745@0.23.1366.745" timestamp="1580230330299" />
     <state x="528" y="322" key="com.intellij.ide.util.TipDialog/0.23.1920.986@0.23.1920.986" timestamp="1579202301780" />
@@ -249,16 +250,16 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="354" y="162" key="new project wizard/0.0.1920.1080@0.0.1920.1080" timestamp="1579202341462" />
-    <state x="445" y="181" key="run.anything.popup" timestamp="1580321253201">
-      <screen x="0" y="0" width="1366" height="768" />
+    <state x="445" y="181" key="run.anything.popup" timestamp="1580552804333">
+      <screen x="0" y="23" width="1366" height="745" />
     </state>
     <state x="445" y="181" key="run.anything.popup/0.0.1366.768@0.0.1366.768" timestamp="1580321253201" />
     <state x="625" y="255" key="run.anything.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1578510653837" />
-    <state x="445" y="181" key="run.anything.popup/0.23.1366.745@0.23.1366.745" timestamp="1580237881318" />
-    <state x="348" y="92" width="670" height="158" key="search.everywhere.popup" timestamp="1580234138149">
+    <state x="445" y="181" key="run.anything.popup/0.23.1366.745@0.23.1366.745" timestamp="1580552804333" />
+    <state x="348" y="92" width="670" height="158" key="search.everywhere.popup" timestamp="1580411258496">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="348" y="92" width="670" height="158" key="search.everywhere.popup/0.0.1366.768@0.0.1366.768" timestamp="1580234138149" />
+    <state x="348" y="92" width="670" height="158" key="search.everywhere.popup/0.0.1366.768@0.0.1366.768" timestamp="1580411258496" />
     <state x="489" y="129" width="942" height="223" key="search.everywhere.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1578847839070" />
   </component>
   <component name="XDebuggerManager">
@@ -378,6 +379,51 @@
           <url>file://$PROJECT_DIR$/src/Gameplay/turrets/turretFrame/XYPanel.java</url>
           <line>23</line>
           <option name="timeStamp" value="382" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Gameplay/turrets/turretFrame/TurretFrame.java</url>
+          <line>94</line>
+          <option name="timeStamp" value="383" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Gameplay/turrets/turretFrame/TurretFrame.java</url>
+          <line>95</line>
+          <option name="timeStamp" value="385" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Gameplay/player/PlayerManager.java</url>
+          <line>45</line>
+          <option name="timeStamp" value="401" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Gameplay/player/PlayerManager.java</url>
+          <line>44</line>
+          <option name="timeStamp" value="402" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Gameplay/player/PlayerManager.java</url>
+          <line>54</line>
+          <option name="timeStamp" value="404" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Gameplay/player/PlayerManager.java</url>
+          <line>48</line>
+          <option name="timeStamp" value="405" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Gameplay/player/PlayerManager.java</url>
+          <line>49</line>
+          <option name="timeStamp" value="406" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Gameplay/player/PlayerManager.java</url>
+          <line>52</line>
+          <option name="timeStamp" value="410" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Gameplay/player/PlayerManager.java</url>
+          <line>51</line>
+          <option name="timeStamp" value="411" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/Gameplay/turrets/turretFrame/XYPanel.java</url>
