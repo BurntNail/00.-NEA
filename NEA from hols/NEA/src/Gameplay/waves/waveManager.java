@@ -83,6 +83,7 @@ public class waveManager {
             public void run() {
                 now = System.currentTimeMillis();
 
+                int co = 0;
                 for (ArrayList<Character> thisWave : wavesInBetterForm) {
                     try {
                         long gap = then - now;
@@ -102,25 +103,20 @@ public class waveManager {
                         }
 
                         enemyTemplate eT = enemyDictionary.getEnemy(c);
-                        enemyActual eA = new enemyActual(eT, sqc);
+                        enemyActual eA = new enemyActual(eT, sqc, co);
+
+                        eA.addBooleanChangeListener(e -> {
+                            enemyActuals.remove(eA);
+                            pm.takeHearts(eA.getTemplate().getHeartsCost());
+                        });
+
                         eA.start();
 
                         enemyActuals.add(eA);
+                        co++;
                     }
 
                     then = System.currentTimeMillis();
-                }
-
-                while(true) {
-                    for(Entity e1 : enemyActuals) {
-                        enemyActual e = ((enemyActual) e1);
-
-                        if(e.isHasHit())
-                        {
-                            enemyActuals.remove(e1);
-                            pm.takeHearts(e.getTemplate().getHeartsCost());
-                        }
-                    }
                 }
             }
         };

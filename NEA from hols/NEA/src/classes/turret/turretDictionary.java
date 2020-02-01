@@ -35,8 +35,9 @@ public class turretDictionary {
             int rangeInt = Integer.parseInt(compSees.get("range").toString());
             String fnImg = compSees.get("file").toString();
             String fnBulletImage = compSees.get("bulletFile").toString();
+            int cost = Integer.parseInt(compSees.get("cost").toString());
 
-            turretTemplate t = new turretTemplate(name, info, dmg, fireRate, range, dmgInt, fireRateInt, rangeInt, fnImg, fnBulletImage);
+            turretTemplate t = new turretTemplate(name, info, dmg, fireRate, range, dmgInt, fireRateInt, rangeInt, fnImg, fnBulletImage, cost);
 
             turrets.put(name, t);
             names.add(name);

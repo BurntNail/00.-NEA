@@ -13,8 +13,9 @@ public class turretTemplate {
     private int rangeInt;
     private String fn;
     private String bullet_fn;
+    private int cost;
 
-    public turretTemplate(String name, String info, String dmg, String fireRate, String range, int dmgInt, int fireRateInt, int rangeInt, String fn, String bullet_fn) {
+    public turretTemplate(String name, String info, String dmg, String fireRate, String range, int dmgInt, int fireRateInt, int rangeInt, String fn, String bullet_fn, int cost_) {
         this.name = name;
         this.info = info;
         this.dmg = dmg;
@@ -25,6 +26,7 @@ public class turretTemplate {
         this.rangeInt = rangeInt;
         this.fn = fn;
         this.bullet_fn = bullet_fn;
+        cost = cost_;
     }
 
     public String getName() {
@@ -65,5 +67,9 @@ public class turretTemplate {
 
     public String getBullet_fn() {
         return bullet_fn;
+    }
+
+    public int getCost() {
+        return cost;
     }
 }

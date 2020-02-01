@@ -1,5 +1,8 @@
 package classes.enemy;
 
+import classes.CustomActionListeners.BooleanChangeDispatcher;
+import classes.CustomActionListeners.BooleanChangeEvent;
+import classes.CustomActionListeners.BooleanChangeListener;
 import classes.Entity.Entity;
 import classes.Entity.entityType;
 import classes.square.squareCollection;
@@ -7,9 +10,11 @@ import classes.util.Coordinate;
 import classes.util.dir;
 import main.main;
 
+import java.awt.*;
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
-public class enemyActual extends Entity {
+public class enemyActual extends Entity implements BooleanChangeDispatcher {
 
     public static final long MS_GAP = 10;
 
@@ -29,8 +34,12 @@ public class enemyActual extends Entity {
 
     private int distInPx;
 
-    public enemyActual(enemyTemplate eTemplate, squareCollection squares) {
+    private ArrayList<BooleanChangeListener> listeners;
+
+    public enemyActual(enemyTemplate eTemplate, squareCollection squares, int code) {
         super(squares.getStart(), eTemplate.getFn(), entityType.enemy, new Coordinate(main.TILE_WIDTH / 2 - main.ENEMY_WIDTH / 2, 5));
+
+        listeners = new ArrayList<>();
 
         template = eTemplate;
         currentHP = template.getHp();
@@ -47,46 +56,48 @@ public class enemyActual extends Entity {
         distInPx = (currentSpd * av) / 100;
         hasHit = false;
 
-        Runnable r = new Runnable() {
-            @Override
-            public void run() {
-                while(!hasHit){
-                    try {
-                        TimeUnit.MILLISECONDS.sleep(MS_GAP);
-                        if(currentStep == squares.getEnemyPath().size())
-                        {
-                            distInPx = 0;
-                            hasHit = true;
-                            return;
-                        }
-
-                        currentCoord = squares.getEnemyPath().get(currentStep);
-
-                        dir direction = getXYInArr().directionTo(currentCoord);
-//                        System.out.println(direction + " - " + getXYInArr().toString() + " -> " + currentCoord.toString() + "\t\t" + currentStep);
-
-
-                        switch (direction) {
-                            case N:
-                                N(distInPx);
-                                break;
-                            case E:
-                                E(distInPx);
-                                break;
-                            case S:
-                                S(distInPx);
-                                break;
-                            default:
-                                W(distInPx);
-                        }
-
-                        if(getXYInArr().equals(currentCoord) && getXYInTile().isWithinBounds(main.BOUND, new Coordinate(main.TILE_WIDTH / 2, main.TILE_HEIGHT / 2), direction))
-                            currentStep++;
-
-
-                    } catch (InterruptedException e) {
-                        System.out.println("Enemy mover stooped.");
+        Runnable r = () -> {
+            while(!hasHit && !isDead){
+                try {
+                    TimeUnit.MILLISECONDS.sleep(MS_GAP);
+                    if(currentStep == squares.getEnemyPath().size())
+                    {
+                        distInPx = 0;
+                        hasHit = true;
+                        dispatchEvent(); //TODO: Add Game Over Scene
+                        return;
                     }
+
+                    currentCoord = squares.getEnemyPath().get(currentStep);
+
+                    dir direction = getXYInArr().directionTo(currentCoord);
+                    System.out.println(direction + " - " + getXYInArr().toString() + " -> " + currentCoord.toString() + "\t\t" + code);
+
+
+                    switch (direction) {
+                        case N:
+                            N(distInPx);
+                            break;
+                        case E:
+                            E(distInPx);
+                            break;
+                        case S:
+                            S(distInPx);
+                            break;
+                        case W:
+                            W(distInPx);
+                            break;
+                        default:
+                            System.out.println("NULL" + code);
+                            break;
+                    }
+
+                    if(getXYInArr().equals(currentCoord) && getXYInTile().isWithinBounds(main.BOUND, new Coordinate(main.TILE_WIDTH / 2, main.TILE_HEIGHT / 2), direction))
+                        currentStep++;
+
+
+                } catch (InterruptedException e) {
+                    System.out.println("Enemy mover stooped.");
                 }
             }
         };
@@ -108,9 +119,31 @@ public class enemyActual extends Entity {
 
     public void damage (int dmg) {
         currentHP -= dmg;
+        dispatchEvent();
     }
 
     public enemyTemplate getTemplate() {
         return template;
+    }
+
+    @Override
+    public void addBooleanChangeListener(BooleanChangeListener listener) {
+        listeners.add(listener);
+    }
+
+    @Override
+    public boolean getFlag() {
+        return isDead || hasHit;
+    }
+
+    private void dispatchEvent() {
+        final BooleanChangeEvent event = new BooleanChangeEvent(this);
+        for (BooleanChangeListener l : listeners) {
+            dispatchRunnableOnEventQueue(l, event);
+        }
+    }
+
+    private void dispatchRunnableOnEventQueue(final BooleanChangeListener listener, final BooleanChangeEvent event) {
+        EventQueue.invokeLater(() -> listener.stateChanged(event));
     }
 }

@@ -16,6 +16,7 @@ public class TurretManager {
 
     private ArrayList<Entity> turrets;
     private turretDictionary dictionary;
+    private PlayerManager pm;
 
     private squareCollection sqc;
 
@@ -32,6 +33,7 @@ public class TurretManager {
 
 
     public TurretManager (squareCollection sqc_, PlayerManager pm) {
+        this.pm = pm;
         sqc = sqc_;
 
         turrets = new ArrayList<>();
@@ -62,9 +64,11 @@ public class TurretManager {
 
             turretActual temp = new turretActual(prevClickedCoordinate, dictionary.getTurret(type));
 
-            turrets.add(temp);
-
-            coordBefore = prevClickedCoordinate;
+            if(pm.buy(temp.getTurret().getCost()))
+            {
+                turrets.add(temp);
+                coordBefore = prevClickedCoordinate;
+            }
         }
 
         bullets.clear();

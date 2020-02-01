@@ -71,6 +71,10 @@ public class turretActual extends Entity {
         msSinceLast += msSinceLastFrame;
     }
 
+    public turretTemplate getTurret() {
+        return turret;
+    }
+
     private static ArrayList<enemyActual> filterEnemiesByType (ArrayList<Entity> entities) {
         ArrayList<enemyActual> newOnes = new ArrayList<>();
 

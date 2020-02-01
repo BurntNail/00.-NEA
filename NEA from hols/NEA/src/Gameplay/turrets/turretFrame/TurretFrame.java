@@ -29,9 +29,6 @@ public class TurretFrame {
 
     private Icon messageIcn;
 
-    private Thread updateThread;
-
-
     public TurretFrame(ArrayList<Coordinate> usedSquares, ArrayList<Coordinate> freeSquares, Dimension size, ArrayList<String> turret_names, PlayerManager pm) {
         try {
             URL url = this.getClass().getResource(main.ICON_LOCATIONS + "XYIcon.png");
@@ -88,25 +85,21 @@ public class TurretFrame {
         label.setEditable(false);
         panel.add(label);
 
-        Runnable r = new Runnable() {
-            @Override
-            public void run() {
-                while(true) {
-                    label.setText(getLabel(pm));
-                    window.pack();
-                }
-            }
-        };
-        updateThread = new Thread(r);
-
 
         window.add(panel);
 
         window.pack();
         window.setVisible(true);
 
-        updateThread.start();
+        pm.addBooleanChangeListener(e -> {
+            label.setText(getLabel(pm));
+            window.pack();
+        });
 
+//        while(true) {
+//            label.setText(getLabel(pm));
+//            window.pack();
+//        }
     }
 
     private static String getLabel (PlayerManager pm) {
