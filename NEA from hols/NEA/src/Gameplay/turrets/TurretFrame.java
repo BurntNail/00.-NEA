@@ -1,7 +1,6 @@
-package Gameplay.turrets.turretFrame;
+package Gameplay.turrets;
 
 import Gameplay.player.PlayerManager;
-import Gameplay.turrets.TurretNotFoundException;
 import classes.Entity.Entity;
 import classes.turret.turretActual;
 import classes.turret.turretTemplate;

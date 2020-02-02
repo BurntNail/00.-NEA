@@ -34,12 +34,11 @@ public class enemyDictionary {
             int hp = Integer.parseInt(compSees.get("hp").toString());
             int heartsCost = Integer.parseInt(compSees.get("heartsLost").toString());
             char intial = compSees.get("initial").toString().charAt(0);
-            int moneyBack = Integer.parseInt(compSees.get("moneyBack").toString());
 
 
             String fn = imgFns[i];
 
-            enemyTemplate e = new enemyTemplate(name, spd, info, heartsLost, hp, heartsCost, intial, fn, moneyBack);
+            enemyTemplate e = new enemyTemplate(name, spd, info, heartsLost, hp, heartsCost, intial, fn);
 
             enemies.put(intial, e);
         }

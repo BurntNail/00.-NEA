@@ -105,15 +105,7 @@ public class waveManager {
 
                         eA.addBooleanChangeListener(e -> {
                             enemyActuals.remove(eA);
-
-                            boolean isDead = eA.isDead();
-                            if(!isDead)
-                                pm.takeHearts(eA.getTemplate().getHeartsCost());
-                            else
-                            {
-                                int moneyGained = eA.getTemplate(). //TODO: Add Giving Money
-                            }
-
+                            pm.takeHearts(eA.getTemplate().getHeartsCost());
                         });
 
                         eA.start();

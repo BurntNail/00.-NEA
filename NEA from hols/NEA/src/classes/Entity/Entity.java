@@ -1,13 +1,16 @@
 package classes.Entity;
 
-import Gameplay.turrets.turretFrame.TurretFrame;
+import Gameplay.turrets.TurretFrame;
 import classes.util.Coordinate;
 import main.main;
 
 import javax.imageio.ImageIO;
+import javax.imageio.stream.ImageInputStream;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.net.URL;
+import java.net.URLConnection;
 
 public abstract class Entity {
 

@@ -1,6 +1,5 @@
 package classes.enemy;
 
-import Gameplay.turrets.turretFrame.Console;
 import classes.CustomActionListeners.BooleanChangeDispatcher;
 import classes.CustomActionListeners.BooleanChangeEvent;
 import classes.CustomActionListeners.BooleanChangeListener;
@@ -59,7 +58,6 @@ public class enemyActual extends Entity implements BooleanChangeDispatcher {
 
         Runnable r = () -> {
             main.SOUNDS.get("Spawn.wav").start();
-            Console.addText( "@EnemySpawner: " + eTemplate.getName() + " has been spawned.");
             while(!hasHit && !isDead){
                 try {
                     TimeUnit.MILLISECONDS.sleep(MS_GAP);
@@ -74,7 +72,8 @@ public class enemyActual extends Entity implements BooleanChangeDispatcher {
                     currentCoord = squares.getEnemyPath().get(currentStep);
 
                     dir direction = getXYInArr().directionTo(currentCoord);
-//                    System.out.println(direction + " - " + getXYInArr().toString() + " -> " + currentCoord.toString() + "\t\t" + code);
+                    System.out.println(direction + " - " + getXYInArr().toString() + " -> " + currentCoord.toString() + "\t\t" + code);
+
 
                     switch (direction) {
                         case N:
@@ -115,11 +114,8 @@ public class enemyActual extends Entity implements BooleanChangeDispatcher {
         hasStarted = true;
     }
 
-    public boolean hasHit () {
+    public boolean isHasHit() {
         return hasHit;
-    }
-    public boolean isDead () {
-        return isDead;
     }
 
     public void damage (int dmg) {
@@ -134,11 +130,6 @@ public class enemyActual extends Entity implements BooleanChangeDispatcher {
     @Override
     public void addBooleanChangeListener(BooleanChangeListener listener) {
         listeners.add(listener);
-    }
-
-    @Override
-    public boolean getFlag() {
-        return hasHit || isDead;
     }
 
     private void dispatchEvent() {
