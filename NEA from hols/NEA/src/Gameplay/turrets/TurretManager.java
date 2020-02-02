@@ -84,8 +84,14 @@ public class TurretManager {
                             turretActual t = ((turretActual) e);
                             t.setEnemies(enemies);
 
-                            for (Entity b : t.getShotsFired())
-                                bullets.add(b);
+                            try {
+                                for (Entity b : t.getShotsFired())
+                                {
+                                    bullets.add(b);
+                                }
+                            } catch (Exception ex) {
+                                System.err.println(ex.getMessage());
+                            }
                         }
                     }
                 }

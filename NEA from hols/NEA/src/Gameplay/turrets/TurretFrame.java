@@ -30,8 +30,9 @@ public class TurretFrame {
     public static final Coordinate NULL_COORD = new Coordinate(100000, 10000);
     public static final String NULL_STR = "NOPE!";
 
+    private Icon messageIcn;
 
-    private Icon messageIcn; //TODO: Fix this
+    private Thread pmThread;
 
     private ArrayList<Entity> turretActuals;
 
@@ -175,11 +176,24 @@ public class TurretFrame {
         window.pack();
         window.setVisible(true);
 
-        pm.addBooleanChangeListener(e -> {
-            label.setText(getLabel(pm));
-            window.pack();
-        });
+//        pm.addBooleanChangeListener(e -> {
+//            label.setText(getLabel(pm));
+//            window.pack();
+//        });
+        // Discarded boolActionListener because it didn't work with threads
 
+
+        Runnable r = () -> {
+            while(true) {
+                if(pm.hasChanedSinceLastCheck()) {
+                    label.setText(getLabel(pm));
+                    window.pack();
+                }
+            }
+        };
+
+        pmThread = new Thread(r);
+        pmThread.start();
     }
 
     private static String getLabel (PlayerManager pm) {

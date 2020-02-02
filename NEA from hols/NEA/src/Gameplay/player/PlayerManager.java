@@ -7,14 +7,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class PlayerManager implements BooleanChangeDispatcher {
+public class PlayerManager {
 
     private int money;
     private int hearts;
 
+    private int prevMoney;
+    private int prevHearts;
+
 
     private List<BooleanChangeListener> listeners;
-    private boolean hasChanged;
 
 
     public PlayerManager(int money, int hearts) {
@@ -22,8 +24,9 @@ public class PlayerManager implements BooleanChangeDispatcher {
         this.hearts = hearts;
         listeners = new ArrayList<>();
 
+        prevHearts = 0;
+        prevMoney = 0;
 
-        hasChanged = false;
     }
 
     //region Getters
@@ -43,30 +46,17 @@ public class PlayerManager implements BooleanChangeDispatcher {
 
 
         money -= amnt;
-
-        hasChanged = true;
-        dispatchEvent();
-
         return true;
     }
     public void donateM (int amnt) {
         money += amnt;
-
-        hasChanged = true;
-        dispatchEvent();
     }
 
     public void takeHearts (int amnt) {
         hearts -= amnt;
-
-        hasChanged = true;
-        dispatchEvent();
     }
     public void donateH (int amnt) {
         hearts += amnt;
-
-        hasChanged = true;
-        dispatchEvent();
     }
 
     public boolean isDead () {
@@ -74,34 +64,14 @@ public class PlayerManager implements BooleanChangeDispatcher {
     }
     //endregion
 
+    public boolean hasChanedSinceLastCheck () {
+        boolean ans = prevHearts != hearts || prevMoney != money;
 
-    @Override
-    public void addBooleanChangeListener(BooleanChangeListener listener) {
-        listeners.add(listener);
+        prevMoney = money;
+        prevHearts = hearts;
+
+        return ans;
     }
-
-    @Override
-    public boolean getFlag() {
-        return hasChanged;
-    }
-
-    private void dispatchEvent() {
-        final BooleanChangeEvent event = new BooleanChangeEvent(this);
-        for (BooleanChangeListener l : listeners) {
-            dispatchRunnableOnEventQueue(l, event);
-        }
-        hasChanged = false;
-    }
-
-    private void dispatchRunnableOnEventQueue(final BooleanChangeListener listener, final BooleanChangeEvent event) {
-        EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                listener.stateChanged(event);
-            }
-        });
-    }
-
 
 
 

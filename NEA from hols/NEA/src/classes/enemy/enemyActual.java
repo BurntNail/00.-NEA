@@ -132,11 +132,6 @@ public class enemyActual extends Entity implements BooleanChangeDispatcher {
         listeners.add(listener);
     }
 
-    @Override
-    public boolean getFlag() {
-        return isDead || hasHit;
-    }
-
     private void dispatchEvent() {
         final BooleanChangeEvent event = new BooleanChangeEvent(this);
         for (BooleanChangeListener l : listeners) {
