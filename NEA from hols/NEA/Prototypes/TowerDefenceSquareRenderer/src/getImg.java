@@ -10,7 +10,7 @@ public class getImg extends BufferedImage {
     private Dimension wh;
 
     public getImg (String fileName) {
-        super(main.TILE_SIZE, main.TILE_SIZE, ATYPE_INT_RGB);
+        super(main.TILE_SIZE, main.TILE_SIZE, TYPE_INT_RGB);
 
         wh = new Dimension(main.TILE_SIZE, main.TILE_SIZE);
 		setImg(fileName);

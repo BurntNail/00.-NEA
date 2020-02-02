@@ -11,7 +11,7 @@ public class getImgScaledIndep extends BufferedImage {
     private Dimension scale;
 
     public getImgScaledIndep(String fileName, int w, int h) {
-        super(w, h, TYPE_INT_ARGB);
+        super(w, h, TYPE_INT_RGB);
         scale = new Dimension(w, h);
         setImg(fileName);
 

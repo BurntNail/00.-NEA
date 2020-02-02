@@ -1,11 +1,11 @@
 package classes.square;
 
-import classes.square.types.Square;
 import classes.util.Coordinate;
 
-public class TurretSquare extends Square {
+    public class turretSquare extends Square{
 
-    public TurretSquare(Coordinate xY) {
+
+    public turretSquare(Coordinate xY) {
         super("turret_base_big.png", xY);
     }
 }

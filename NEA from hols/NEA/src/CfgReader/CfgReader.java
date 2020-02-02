@@ -104,6 +104,10 @@ public class CfgReader {
         return propValue;
     }
 
+    public int getL (String module) {
+        return getModule(module).size();
+    }
+
     public HashMap<String, Object> getModule (String module) {
         int modIndex = moduleNames.indexOf(module);
         HashMap<String, Object> modToGet = hashMaps.get(modIndex);

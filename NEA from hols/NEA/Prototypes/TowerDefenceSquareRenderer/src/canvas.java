@@ -33,7 +33,7 @@ public class canvas extends JComponent {
 
 		int size = main.TILE_SIZE;
 
-		canvas = new BufferedImage(w * size, h * size, BufferedImage.TYPE_INT_ARGB);
+		canvas = new BufferedImage(w * size, h * size, BufferedImage.TYPE_INT_RGB);
 	}
 	
 	public void setFN (int x, int y, String newFile)

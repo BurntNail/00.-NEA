@@ -6,5 +6,9 @@ public enum dir {
     S,
     E,
     W,
+    NE,
+    SE,
+    NW,
+    SW
 
 }
