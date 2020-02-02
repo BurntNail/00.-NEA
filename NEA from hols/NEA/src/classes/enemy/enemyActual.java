@@ -57,6 +57,7 @@ public class enemyActual extends Entity implements BooleanChangeDispatcher {
         hasHit = false;
 
         Runnable r = () -> {
+            main.SOUNDS.get("Spawn.wav").start();
             while(!hasHit && !isDead){
                 try {
                     TimeUnit.MILLISECONDS.sleep(MS_GAP);

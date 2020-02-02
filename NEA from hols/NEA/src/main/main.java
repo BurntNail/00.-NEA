@@ -8,19 +8,23 @@ import classes.Entity.Entity;
 import classes.canvas;
 import classes.square.sqaureParser;
 import classes.square.squareCollection;
-import classes.util.Coordinate;
 
+import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Timer;
+import java.util.concurrent.TimeUnit;
 
 public class main {
 
     //TODO: Go onto the git and add more data
 
     //For ease of file locations and packages, I have uploaded all images to a public github repo, the URL of which can be found as BASE_LOCATION on line 10.
-
-    //For ease of file locations and packages, I have uploaded all images to a public github repo, the URL of which can be found as BASE_LOCATION.
 
     //region URL locations
     private static final String BASE_LOCATION = "https://raw.githubusercontent.com/Epacnoss/NEAAssets/master/Actual/";
@@ -37,6 +41,7 @@ public class main {
     public static final String BULLET_IMAGE_LOC = IMAGES_LOC + "bullets/";
 
     public static final String ICON_LOCATIONS = IMAGES_LOC + "icns/";
+    public static final String AUDIO_LOCATIONS = BASE_LOCATION + "audio/";
     //endregion
 
     //region UI sizes
@@ -89,6 +94,12 @@ public class main {
 
     //endregion
 
+    //region audio
+
+    public static final HashMap<String, Clip> SOUNDS;
+
+    //endregion
+
     public static void lvl1() {
         int money = Integer.parseInt(level.get("playerGets", "money").toString());
         int hearts = Integer.parseInt(level.get("playerGets", "hp").toString());
@@ -115,40 +126,34 @@ public class main {
         window.setSize(newSize);
         //endregion
 
-        long current = System.currentTimeMillis();
+        Thread runThread = new Thread(() -> {
 
-        long delay = 10;
+            long current = System.currentTimeMillis();
 
-        while (true) {
+            long delay = 10;
 
-            c.render();
+            while (true) {
 
-            while (!c.isFinishedRendering()) {
-                System.out.println("Doing de good render");
-                continue;
+                window.pack();
+
+                if (System.currentTimeMillis() - current > delay) {
+
+
+                    ArrayList<Entity> enemyActuals = waves.getEntites();
+                    ArrayList<Entity> turretActuals = tm.step(System.currentTimeMillis() - current, enemyActuals);
+
+                    ArrayList<Entity> finalEnties = new ArrayList<>();
+                    finalEnties.addAll(enemyActuals);
+                    finalEnties.addAll(turretActuals);
+
+                    c.setEntities(finalEnties);
+
+                    current = System.currentTimeMillis();
+                }
             }
+        });
 
-
-            window.pack();
-
-            if (System.currentTimeMillis() - current > delay) {
-
-
-                ArrayList<Entity> enemyActuals = waves.getEntites();
-                ArrayList<Entity> turretActuals = tm.step(System.currentTimeMillis() - current, enemyActuals);
-
-                ArrayList<Entity> finalEnties = new ArrayList<>();
-
-                for (Entity enemyActual : enemyActuals)
-                    finalEnties.add(enemyActual);
-                for (Entity turretActual : turretActuals)
-                    finalEnties.add(turretActual);
-
-                c.setEntities(finalEnties);
-
-                current = System.currentTimeMillis();
-            }
-        }
+        runThread.start();
     }
 
     public static void main(String[] args) {
@@ -179,5 +184,50 @@ public class main {
 
         TURRET_X_ON_TILE = (TILE_WIDTH - TURRET_WIDTH) / 2;
         TURRET_Y_ON_TILE = (TILE_HEIGHT - TURRET_HEIGHT) / 2;
+
+        //region sounds
+        final String[] sounds = new String[] {"Spawn.wav"};
+        SOUNDS = new HashMap<>();
+
+        for (String fn : sounds) {
+            Clip c;
+            try {
+                URL url = new URL(AUDIO_LOCATIONS + fn);
+
+                AudioInputStream AIS = AudioSystem.getAudioInputStream(url);
+
+                c = AudioSystem.getClip();
+                c.open(AIS);
+
+                c.addLineListener(new LineListener() {
+                    @Override
+                    public void update(LineEvent event) {
+                        System.out.println(fn + " has been played...");
+                        long frames = AIS.getFrameLength();
+                        double l = (frames+0.0) / AIS.getFormat().getFrameRate();
+
+                        long l2 = ((long) Math.floor(l));
+
+                        try {
+                            TimeUnit.SECONDS.sleep(l2);
+                        } catch (InterruptedException e) {
+                            System.out.println("Audio Sleeper interrupted.");
+                        }
+
+                        c.stop();
+                        c.setMicrosecondPosition(0l);
+
+                    }
+                });
+
+                SOUNDS.put(fn, c);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+        }
+
+        //endregion
     }
 }

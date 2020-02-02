@@ -43,7 +43,7 @@ public class TurretManager {
         turretSquaresFree = (ArrayList<Coordinate>) turretSquaresAll.clone();
         turretSquaresUsed = new ArrayList<>();
 
-        tf = new TurretFrame(turretSquaresUsed, turretSquaresFree, new Dimension(main.WINDOW_WIDTH, main.WINDOW_HEIGHT), dictionary.getNames(), pm);
+        tf = new TurretFrame(turretSquaresUsed, turretSquaresFree, new Dimension(main.WINDOW_WIDTH, main.WINDOW_HEIGHT), dictionary.getTurrets().values(), pm);
         prevClickedCoordinate = TurretFrame.NULL_COORD;
         coordBefore = TurretFrame.NULL_COORD;
         prevClickedType = TurretFrame.NULL_STR;
@@ -87,7 +87,10 @@ public class TurretManager {
             }
         }
 
-        return turrets;
+        ArrayList<Entity> all = (ArrayList<Entity>) turrets.clone();
+        all.addAll(bullets);
+
+        return all;
     }
 
 }

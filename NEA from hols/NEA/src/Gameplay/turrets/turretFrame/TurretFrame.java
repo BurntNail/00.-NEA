@@ -1,7 +1,9 @@
 package Gameplay.turrets.turretFrame;
 
 import Gameplay.player.PlayerManager;
+import classes.turret.turretTemplate;
 import classes.util.Coordinate;
+import jdk.nashorn.internal.scripts.JO;
 import main.main;
 
 import javax.swing.*;
@@ -9,6 +11,8 @@ import java.awt.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 
 public class TurretFrame {
 
@@ -25,11 +29,10 @@ public class TurretFrame {
     public static final Coordinate NULL_COORD = new Coordinate(100000, 10000);
     public static final String NULL_STR = "NOPE!";
 
-    private ArrayList<String> names;
 
-    private Icon messageIcn;
+    private Icon messageIcn; //TODO: Fix this
 
-    public TurretFrame(ArrayList<Coordinate> usedSquares, ArrayList<Coordinate> freeSquares, Dimension size, ArrayList<String> turret_names, PlayerManager pm) {
+    public TurretFrame(ArrayList<Coordinate> usedSquares, ArrayList<Coordinate> freeSquares, Dimension size, Collection<turretTemplate> templates_collection, PlayerManager pm) {
         try {
             URL url = this.getClass().getResource(main.ICON_LOCATIONS + "XYIcon.png");
 
@@ -41,6 +44,8 @@ public class TurretFrame {
             messageIcn = new ImageIcon();
         }
 
+        ArrayList<turretTemplate> turrets = new ArrayList<>();
+        turrets.addAll(templates_collection);
 
         this.usedSquares = usedSquares;
         this.freeSquares = freeSquares;
@@ -55,11 +60,14 @@ public class TurretFrame {
 
 
         btns = new ArrayList<>();
-        names = turret_names;
-        panel.setLayout(new GridLayout(names.size() + 1, 1));
+        panel.setLayout(new GridLayout(turrets.size() + 1, 1));
 
-        for (int i = 0; i < names.size(); i++) {
-            SecretButton sBtn = new SecretButton("Buy " + names.get(i), i);
+        for (int i = 0; i < turrets.size(); i++) {
+            turretTemplate tt = turrets.get(i);
+            String name = tt.getName();
+
+
+            SecretButton sBtn = new SecretButton("Buy " + name, i);
             btns.add(sBtn);
             panel.add(sBtn);
 
@@ -68,16 +76,21 @@ public class TurretFrame {
                 if(freeSquares.size() == 0)
                 {
                     mostRecent = NULL_COORD;
+
+                    JOptionPane.showMessageDialog(panel, "Unfortunately, there are no turret spaces left. Good luck!", "No free space.", JOptionPane.ERROR_MESSAGE, messageIcn);
+
                     return;
                 }
 
-                Object location = JOptionPane.showInputDialog(panel, "Please enter a location", "Where would you like your tower?", JOptionPane.QUESTION_MESSAGE, messageIcn, ((Object[]) freeSquares.toArray()), 0);
+                if(JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(panel, tt.toString(), "Confirm buy Turret: " + tt.getName(), JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, messageIcn)); {
+                    Object location = JOptionPane.showInputDialog(panel, "Please enter a location", "Where would you like your tower?", JOptionPane.QUESTION_MESSAGE, messageIcn, ((Object[]) freeSquares.toArray()), 0);
 
-                String resInStr = location + "";
-                //TODO: Add null checks here
+                    String resInStr = location + "";
+                    //TODO: Add null checks here
 
-                mostRecent = Coordinate.parseFromTS(resInStr);
-                mostRecentType = sBtn.getText().substring(4);
+                    mostRecent = Coordinate.parseFromTS(resInStr);
+                    mostRecentType = sBtn.getText().substring(4); //TODO: Add selling capability
+                }
             });
         }
 

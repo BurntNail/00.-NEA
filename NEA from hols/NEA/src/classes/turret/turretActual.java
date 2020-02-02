@@ -11,25 +11,58 @@ import java.util.ArrayList;
 
 public class turretActual extends Entity {
 
+    private static final int BULLET_SPD = 1;
+
     private turretTemplate turret;
     private ArrayList<Entity> shotsFired;
 
     private int currentDmg, currentFireRate;
 
-    private long msSinceLast;
     private long differenceMs;
 
     private ArrayList<Entity> entities;
+
+    private Thread runThread;
 
     public turretActual(Coordinate XYInArr, turretTemplate turret) {
         super(XYInArr, turret.getFn(), entityType.turret, new Coordinate(main.TURRET_X_ON_TILE, main.TURRET_Y_ON_TILE));
         shotsFired = new ArrayList<>();
         this.turret = turret;
 
-        msSinceLast = 0;
         differenceMs = turret.getFireRateInt() * 1000;
 
         entities = new ArrayList<>();
+
+
+        Runnable r = () -> {
+            long current = 0;
+            long msSinceLastShot = 0;
+
+            while(true) {
+                current = System.currentTimeMillis();
+                long diff = System.currentTimeMillis() - current + msSinceLastShot;
+
+                if(diff < differenceMs)
+                    continue;
+
+                boolean nothingFired = false;
+
+                ArrayList<enemyActual> enemies = filterEnemiesByRange(filterEnemiesByType(entities), turret.getRangeInt(), getXYInArr());
+                if(enemies.size() == 0)
+                    nothingFired = true;
+                else {
+                    enemyActual e = enemies.get(0);
+                    bulletActual b = new bulletActual(getXYInArr(), turret.getBullet_fn(), e, turret.getDmgInt(), BULLET_SPD);
+                    shotsFired.add(b);
+                }
+
+                if(!nothingFired)
+                    msSinceLastShot = 0;
+            }
+        };
+
+        runThread = new Thread(r);
+        runThread.start();
     }
 
     public void setEnemies (ArrayList<Entity> enemies) {
@@ -38,37 +71,6 @@ public class turretActual extends Entity {
 
     public ArrayList<Entity> getShotsFired() {
         return shotsFired;
-    }
-
-
-    public void step (long msSinceLastFrame) {
-        for (int i = 0; i < shotsFired.size(); i++) {
-            if(shotsFired.get(i) != null) //TODO: here
-                System.out.println("Weelll");
-        }
-        
-        if(msSinceLast < differenceMs)
-            return;
-
-        //From here on, we assume we can shoot
-        boolean nothingFired = false;
-
-        ArrayList<enemyActual> enemies = filterEnemiesByType(entities);
-        enemies = filterEnemiesByRange(enemies, turret.getRangeInt(), getXYInArr());
-        if(enemies.size() == 0)
-        {
-            nothingFired = true;
-
-
-            //From here on we assume we have an enemy to shoot
-        }else {
-            enemyActual enemy = enemies.get(0);
-            bulletActual b = new bulletActual(getXYInArr(), turret.getBullet_fn(), enemy, turret.getDmgInt(), 2); //TODO: Add Speed Var in Turret.cfg files
-            shotsFired.add(b);
-            msSinceLast = 0;
-        }
-
-        msSinceLast += msSinceLastFrame;
     }
 
     public turretTemplate getTurret() {

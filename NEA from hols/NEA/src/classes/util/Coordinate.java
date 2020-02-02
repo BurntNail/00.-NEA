@@ -53,13 +53,6 @@ public class Coordinate {
 
     }
 
-    private boolean between (double angle, double a, double b) {
-        boolean bigThA = angle > a;
-        boolean smolThB = angle < b;
-
-        return bigThA && smolThB;
-    }
-
     public double distTo (Coordinate other) {
             int theirX = other.x;
             int theirY = other.y;
