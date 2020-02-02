@@ -1,6 +1,8 @@
 package Gameplay.turrets;
 
 import Gameplay.player.PlayerManager;
+import Gameplay.turrets.turretFrame.Console;
+import Gameplay.turrets.turretFrame.TurretFrame;
 import classes.Entity.Entity;
 import classes.Entity.entityType;
 import classes.square.squareCollection;
@@ -65,6 +67,8 @@ public class TurretManager {
                     turretSquaresFree.remove(prevClickedCoordinate);
 
                     String type = prevClickedType;
+                    Console.addText("@TurretManager: ");
+
 
                     turretActual temp = new turretActual(prevClickedCoordinate, dictionary.getTurret(type), tf.getCurrentIndex());
                     tf.incrementIndex();

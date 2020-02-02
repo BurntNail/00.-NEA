@@ -11,8 +11,9 @@ public class enemyTemplate {
     private int heartsCost;
     private char initial;
     private String fn;
+    private int moneyBack;
 
-    public enemyTemplate(String name, int spd, String info, String heartsLost, int hp, int heartsCost, char initial, String fn) {
+    public enemyTemplate(String name, int spd, String info, String heartsLost, int hp, int heartsCost, char initial, String fn, int moneyBack) {
         this.name = name;
         this.spd = spd;
         this.info = info;
@@ -21,6 +22,7 @@ public class enemyTemplate {
         this.heartsCost = heartsCost;
         this.initial = initial;
         this.fn = fn;
+        this.moneyBack = moneyBack;
     }
 
     public String getName() {
