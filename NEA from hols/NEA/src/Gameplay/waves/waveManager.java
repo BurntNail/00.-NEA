@@ -6,13 +6,9 @@ import classes.Entity.Entity;
 import classes.enemy.enemyActual;
 import classes.enemy.enemyDictionary;
 import classes.enemy.enemyTemplate;
-import classes.square.sqaureParser;
 import classes.square.squareCollection;
-import classes.turret.turretActual;
-import classes.util.Coordinate;
 import main.main;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
@@ -86,11 +82,13 @@ public class waveManager {
                 int co = 0;
                 for (ArrayList<Character> thisWave : wavesInBetterForm) {
                     try {
+
                         long gap = then - now;
                         long dist = (gap > waveDist ?
                                 0 : gap - waveDist);
 
                         TimeUnit.MILLISECONDS.sleep(dist);
+
                     } catch (InterruptedException e) {
                         System.out.println("Wave wait interrupted");
                     }

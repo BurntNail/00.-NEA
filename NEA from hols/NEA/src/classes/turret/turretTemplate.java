@@ -1,5 +1,7 @@
 package classes.turret;
 
+import java.util.StringJoiner;
+
 public class turretTemplate {
 
     private String name;
@@ -71,5 +73,20 @@ public class turretTemplate {
 
     public int getCost() {
         return cost;
+    }
+
+    @Override
+    public String toString() { //TODO: Turn to java.util.StringJoiner
+        String fin = name + "\n";
+        fin += info + "\n";
+        fin += "Damage per shot - " + "\t\t" + dmg + "\n";
+        fin += "Seconds between shots - " + "\t\t" + fireRate + "\n";
+        fin += "Range in tiles - " + "\t\t" + range + "\n";
+        fin += "\n";
+        fin += "Cost - " + "\t\t" + cost + "\n";
+        fin += "\n\n\n";
+        fin += "Would you like to buy this turret?";
+
+        return fin;
     }
 }

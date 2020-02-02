@@ -17,7 +17,8 @@ public class canvas extends JComponent {
 
     private squareCollection sqc;
     private ArrayList<Entity> entities;
-    private boolean finishedRendering;
+
+    private Thread runThread;
 
 
     public canvas (int stage) {
@@ -26,11 +27,18 @@ public class canvas extends JComponent {
         sqaureParser sqp = new sqaureParser(sqpCfg);
         sqc = new squareCollection(sqp);
         entities = new ArrayList<>();
-        finishedRendering = true;
+
+        Runnable r = () -> {
+            while(true) {
+                paintComponent(getGraphics());
+            }
+        };
+
+        runThread = new Thread(r);
+        runThread.start();
     }
 
     public void setEntities (ArrayList<Entity> entities) {
-        finishedRendering = false;
         this.entities = entities;
     }
 
@@ -77,20 +85,11 @@ public class canvas extends JComponent {
 
         repaint();
 
-        finishedRendering = true;
 
     }
 
-    public boolean isFinishedRendering() {
-        return finishedRendering;
-    }
 
     public squareCollection getSquares () {
         return sqc;
-    }
-
-    public void render () {
-        finishedRendering = false;
-        paintComponent(getGraphics());
     }
 }
