@@ -1,6 +1,6 @@
 package classes.util;
 
-import Gameplay.turrets.turretFrame.TurretFrame;
+import Gameplay.turrets.TurretFrame;
 
 import java.util.StringJoiner;
 

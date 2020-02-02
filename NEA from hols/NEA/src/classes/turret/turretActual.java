@@ -23,11 +23,13 @@ public class turretActual extends Entity {
     private ArrayList<Entity> entities;
 
     private Thread runThread;
+    private int code;
 
-    public turretActual(Coordinate XYInArr, turretTemplate turret) {
+    public turretActual(Coordinate XYInArr, turretTemplate turret, int index) {
         super(XYInArr, turret.getFn(), entityType.turret, new Coordinate(main.TURRET_X_ON_TILE, main.TURRET_Y_ON_TILE));
         shotsFired = new ArrayList<>();
         this.turret = turret;
+        code = index;
 
         differenceMs = turret.getFireRateInt() * 1000;
 
@@ -41,6 +43,7 @@ public class turretActual extends Entity {
             while(true) {
                 current = System.currentTimeMillis();
                 long diff = System.currentTimeMillis() - current + msSinceLastShot;
+                msSinceLastShot += diff;
 
                 if(diff < differenceMs)
                     continue;
@@ -97,5 +100,9 @@ public class turretActual extends Entity {
         }
 
         return newOnes;
+    }
+
+    public int getCode() {
+        return code;
     }
 }

@@ -15,7 +15,11 @@ public class squareCollection {
     private Coordinate start, end;
     private CfgReader reader;
 
-    public squareCollection(sqaureParser sqp) {
+    private sqaureParser sqp;
+
+    public squareCollection(sqaureParser sqp_) {
+        this.sqp = sqp_;
+
         squares = sqp.getSquares();
         reader = sqp.getR();
         enemyPath = getCoordinates(reader.get("importantLocations", "path").toString());
@@ -24,6 +28,7 @@ public class squareCollection {
         end = enemyPath.get(enemyPath.size() - 1);
 
     }
+
 
     public Square[][] getSquares() {
         return squares;
@@ -66,5 +71,9 @@ public class squareCollection {
         }
 
         return path;
+    }
+
+    public squareCollection clone () {
+        return new squareCollection(sqp.clone());
     }
 }

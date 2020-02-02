@@ -18,8 +18,7 @@ public class canvas extends JComponent {
     private squareCollection sqc;
     private ArrayList<Entity> entities;
 
-    private Thread runThread;
-
+    private boolean finishedRendering;
 
     public canvas (int stage) {
 
@@ -27,26 +26,23 @@ public class canvas extends JComponent {
         sqaureParser sqp = new sqaureParser(sqpCfg);
         sqc = new squareCollection(sqp);
         entities = new ArrayList<>();
-
-        Runnable r = () -> {
-            while(true) {
-                paintComponent(getGraphics());
-            }
-        };
-
-        runThread = new Thread(r);
-        runThread.start();
     }
 
-    public void setEntities (ArrayList<Entity> entities) {
-        this.entities = entities;
+    public void setEntities (ArrayList<Entity> entities_) {
+        finishedRendering = false;
+        entities.clear();
+        entities = (ArrayList<Entity>) entities_.clone();
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        finishedRendering = false;
 
-        BufferedImage vCanvas = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_ARGB);
+        BufferedImage vCanvas = new BufferedImage(
+                (getWidth() == 0 ? main.WINDOW_WIDTH : getWidth()),
+                (getHeight() == 0 ? main.REST_OF_FRAME_HEIGHT : getHeight()),
+                BufferedImage.TYPE_INT_ARGB);
 
         int xOnScrn = 0;
         int yOnScrn = 0;
@@ -81,15 +77,15 @@ public class canvas extends JComponent {
             }
         }
 
-        g.drawImage(vCanvas, 0, 0, null);
+        if(g != null)
+            g.drawImage(vCanvas, 0, 0, null);
 
         repaint();
 
-
+        finishedRendering = true;
     }
 
-
-    public squareCollection getSquares () {
-        return sqc;
+    public boolean hasFinishedRendering () {
+        return finishedRendering;
     }
 }
