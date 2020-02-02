@@ -15,6 +15,7 @@ public class sqaureParser {
     private Coordinate satan;
     private Coordinate home;
 
+
     public sqaureParser(CfgReader r) {
         this.r = r;
 
@@ -69,6 +70,10 @@ public class sqaureParser {
                 y++;
             }
         }
+    }
+
+    public sqaureParser clone () {
+        return new sqaureParser(r.clone());
     }
 
     private void setUpHashMap () {

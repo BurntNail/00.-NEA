@@ -16,8 +16,9 @@ public class turretTemplate {
     private String fn;
     private String bullet_fn;
     private int cost;
+    private int sellValue;
 
-    public turretTemplate(String name, String info, String dmg, String fireRate, String range, int dmgInt, int fireRateInt, int rangeInt, String fn, String bullet_fn, int cost_) {
+    public turretTemplate(String name, String info, String dmg, String fireRate, String range, int dmgInt, int fireRateInt, int rangeInt, String fn, String bullet_fn, int cost_, int sellValue_) {
         this.name = name;
         this.info = info;
         this.dmg = dmg;
@@ -29,6 +30,7 @@ public class turretTemplate {
         this.fn = fn;
         this.bullet_fn = bullet_fn;
         cost = cost_;
+        sellValue = sellValue_;
     }
 
     public String getName() {
@@ -39,17 +41,6 @@ public class turretTemplate {
         return info;
     }
 
-    public String getDmg() {
-        return dmg;
-    }
-
-    public String getFireRate() {
-        return fireRate;
-    }
-
-    public String getRange() {
-        return range;
-    }
 
     public int getDmgInt() {
         return dmgInt;
@@ -75,16 +66,25 @@ public class turretTemplate {
         return cost;
     }
 
+    public int getSellValue() {
+        return sellValue;
+    }
+
     @Override
     public String toString() { //TODO: Turn to java.util.StringJoiner
         String fin = name + "\n";
         fin += info + "\n";
+        fin += "\n";
+
         fin += "Damage per shot - " + "\t\t" + dmg + "\n";
         fin += "Seconds between shots - " + "\t\t" + fireRate + "\n";
         fin += "Range in tiles - " + "\t\t" + range + "\n";
         fin += "\n";
+
         fin += "Cost - " + "\t\t" + cost + "\n";
-        fin += "\n\n\n";
+        fin += "Value back when sold - " + "\t\t" + sellValue + "\n";
+        fin += "\n";
+
         fin += "Would you like to buy this turret?";
 
         return fin;

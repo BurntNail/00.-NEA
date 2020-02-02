@@ -12,8 +12,6 @@ public class PlayerManager implements BooleanChangeDispatcher {
     private int money;
     private int hearts;
 
-    private int prevHearts;
-    private int prevMoney;
 
     private List<BooleanChangeListener> listeners;
     private boolean hasChanged;
@@ -24,8 +22,6 @@ public class PlayerManager implements BooleanChangeDispatcher {
         this.hearts = hearts;
         listeners = new ArrayList<>();
 
-        prevMoney = 0;
-        prevHearts = 0;
 
         hasChanged = false;
     }
@@ -46,7 +42,6 @@ public class PlayerManager implements BooleanChangeDispatcher {
             return false;
 
 
-        prevMoney = money;
         money -= amnt;
 
         hasChanged = true;
@@ -55,7 +50,6 @@ public class PlayerManager implements BooleanChangeDispatcher {
         return true;
     }
     public void donateM (int amnt) {
-        prevMoney = money;
         money += amnt;
 
         hasChanged = true;
@@ -63,14 +57,12 @@ public class PlayerManager implements BooleanChangeDispatcher {
     }
 
     public void takeHearts (int amnt) {
-        prevHearts = hearts;
         hearts -= amnt;
 
         hasChanged = true;
         dispatchEvent();
     }
     public void donateH (int amnt) {
-        prevHearts = hearts;
         hearts += amnt;
 
         hasChanged = true;

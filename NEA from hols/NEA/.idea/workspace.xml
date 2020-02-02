@@ -6,9 +6,7 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="adafda04-aca3-4402-bcfb-4f1651a3f54a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../../JackMaguireNEA.docx" beforeDir="false" afterPath="$PROJECT_DIR$/../../JackMaguireNEA.docx" afterDir="false" />
-    </list>
+    <list default="true" id="adafda04-aca3-4402-bcfb-4f1651a3f54a" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -59,7 +57,7 @@
       <module name="NEA" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="Gameplay.turrets.turretFrame.*" />
+          <option name="PATTERN" value="Gameplay.turrets.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -128,20 +126,20 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="283" y="65" key="#Template/0.0.1366.768@0.0.1366.768" timestamp="1579366500569" />
-    <state x="496" y="107" key="#com.intellij.ide.util.MemberChooser" timestamp="1580558483837">
-      <screen x="0" y="0" width="1366" height="768" />
+    <state x="697" y="150" key="#com.intellij.ide.util.MemberChooser" timestamp="1580660288447">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="496" y="107" key="#com.intellij.ide.util.MemberChooser/0.0.1366.768@0.0.1366.768" timestamp="1580558483837" />
-    <state x="697" y="150" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1080@0.0.1920.1080" timestamp="1578851497612" />
+    <state x="697" y="150" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1080@0.0.1920.1080" timestamp="1580660288447" />
     <state x="442" y="175" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1579629423771">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="442" y="175" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1366.768@0.0.1366.768" timestamp="1579629423771" />
-    <state x="576" y="310" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1579021289454">
-      <screen x="0" y="0" width="1366" height="768" />
+    <state x="810" y="436" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1580641782831">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="576" y="310" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1366.768@0.0.1366.768" timestamp="1579021289454" />
-    <state x="810" y="436" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1578338782427" />
+    <state x="810" y="436" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1580641782831" />
     <state x="304" y="66" key="#com.intellij.openapi.keymap.impl.ui.EditKeymapsDialog" timestamp="1577033654233">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
@@ -158,10 +156,10 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="372" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1366.768@0.0.1366.768" timestamp="1577039694255" />
-    <state x="698" y="294" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1578847856549">
+    <state x="698" y="294" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1580649904579">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="698" y="294" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1578847856549" />
+    <state x="698" y="294" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1580649904579" />
     <state x="186" y="0" width="474" height="560" key="#xdebugger.evaluate" timestamp="1580564605159">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
@@ -171,64 +169,76 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="328" y="0" key="CommitChangelistDialog2/0.0.1366.768@0.0.1366.768" timestamp="1580032375632" />
-    <state width="1324" height="250" key="GridCell.Tab.0.bottom" timestamp="1580594048854">
-      <screen x="0" y="0" width="1366" height="768" />
+    <state width="1878" height="235" key="GridCell.Tab.0.bottom" timestamp="1580661280843">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1324" height="250" key="GridCell.Tab.0.bottom/0.0.1366.768@0.0.1366.768" timestamp="1580594048854" />
-    <state width="1878" height="375" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1578864102495" />
+    <state width="1878" height="235" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1580661280843" />
     <state width="1324" height="216" key="GridCell.Tab.0.bottom/0.23.1366.745@0.23.1366.745" timestamp="1580562900216" />
-    <state width="1324" height="250" key="GridCell.Tab.0.center" timestamp="1580594048852">
-      <screen x="0" y="0" width="1366" height="768" />
+    <state width="1878" height="235" key="GridCell.Tab.0.bottom/0.23.1920.996@0.23.1920.996" timestamp="1580659142609" />
+    <state width="1878" height="184" key="GridCell.Tab.0.bottom/0.23.1920.997@0.23.1920.997" timestamp="1580643390999" />
+    <state width="1878" height="235" key="GridCell.Tab.0.center" timestamp="1580661280841">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1324" height="250" key="GridCell.Tab.0.center/0.0.1366.768@0.0.1366.768" timestamp="1580594048852" />
-    <state width="1878" height="375" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1578864102493" />
+    <state width="1878" height="235" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1580661280841" />
     <state width="1324" height="216" key="GridCell.Tab.0.center/0.23.1366.745@0.23.1366.745" timestamp="1580562900214" />
-    <state width="1324" height="250" key="GridCell.Tab.0.left" timestamp="1580594048851">
-      <screen x="0" y="0" width="1366" height="768" />
+    <state width="1878" height="235" key="GridCell.Tab.0.center/0.23.1920.996@0.23.1920.996" timestamp="1580659142606" />
+    <state width="1878" height="184" key="GridCell.Tab.0.center/0.23.1920.997@0.23.1920.997" timestamp="1580643390998" />
+    <state width="1878" height="235" key="GridCell.Tab.0.left" timestamp="1580661280840">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1324" height="250" key="GridCell.Tab.0.left/0.0.1366.768@0.0.1366.768" timestamp="1580594048851" />
-    <state width="1878" height="375" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1578864102493" />
+    <state width="1878" height="235" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1580661280840" />
     <state width="1324" height="216" key="GridCell.Tab.0.left/0.23.1366.745@0.23.1366.745" timestamp="1580562900213" />
-    <state width="1324" height="250" key="GridCell.Tab.0.right" timestamp="1580594048853">
-      <screen x="0" y="0" width="1366" height="768" />
+    <state width="1878" height="235" key="GridCell.Tab.0.left/0.23.1920.996@0.23.1920.996" timestamp="1580659142601" />
+    <state width="1878" height="184" key="GridCell.Tab.0.left/0.23.1920.997@0.23.1920.997" timestamp="1580643390996" />
+    <state width="1878" height="235" key="GridCell.Tab.0.right" timestamp="1580661280842">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1324" height="250" key="GridCell.Tab.0.right/0.0.1366.768@0.0.1366.768" timestamp="1580594048853" />
-    <state width="1878" height="375" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1578864102494" />
+    <state width="1878" height="235" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1580661280842" />
     <state width="1324" height="216" key="GridCell.Tab.0.right/0.23.1366.745@0.23.1366.745" timestamp="1580562900215" />
-    <state width="1878" height="375" key="GridCell.Tab.1.bottom" timestamp="1578864102498">
+    <state width="1878" height="235" key="GridCell.Tab.0.right/0.23.1920.996@0.23.1920.996" timestamp="1580659142607" />
+    <state width="1878" height="184" key="GridCell.Tab.0.right/0.23.1920.997@0.23.1920.997" timestamp="1580643390998" />
+    <state width="1878" height="375" key="GridCell.Tab.1.bottom" timestamp="1580658662484">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1878" height="375" key="GridCell.Tab.1.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1578864102498" />
+    <state width="1878" height="375" key="GridCell.Tab.1.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1580658662484" />
+    <state width="1878" height="375" key="GridCell.Tab.1.bottom/0.23.1920.1001@0.23.1920.1001" timestamp="1580656299965" />
     <state width="1878" height="375" key="GridCell.Tab.1.bottom/0.23.1920.995@0.23.1920.995" timestamp="1578846322813" />
-    <state width="1878" height="375" key="GridCell.Tab.1.center" timestamp="1578864102496">
+    <state width="1878" height="375" key="GridCell.Tab.1.center" timestamp="1580658662483">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1878" height="375" key="GridCell.Tab.1.center/0.0.1920.1080@0.0.1920.1080" timestamp="1578864102496" />
+    <state width="1878" height="375" key="GridCell.Tab.1.center/0.0.1920.1080@0.0.1920.1080" timestamp="1580658662483" />
+    <state width="1878" height="375" key="GridCell.Tab.1.center/0.23.1920.1001@0.23.1920.1001" timestamp="1580656299964" />
     <state width="1878" height="375" key="GridCell.Tab.1.center/0.23.1920.995@0.23.1920.995" timestamp="1578846322811" />
-    <state width="1878" height="375" key="GridCell.Tab.1.left" timestamp="1578864102495">
+    <state width="1878" height="375" key="GridCell.Tab.1.left" timestamp="1580658662483">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1878" height="375" key="GridCell.Tab.1.left/0.0.1920.1080@0.0.1920.1080" timestamp="1578864102495" />
+    <state width="1878" height="375" key="GridCell.Tab.1.left/0.0.1920.1080@0.0.1920.1080" timestamp="1580658662483" />
+    <state width="1878" height="375" key="GridCell.Tab.1.left/0.23.1920.1001@0.23.1920.1001" timestamp="1580656299963" />
     <state width="1878" height="375" key="GridCell.Tab.1.left/0.23.1920.995@0.23.1920.995" timestamp="1578846322811" />
-    <state width="1878" height="375" key="GridCell.Tab.1.right" timestamp="1578864102497">
+    <state width="1878" height="375" key="GridCell.Tab.1.right" timestamp="1580658662484">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1878" height="375" key="GridCell.Tab.1.right/0.0.1920.1080@0.0.1920.1080" timestamp="1578864102497" />
+    <state width="1878" height="375" key="GridCell.Tab.1.right/0.0.1920.1080@0.0.1920.1080" timestamp="1580658662484" />
+    <state width="1878" height="375" key="GridCell.Tab.1.right/0.23.1920.1001@0.23.1920.1001" timestamp="1580656299965" />
     <state width="1878" height="375" key="GridCell.Tab.1.right/0.23.1920.995@0.23.1920.995" timestamp="1578846322812" />
-    <state x="192" y="23" width="1024" height="745" key="SettingsEditor" timestamp="1580580562898">
-      <screen x="0" y="0" width="1366" height="768" />
+    <state x="270" y="32" width="1024" height="745" key="SettingsEditor" timestamp="1580642733603">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="192" y="23" width="1024" height="745" key="SettingsEditor/0.0.1366.768@0.0.1366.768" timestamp="1580580562898" />
-    <state x="270" y="32" key="SettingsEditor/0.0.1920.1080@0.0.1920.1080" timestamp="1578851211668" />
+    <state x="270" y="32" key="SettingsEditor/0.0.1920.1080@0.0.1920.1080" timestamp="1580642733603" />
     <state width="500" height="445" key="SwitcherDM" timestamp="1580565717844">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state width="500" height="445" key="SwitcherDM/0.0.1366.768@0.0.1366.768" timestamp="1580565717844" />
-    <state width="683" height="384" key="XDebugger.FullValuePopup" timestamp="1580582648792">
-      <screen x="0" y="0" width="1366" height="768" />
+    <state width="960" height="540" key="XDebugger.FullValuePopup" timestamp="1580658658175">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="683" height="384" key="XDebugger.FullValuePopup/0.0.1366.768@0.0.1366.768" timestamp="1580582648792" />
-    <state width="960" height="540" key="XDebugger.FullValuePopup/0.0.1920.1080@0.0.1920.1080" timestamp="1578765020743" />
+    <state width="960" height="540" key="XDebugger.FullValuePopup/0.0.1920.1080@0.0.1920.1080" timestamp="1580658658175" />
     <state x="293" y="280" key="com.intellij.ide.util.TipDialog" timestamp="1580580542593">
       <screen x="0" y="23" width="1366" height="745" />
     </state>
@@ -249,21 +259,23 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="191" y="127" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1366.768@0.0.1366.768" timestamp="1580564918662" />
-    <state x="445" y="124" width="707" height="519" key="find.popup" timestamp="1580242739874">
-      <screen x="0" y="0" width="1366" height="768" />
-    </state>
-    <state x="445" y="124" width="707" height="519" key="find.popup/0.0.1366.768@0.0.1366.768" timestamp="1580242739874" />
-    <state x="626" y="175" width="667" height="729" key="find.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1578852078621" />
-    <state x="354" y="162" key="new project wizard" timestamp="1579202341462">
+    <state x="626" y="175" width="667" height="729" key="find.popup" timestamp="1580643767710">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="354" y="162" key="new project wizard/0.0.1920.1080@0.0.1920.1080" timestamp="1579202341462" />
-    <state x="445" y="181" key="run.anything.popup" timestamp="1580593477327">
-      <screen x="0" y="23" width="1366" height="745" />
+    <state x="445" y="124" width="707" height="519" key="find.popup/0.0.1366.768@0.0.1366.768" timestamp="1580242739874" />
+    <state x="626" y="175" width="667" height="729" key="find.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1580643767710" />
+    <state x="354" y="162" key="new project wizard" timestamp="1580656682960">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="354" y="162" key="new project wizard/0.0.1920.1080@0.0.1920.1080" timestamp="1580656682960" />
+    <state x="625" y="255" key="run.anything.popup" timestamp="1580655554977">
+      <screen x="0" y="23" width="1920" height="1001" />
     </state>
     <state x="445" y="181" key="run.anything.popup/0.0.1366.768@0.0.1366.768" timestamp="1580321253201" />
     <state x="625" y="255" key="run.anything.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1578510653837" />
     <state x="445" y="181" key="run.anything.popup/0.23.1366.745@0.23.1366.745" timestamp="1580593477327" />
+    <state x="625" y="255" key="run.anything.popup/0.23.1920.1001@0.23.1920.1001" timestamp="1580655554977" />
+    <state x="625" y="255" key="run.anything.popup/0.23.1920.996@0.23.1920.996" timestamp="1580649265871" />
     <state x="348" y="92" width="670" height="158" key="search.everywhere.popup" timestamp="1580565738692">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
@@ -274,201 +286,93 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/classes/Entity/Entity.java</url>
-          <line>32</line>
-          <option name="timeStamp" value="234" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Gameplay/turrets/turretFrame/XYPanel.java</url>
-          <line>17</line>
-          <option name="timeStamp" value="351" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Gameplay/turrets/turretFrame/XYPanel.java</url>
-          <line>18</line>
-          <option name="timeStamp" value="352" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Gameplay/turrets/turretFrame/XYPanel.java</url>
-          <line>30</line>
-          <option name="timeStamp" value="353" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Gameplay/turrets/turretFrame/XYPanel.java</url>
-          <line>31</line>
-          <option name="timeStamp" value="354" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Gameplay/turrets/turretFrame/XYPanel.java</url>
-          <line>33</line>
-          <option name="timeStamp" value="355" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Gameplay/turrets/turretFrame/XYPanel.java</url>
-          <line>35</line>
-          <option name="timeStamp" value="357" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Gameplay/turrets/turretFrame/XYPanel.java</url>
-          <line>37</line>
-          <option name="timeStamp" value="358" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Gameplay/turrets/turretFrame/XYPanel.java</url>
-          <line>38</line>
-          <option name="timeStamp" value="359" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Gameplay/turrets/turretFrame/XYPanel.java</url>
-          <line>39</line>
-          <option name="timeStamp" value="360" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Gameplay/turrets/turretFrame/XYPanel.java</url>
+          <url>file://$PROJECT_DIR$/src/classes/turret/bullet/bulletActual.java</url>
           <line>43</line>
-          <option name="timeStamp" value="361" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Gameplay/turrets/turretFrame/XYPanel.java</url>
-          <line>42</line>
-          <option name="timeStamp" value="362" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Gameplay/turrets/turretFrame/XYPanel.java</url>
-          <line>45</line>
-          <option name="timeStamp" value="363" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Gameplay/turrets/turretFrame/XYPanel.java</url>
-          <line>46</line>
-          <option name="timeStamp" value="364" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Gameplay/turrets/turretFrame/XYPanel.java</url>
-          <line>47</line>
-          <option name="timeStamp" value="365" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Gameplay/turrets/turretFrame/XYPanel.java</url>
-          <line>48</line>
-          <option name="timeStamp" value="366" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Gameplay/turrets/turretFrame/XYPanel.java</url>
-          <line>54</line>
-          <option name="timeStamp" value="367" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Gameplay/turrets/turretFrame/XYPanel.java</url>
-          <line>57</line>
-          <option name="timeStamp" value="368" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Gameplay/turrets/turretFrame/XYPanel.java</url>
-          <line>56</line>
-          <option name="timeStamp" value="369" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Gameplay/turrets/turretFrame/XYPanel.java</url>
-          <line>66</line>
-          <option name="timeStamp" value="374" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Gameplay/turrets/turretFrame/XYPanel.java</url>
-          <line>25</line>
-          <option name="timeStamp" value="380" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Gameplay/turrets/turretFrame/XYPanel.java</url>
-          <line>24</line>
-          <option name="timeStamp" value="381" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Gameplay/turrets/turretFrame/XYPanel.java</url>
-          <line>23</line>
-          <option name="timeStamp" value="382" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/classes/turret/turretActual.java</url>
-          <line>49</line>
-          <option name="timeStamp" value="428" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/classes/turret/turretActual.java</url>
-          <line>54</line>
-          <option name="timeStamp" value="429" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/classes/turret/turretActual.java</url>
-          <line>55</line>
-          <option name="timeStamp" value="430" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/classes/turret/turretActual.java</url>
-          <line>53</line>
-          <option name="timeStamp" value="431" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/classes/turret/bullet/bulletActual.java</url>
-          <line>34</line>
-          <option name="timeStamp" value="433" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/classes/turret/bullet/bulletActual.java</url>
-          <line>36</line>
-          <option name="timeStamp" value="434" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/classes/turret/bullet/bulletActual.java</url>
-          <line>38</line>
-          <option name="timeStamp" value="435" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/classes/turret/bullet/bulletActual.java</url>
-          <line>39</line>
-          <option name="timeStamp" value="436" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/classes/turret/bullet/bulletActual.java</url>
-          <line>41</line>
           <option name="timeStamp" value="437" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/classes/turret/bullet/bulletActual.java</url>
-          <line>43</line>
+          <line>45</line>
           <option name="timeStamp" value="438" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/classes/turret/turretActual.java</url>
+          <url>file://$PROJECT_DIR$/src/classes/turret/bullet/bulletActual.java</url>
+          <line>50</line>
+          <option name="timeStamp" value="452" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/classes/turret/bullet/bulletActual.java</url>
           <line>47</line>
-          <option name="timeStamp" value="442" />
+          <option name="timeStamp" value="453" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/classes/turret/turretActual.java</url>
-          <line>45</line>
-          <option name="timeStamp" value="443" />
+          <url>file://$PROJECT_DIR$/src/Gameplay/turrets/TurretFrame.java</url>
+          <line>93</line>
+          <option name="timeStamp" value="464" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/classes/turret/turretActual.java</url>
-          <line>42</line>
-          <option name="timeStamp" value="444" />
+          <url>file://$PROJECT_DIR$/src/Gameplay/turrets/TurretFrame.java</url>
+          <line>99</line>
+          <option name="timeStamp" value="465" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/classes/turret/turretActual.java</url>
-          <line>31</line>
-          <option name="timeStamp" value="445" />
+          <url>file://$PROJECT_DIR$/src/classes/turret/bullet/bulletActual.java</url>
+          <line>34</line>
+          <option name="timeStamp" value="477" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/Gameplay/turrets/turretFrame/XYPanel.java</url>
-          <line>14</line>
-          <properties class="Gameplay.turrets.turretFrame.XYPanel" method="&lt;init&gt;">
-            <option name="EMULATED" value="true" />
-          </properties>
-          <option name="timeStamp" value="348" />
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/classes/turret/bullet/bulletActual.java</url>
+          <line>36</line>
+          <option name="timeStamp" value="478" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/classes/turret/bullet/bulletActual.java</url>
+          <line>37</line>
+          <option name="timeStamp" value="479" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/classes/turret/bullet/bulletActual.java</url>
+          <line>38</line>
+          <option name="timeStamp" value="480" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/classes/turret/bullet/bulletActual.java</url>
+          <line>40</line>
+          <option name="timeStamp" value="481" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/classes/turret/bullet/bulletActual.java</url>
+          <line>59</line>
+          <option name="timeStamp" value="482" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/classes/turret/bullet/bulletActual.java</url>
+          <line>56</line>
+          <option name="timeStamp" value="484" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/classes/turret/bullet/bulletActual.java</url>
+          <line>53</line>
+          <option name="timeStamp" value="485" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/classes/canvas.java</url>
+          <line>73</line>
+          <option name="timeStamp" value="487" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/classes/canvas.java</url>
+          <line>70</line>
+          <option name="timeStamp" value="488" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/classes/canvas.java</url>
+          <line>72</line>
+          <option name="timeStamp" value="489" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/classes/turret/bullet/bulletActual.java</url>
-          <line>21</line>
+          <line>20</line>
           <properties class="classes.turret.bullet.bulletActual" method="&lt;init&gt;">
             <option name="EMULATED" value="true" />
           </properties>
@@ -476,5 +380,10 @@
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="img" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>

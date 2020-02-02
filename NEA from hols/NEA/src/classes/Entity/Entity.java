@@ -1,13 +1,16 @@
 package classes.Entity;
 
+import Gameplay.turrets.TurretFrame;
 import classes.util.Coordinate;
 import main.main;
 
 import javax.imageio.ImageIO;
+import javax.imageio.stream.ImageInputStream;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
+import java.net.URLConnection;
 
 public abstract class Entity {
 
@@ -16,6 +19,10 @@ public abstract class Entity {
     private entityType type;
 
     public Entity(Coordinate XYInArr, String fn, entityType type, Coordinate XYInTile) {
+        this.XYInArr = XYInArr;
+        this.XYInTile = XYInTile;
+        this.type = type;
+
 
         String fqdn = "";
 
@@ -32,9 +39,13 @@ public abstract class Entity {
 
         Image temp;
 
+
+
         try {
-            temp = ImageIO.read(new URL(fqdn));
-        } catch (IOException e) {
+            URL url = new URL(fqdn);
+
+            temp = ImageIO.read(url);
+        } catch (Exception e) {
             temp = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
         }
 
@@ -42,11 +53,6 @@ public abstract class Entity {
         temp = temp.getScaledInstance(wh.getX(), wh.getY(), Image.SCALE_SMOOTH);
         img = new BufferedImage(temp.getWidth(null), temp.getHeight(null), BufferedImage.TYPE_INT_ARGB);
         img.getGraphics().drawImage(temp, 0, 0, null);
-
-
-        this.XYInArr = XYInArr;
-        this.XYInTile = XYInTile;
-        this.type = type;
     }
 
     //region getters and setters
@@ -67,14 +73,20 @@ public abstract class Entity {
     }
 
     public Coordinate getXYOnScrn () {
-        int bigX = main.TILE_WIDTH * XYInArr.getX();
-        int bigY = main.TILE_HEIGHT * XYInArr.getY();
+        int x = 0;
+        int y = 0;
+        try {
+            int bigX = main.TILE_WIDTH * XYInArr.getX();
+            int bigY = main.TILE_HEIGHT * XYInArr.getY();
 
-        int smallX = XYInTile.getX();
-        int smallY = XYInTile.getY();
+            int smallX = XYInTile.getX();
+            int smallY = XYInTile.getY();
 
-        int x = bigX + smallX;
-        int y = bigY + smallY;
+            x = bigX + smallX;
+            y = bigY + smallY;
+        } catch (Exception e) {
+            return TurretFrame.NULL_COORD;
+        }
 
         return new Coordinate(x, y);
     }

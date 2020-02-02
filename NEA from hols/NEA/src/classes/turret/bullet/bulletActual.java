@@ -6,7 +6,6 @@ import classes.enemy.enemyActual;
 import classes.util.Coordinate;
 import classes.util.dir;
 import main.main;
-import sun.jvm.hotspot.opto.MachIfNode;
 
 public class bulletActual extends Entity {
 
@@ -20,24 +19,27 @@ public class bulletActual extends Entity {
     private Thread runThread;
 
     public bulletActual(Coordinate XYInArr, String fn, enemyActual enemy, int dmg_, int spd_) {
-        super(XYInArr, fn, entityType.bullet, null);
+        super(XYInArr.clone(), fn, entityType.bullet, new Coordinate(main.TILE_WIDTH / 2, main.TILE_HEIGHT / 2));
+//        super(XYInArr, fn, entityType.bullet, null);
         hit = false;
         enemyToHit = enemy;
         dmg = dmg_;
         spd = spd_;
 
         Runnable r = () -> {
-            long current = System.currentTimeMillis();
+            long current;
 
             while(!hit) {
                 current = System.currentTimeMillis();
+
                 if(getXYInArr().equals(enemyToHit.getXYInArr())){
-                    if(getXYInTile().distTo(enemyToHit.getXYInTile()) < 10)
+                    if(getXYInTile().distTo(enemyToHit.getXYInTile()) < 100)
                     {
                         enemyToHit.damage(dmg);
                         hit = true;
                     }
-                }
+                } //NTS: The enemies are just stopping
+
 
                 distPerFrame = ((int) ((System.currentTimeMillis() - current / 1000) * spd));
 
@@ -45,70 +47,25 @@ public class bulletActual extends Entity {
 
                 switch (direction) {
                     case N:
-                        //region N
-                        Coordinate newOneInTileN = new Coordinate(getXYInTile().getX(), getXYInTile().getY() - distPerFrame);
-                        Coordinate newOneInArrN = getXYInArr().clone();
-                        if(newOneInTileN.getY() < 0)
-                        {
-                            int overflow = newOneInTileN.getY() * -1;
-                            newOneInArrN.setY(newOneInArrN.getY() - 1);
-                            newOneInTileN.setY(overflow);
-                        }
-
-                        changePosInTile(newOneInTileN);
-                        changeTile(newOneInArrN);
-                        //endregion
+                        N(distPerFrame);
                         break;
                     case S:
-                        //region S
-                        Coordinate newOneInTileY = new Coordinate(getXYInTile().getX(), getXYInTile().getY() + distPerFrame);
-                        Coordinate newOneInArrY = getXYInArr().clone();
-
-                        if(newOneInTileY.getY() > main.TILE_HEIGHT)
-                        {
-                            int overflow = newOneInTileY.getY() - main.TILE_HEIGHT;
-                            newOneInArrY.setY(newOneInArrY.getY() + 1);
-                            newOneInTileY.setY(overflow);
-                        }
-
-                        changePosInTile(newOneInTileY);
-                        changeTile(newOneInArrY);
-                        //endregion
+                        S(distPerFrame);
                         break;
                     case E:
-                        //region E
-                        Coordinate newOneInTileE = new Coordinate(getXYInTile().getX() + distPerFrame, getXYInTile().getY());
-                        Coordinate newOneInArrE = getXYInArr().clone();
-                        if(newOneInTileE.getX() > main.TILE_WIDTH)
-                        {
-                            int overflow = newOneInTileE.getX() - main.TILE_WIDTH;
-                            newOneInArrE.setX(newOneInArrE.getX() + 1);
-                            newOneInTileE.setX(overflow);
-                        }
-
-                        changePosInTile(newOneInTileE);
-                        changeTile(newOneInArrE);
-                        //endregion
+                        E(distPerFrame);
                         break;
                     case W:
-                        //region S
-                        Coordinate newOneInTileW = new Coordinate(getXYInTile().getX() - distPerFrame, getXYInTile().getY());
-                        Coordinate newOneInArrW = getXYInArr().clone();
-
-                        if(newOneInTileW.getX() < 0)
-                        {
-                            int overflow = newOneInTileW.getX() * -1;
-                            newOneInArrW.setX(newOneInArrW.getX() - 1);
-                            newOneInTileW.setX(overflow);
-                        }
-
-                        changePosInTile(newOneInTileW);
-                        changeTile(newOneInArrW);
-                        //endregion
+                        W(distPerFrame);
                         break;
                 }
             }
+
+
         };
+
+        runThread = new Thread(r);
+        runThread.start();
     }
 
     public boolean isHit() {

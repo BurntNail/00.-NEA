@@ -12,12 +12,9 @@ import classes.square.squareCollection;
 import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Timer;
 import java.util.concurrent.TimeUnit;
 
 public class main {
@@ -135,13 +132,17 @@ public class main {
 
             while (true) {
 
-                window.pack();
+                c.paint(c.getGraphics());
+
+                while(!c.hasFinishedRendering()) {
+                    System.out.println("RENDERING");
+                }
 
                 if (System.currentTimeMillis() - current > delay) {
 
 
                     ArrayList<Entity> enemyActuals = waves.getEntites();
-                    ArrayList<Entity> turretActuals = tm.step(System.currentTimeMillis() - current, enemyActuals);
+                    ArrayList<Entity> turretActuals = tm.setEnemiesAndGetTurretsAndBullets(enemyActuals);
 
                     ArrayList<Entity> finalEnties = new ArrayList<>();
                     finalEnties.addAll(enemyActuals);
@@ -177,8 +178,8 @@ public class main {
         TURRET_WIDTH = TILE_WIDTH / 3 * 2;
         TURRET_HEIGHT = TILE_HEIGHT / 3 * 2;
 
-        BULLET_WIDTH = TILE_WIDTH / 10;
-        BULLET_HEIGHT = TILE_HEIGHT / 10;
+        BULLET_WIDTH = TILE_WIDTH;
+        BULLET_HEIGHT = TILE_HEIGHT;
 
         ENEMY_WIDTH = TILE_WIDTH * 3 / 2;
         ENEMY_HEIGHT = TILE_HEIGHT;
@@ -200,25 +201,22 @@ public class main {
                 c = AudioSystem.getClip();
                 c.open(AIS);
 
-                c.addLineListener(new LineListener() {
-                    @Override
-                    public void update(LineEvent event) {
-                        System.out.println(fn + " has been played...");
-                        long frames = AIS.getFrameLength();
-                        double l = (frames+0.0) / AIS.getFormat().getFrameRate();
+                c.addLineListener(event -> {
+                    System.out.println(fn + " has been played...");
+                    long frames = AIS.getFrameLength();
+                    double l = (frames+0.0) / AIS.getFormat().getFrameRate();
 
-                        long l2 = ((long) Math.floor(l));
+                    long l2 = ((long) Math.floor(l));
 
-                        try {
-                            TimeUnit.SECONDS.sleep(l2);
-                        } catch (InterruptedException e) {
-                            System.out.println("Audio Sleeper interrupted.");
-                        }
-
-                        c.stop();
-                        c.setMicrosecondPosition(0l);
-
+                    try {
+                        TimeUnit.SECONDS.sleep(l2);
+                    } catch (InterruptedException e) {
+                        System.out.println("Audio Sleeper interrupted.");
                     }
+
+                    c.stop();
+                    c.setMicrosecondPosition(0l);
+
                 });
 
                 SOUNDS.put(fn, c);

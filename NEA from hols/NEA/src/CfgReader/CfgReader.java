@@ -13,8 +13,11 @@ public class CfgReader {
     private ArrayList<String> moduleNames;
     private ArrayList<HashMap<String, Object>> hashMaps;
     private BufferedReader reader;
+    private String fn;
 
     public CfgReader(String fn) {
+        this.fn = fn;
+
         moduleNames = new ArrayList<>();
         hashMaps = new ArrayList<>();
         try {
@@ -26,6 +29,10 @@ public class CfgReader {
         }
 
         read();
+    }
+
+    public CfgReader clone () {
+        return new CfgReader(fn);
     }
 
     private void read () {

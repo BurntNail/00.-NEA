@@ -1,7 +1,6 @@
 package Gameplay.turrets;
 
 import Gameplay.player.PlayerManager;
-import Gameplay.turrets.turretFrame.TurretFrame;
 import classes.Entity.Entity;
 import classes.Entity.entityType;
 import classes.square.squareCollection;
@@ -11,6 +10,7 @@ import main.main;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Collection;
 
 public class TurretManager {
 
@@ -30,6 +30,9 @@ public class TurretManager {
 
     private TurretFrame tf;
     private ArrayList<Entity> bullets;
+    private ArrayList<Entity> enemies;
+
+    private Thread runThread;
 
 
     public TurretManager (squareCollection sqc_, PlayerManager pm) {
@@ -50,47 +53,60 @@ public class TurretManager {
 
         turrets = new ArrayList<>();
         bullets = new ArrayList<>();
-    }
+        enemies = new ArrayList<>();
 
-    public ArrayList<Entity> step (long msPrev, ArrayList<Entity> enemies) {
-        prevClickedCoordinate = tf.getMostRecent();
-        prevClickedType = tf.getMostRecentType();
+        Runnable r = () -> {
+            while(true) {
+                prevClickedCoordinate = tf.getMostRecent();
+                prevClickedType = tf.getMostRecentType();
 
-        if (prevClickedCoordinate != TurretFrame.NULL_COORD && prevClickedCoordinate != coordBefore && !turretSquaresUsed.contains(prevClickedCoordinate)) {
-            turretSquaresUsed.add(prevClickedCoordinate);
-            turretSquaresFree.remove(prevClickedCoordinate);
+                if (prevClickedCoordinate != TurretFrame.NULL_COORD && prevClickedCoordinate != coordBefore && !turretSquaresUsed.contains(prevClickedCoordinate)) {
+                    turretSquaresUsed.add(prevClickedCoordinate);
+                    turretSquaresFree.remove(prevClickedCoordinate);
 
-            String type = prevClickedType;
+                    String type = prevClickedType;
 
-            turretActual temp = new turretActual(prevClickedCoordinate, dictionary.getTurret(type));
+                    turretActual temp = new turretActual(prevClickedCoordinate, dictionary.getTurret(type), tf.getCurrentIndex());
+                    tf.incrementIndex();
 
-            if(pm.buy(temp.getTurret().getCost()))
-            {
-                turrets.add(temp);
-                coordBefore = prevClickedCoordinate;
-            }
-        }
-
-        bullets.clear();
-        if(turrets.size() > 0) {
-            for (Entity e : turrets) {
-
-                //TODO: This
-
-                if (e.getType().equals(entityType.turret)) {
-                    turretActual t = ((turretActual) e);
-                    t.setEnemies(enemies);
-
-                    for (Entity b : t.getShotsFired())
-                        bullets.add(b);
+                    if(pm.buy(temp.getTurret().getCost()))
+                    {
+                        turrets.add(temp);
+                        coordBefore = prevClickedCoordinate;
+                    }
                 }
+
+                bullets.clear();
+                if(turrets.size() > 0) {
+                    for (Entity e : turrets) {
+
+                        if (e.getType().equals(entityType.turret)) {
+                            turretActual t = ((turretActual) e);
+                            t.setEnemies(enemies);
+
+                            for (Entity b : t.getShotsFired())
+                                bullets.add(b);
+                        }
+                    }
+                }
+
+                ArrayList<Entity> all = (ArrayList<Entity>) turrets.clone();
+                all.addAll(bullets);
+
+                tf.setTurrets(((ArrayList<Entity>) turrets.clone()));
             }
-        }
+        };
 
-        ArrayList<Entity> all = (ArrayList<Entity>) turrets.clone();
-        all.addAll(bullets);
-
-        return all;
+        runThread = new Thread(r);
+        runThread.start();
     }
 
+    public ArrayList<Entity> setEnemiesAndGetTurretsAndBullets (ArrayList<Entity> enemies) {
+        this.enemies = enemies;
+
+        ArrayList<Entity> TABS = (ArrayList<Entity>) turrets.clone();
+        TABS.addAll((Collection<Entity>) bullets.clone());
+
+        return TABS;
+    }
 }

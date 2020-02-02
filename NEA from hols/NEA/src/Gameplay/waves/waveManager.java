@@ -101,7 +101,7 @@ public class waveManager {
                         }
 
                         enemyTemplate eT = enemyDictionary.getEnemy(c);
-                        enemyActual eA = new enemyActual(eT, sqc, co);
+                        enemyActual eA = new enemyActual(eT, sqc.clone(), co);
 
                         eA.addBooleanChangeListener(e -> {
                             enemyActuals.remove(eA);
