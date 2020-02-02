@@ -37,6 +37,7 @@ public class main {
 
     public static final String ENEMY_IMAGES_LOC = IMAGES_LOC + "enemies/";
     public static final String TURRET_IMAGES_LOC = IMAGES_LOC + "turrets/";
+  
     public static final String PATHS_IMAGES_LOC = IMAGES_LOC + "paths/";
     public static final String BULLET_IMAGE_LOC = IMAGES_LOC + "bullets/";
 
