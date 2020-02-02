@@ -378,7 +378,7 @@
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/classes/turret/bullet/bulletActual.java</url>
           <line>20</line>
-          <properties class="classes.turret.bullet.bulletActual" method="&lt;init&gt;">
+          <properties class="classes.turret.bullet.bulletActual">
             <option name="EMULATED" value="true" />
           </properties>
           <option name="timeStamp" value="439" />
