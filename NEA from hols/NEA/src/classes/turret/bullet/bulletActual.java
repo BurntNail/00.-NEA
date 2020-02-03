@@ -38,7 +38,7 @@ public class bulletActual extends Entity {
                         enemyToHit.damage(dmg);
                         hit = true;
                     }
-                } //NTS: The enemies are just stopping
+                }
 
 
                 distPerFrame = ((int) ((System.currentTimeMillis() - current / 1000) * spd));

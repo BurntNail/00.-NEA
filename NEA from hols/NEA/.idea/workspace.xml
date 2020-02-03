@@ -37,7 +37,7 @@
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="experimental" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.gutterIcons" />
   </component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
@@ -229,11 +229,11 @@
     <state width="1878" height="375" key="GridCell.Tab.1.right/0.0.1920.1080@0.0.1920.1080" timestamp="1580662503135" />
     <state width="1878" height="375" key="GridCell.Tab.1.right/0.23.1920.1001@0.23.1920.1001" timestamp="1580656299965" />
     <state width="1878" height="375" key="GridCell.Tab.1.right/0.23.1920.995@0.23.1920.995" timestamp="1578846322812" />
-    <state x="270" y="32" width="1024" height="745" key="SettingsEditor" timestamp="1580642733603">
+    <state x="816" y="73" width="1024" height="745" key="SettingsEditor" timestamp="1580752010537">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="192" y="23" width="1024" height="745" key="SettingsEditor/0.0.1366.768@0.0.1366.768" timestamp="1580580562898" />
-    <state x="270" y="32" key="SettingsEditor/0.0.1920.1080@0.0.1920.1080" timestamp="1580642733603" />
+    <state x="816" y="73" key="SettingsEditor/0.0.1920.1080@0.0.1920.1080" timestamp="1580752010537" />
     <state width="500" height="445" key="SwitcherDM" timestamp="1580565717844">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
@@ -291,26 +291,6 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/classes/turret/bullet/bulletActual.java</url>
-          <line>43</line>
-          <option name="timeStamp" value="437" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/classes/turret/bullet/bulletActual.java</url>
-          <line>45</line>
-          <option name="timeStamp" value="438" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/classes/turret/bullet/bulletActual.java</url>
-          <line>50</line>
-          <option name="timeStamp" value="452" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/classes/turret/bullet/bulletActual.java</url>
-          <line>47</line>
-          <option name="timeStamp" value="453" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/Gameplay/turrets/TurretFrame.java</url>
           <line>94</line>
           <option name="timeStamp" value="464" />
@@ -319,31 +299,6 @@
           <url>file://$PROJECT_DIR$/src/Gameplay/turrets/TurretFrame.java</url>
           <line>100</line>
           <option name="timeStamp" value="465" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/classes/turret/bullet/bulletActual.java</url>
-          <line>34</line>
-          <option name="timeStamp" value="477" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/classes/turret/bullet/bulletActual.java</url>
-          <line>36</line>
-          <option name="timeStamp" value="478" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/classes/turret/bullet/bulletActual.java</url>
-          <line>37</line>
-          <option name="timeStamp" value="479" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/classes/turret/bullet/bulletActual.java</url>
-          <line>38</line>
-          <option name="timeStamp" value="480" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/classes/turret/bullet/bulletActual.java</url>
-          <line>40</line>
-          <option name="timeStamp" value="481" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/classes/turret/bullet/bulletActual.java</url>
@@ -374,6 +329,16 @@
           <url>file://$PROJECT_DIR$/src/classes/canvas.java</url>
           <line>72</line>
           <option name="timeStamp" value="489" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/classes/enemy/enemyActual.java</url>
+          <line>39</line>
+          <option name="timeStamp" value="551" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/classes/enemy/enemyActual.java</url>
+          <line>51</line>
+          <option name="timeStamp" value="552" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/classes/turret/bullet/bulletActual.java</url>
