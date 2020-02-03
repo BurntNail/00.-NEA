@@ -18,7 +18,6 @@ public class TurretManager {
 
     private ArrayList<Entity> turrets;
     private turretDictionary dictionary;
-    private PlayerManager pm;
 
     private squareCollection sqc;
 
@@ -37,8 +36,7 @@ public class TurretManager {
     private Thread runThread;
 
 
-    public TurretManager (squareCollection sqc_, PlayerManager pm) {
-        this.pm = pm;
+    public TurretManager (squareCollection sqc_) {
         sqc = sqc_;
 
         turrets = new ArrayList<>();
@@ -48,7 +46,7 @@ public class TurretManager {
         turretSquaresFree = (ArrayList<Coordinate>) turretSquaresAll.clone();
         turretSquaresUsed = new ArrayList<>();
 
-        tf = new TurretFrame(turretSquaresUsed, turretSquaresFree, new Dimension(main.WINDOW_WIDTH, main.WINDOW_HEIGHT), dictionary.getTurrets().values(), pm);
+        tf = new TurretFrame(turretSquaresUsed, turretSquaresFree, new Dimension(main.WINDOW_WIDTH, main.WINDOW_HEIGHT), dictionary.getTurrets().values());
         prevClickedCoordinate = TurretFrame.NULL_COORD;
         coordBefore = TurretFrame.NULL_COORD;
         prevClickedType = TurretFrame.NULL_STR;
@@ -67,13 +65,13 @@ public class TurretManager {
                     turretSquaresFree.remove(prevClickedCoordinate);
 
                     String type = prevClickedType;
-                    Console.addText("@TurretManager: ");
+                    Console.addText("@TurretManager: " + type + " has been bought.");
 
 
                     turretActual temp = new turretActual(prevClickedCoordinate, dictionary.getTurret(type), tf.getCurrentIndex());
                     tf.incrementIndex();
 
-                    if(pm.buy(temp.getTurret().getCost()))
+                    if(PlayerManager.buy(temp.getTurret().getCost()))
                     {
                         turrets.add(temp);
                         coordBefore = prevClickedCoordinate;

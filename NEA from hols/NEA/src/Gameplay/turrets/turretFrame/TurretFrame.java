@@ -22,6 +22,7 @@ public class TurretFrame {
 
     private JFrame window;
     private JPanel panel;
+    private JPanel consolePanel;
 
     private ArrayList<JButton> btns;
     private ArrayList<Coordinate> usedSquares;
@@ -37,7 +38,9 @@ public class TurretFrame {
 
     private ArrayList<Entity> turretActuals;
 
-    public TurretFrame(ArrayList<Coordinate> usedSquares, ArrayList<Coordinate> freeSquares, Dimension size, Collection<turretTemplate> templates_collection, PlayerManager pm) {
+    public TurretFrame(ArrayList<Coordinate> usedSquares, ArrayList<Coordinate> freeSquares, Dimension size, Collection<turretTemplate> templates_collection) {
+        Console c = new Console("CONSOLE"); // Placed at top to ensue fast creation
+
         currentIndex = 0;
         try {
             URL url = new URL(main.ICON_LOCATIONS + "XYIcon.png");
@@ -60,9 +63,11 @@ public class TurretFrame {
         window.setLocation(size.width, 0);
         window.setPreferredSize(size);
         window.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+        window.setLayout(new GridLayout(1, 2));
 
         panel = new JPanel();
         panel.setAutoscrolls(true);
+        panel.setPreferredSize(new Dimension(main.WINDOW_WIDTH / 2, main.WINDOW_HEIGHT));
 
         turretActuals = new ArrayList<>();
 
@@ -160,19 +165,25 @@ public class TurretFrame {
                 freeSquares.add(coordThatGoesWith);
                 turretActuals.remove(turretToSell);
 
-                pm.donateM(turretToSell.getTurret().getSellValue());
+                PlayerManager.donateM(turretToSell.getTurret().getSellValue());
 
             }
         });
 
-        JTextArea label = new JTextArea(getLabel(pm));
+        JTextArea label = new JTextArea(getLabel());
         label.setEditable(false);
+
+        consolePanel = new JPanel();
+        consolePanel.setPreferredSize(new Dimension(main.WINDOW_WIDTH / 2, main.WINDOW_HEIGHT));
+
+        consolePanel.add(c);
 
         panel.add(sellBtn);
         panel.add(label);
 
 
         window.add(panel);
+        window.add(consolePanel);
 
         window.pack();
         window.setVisible(true);
@@ -186,8 +197,8 @@ public class TurretFrame {
 
         Runnable r = () -> {
             while(true) {
-                if(pm.hasChanedSinceLastCheck()) {
-                    label.setText(getLabel(pm));
+                if(PlayerManager.needsToUpdate()) {
+                    label.setText(getLabel());
                     window.pack();
                 }
             }
@@ -197,8 +208,8 @@ public class TurretFrame {
         pmThread.start();
     }
 
-    private static String getLabel (PlayerManager pm) {
-        return "Money: " + pm.getMoney() + "\nHearts remaining: " + pm.getHearts();
+    private static String getLabel () {
+        return "Money: " + PlayerManager.getMoney() + "\nHearts remaining: " + PlayerManager.getHearts();
     }
 
     public Coordinate getMostRecent() {

@@ -33,10 +33,8 @@ public class waveManager {
 
     private Thread runThread;
 
-    private PlayerManager pm;
 
-    public waveManager(String fnOfWave, squareCollection sqc_, PlayerManager pm_) {
-        pm = pm_;
+    public waveManager(String fnOfWave, squareCollection sqc_) {
         reader = new CfgReader(main.WAVES_LOC + fnOfWave);
         waves = WaveParser.enemiesBetweenGaps(reader);
         enemyActuals = new ArrayList<>();
@@ -108,10 +106,11 @@ public class waveManager {
 
                             boolean isDead = eA.isDead();
                             if(!isDead)
-                                pm.takeHearts(eA.getTemplate().getHeartsCost());
+                                PlayerManager.takeHearts(eA.getTemplate().getHeartsCost());
                             else
                             {
-                                int moneyGained = eA.getTemplate(). //TODO: Add Giving Money
+                                int moneyGained = eA.getTemplate().getMoneyBack();
+                                PlayerManager.donateM(moneyGained);
                             }
 
                         });

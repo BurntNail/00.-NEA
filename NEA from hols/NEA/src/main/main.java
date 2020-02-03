@@ -49,13 +49,10 @@ public class main {
     public static final int NUM_OF_TILES_WIDTH;
     public static final int NUM_OF_TILES_HEIGHT;
 
-    public static final int WINDOW_WIDTH = 600; //px
-    public static final int WINDOW_HEIGHT = 630; //px
+    public static final int WINDOW_WIDTH;
+    public static final int WINDOW_HEIGHT;
 
-    private static Dimension size = new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT);
-
-    public static final int TOP_JPANEL_HEIGHT = 0; //px
-    public static final int REST_OF_FRAME_HEIGHT = WINDOW_HEIGHT - TOP_JPANEL_HEIGHT; //px
+    private static Dimension size;
 
     public static final int TILE_HEIGHT; //px
     public static final int TILE_WIDTH;
@@ -102,7 +99,7 @@ public class main {
         int money = Integer.parseInt(level.get("playerGets", "money").toString());
         int hearts = Integer.parseInt(level.get("playerGets", "hp").toString());
 
-        PlayerManager pm = new PlayerManager(money, hearts);
+        PlayerManager pm = new PlayerManager(money, hearts); //We need to have an instance to reference, even if it is never used
         squareCollection sqc = new squareCollection(new sqaureParser(new CfgReader(main.MAPS_LOC + "stg1.cfg")));
 
         //region main window
@@ -117,8 +114,8 @@ public class main {
         window.setVisible(true);
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        waveManager waves = new waveManager("lvl1.cfg", sqc, pm);
-        TurretManager tm = new TurretManager(sqc, pm);
+        waveManager waves = new waveManager("lvl1.cfg", sqc);
+        TurretManager tm = new TurretManager(sqc);
 
         Dimension newSize = new Dimension(main.TILE_WIDTH * main.NUM_OF_TILES_WIDTH, main.TILE_HEIGHT * main.NUM_OF_TILES_HEIGHT);
         window.setSize(newSize);
@@ -135,8 +132,9 @@ public class main {
                 c.paint(c.getGraphics());
 
                 while(!c.hasFinishedRendering()) {
-                    System.out.println("RENDERING");
+                    System.out.print("RENDERING");
                 }
+                System.out.println();
 
                 if (System.currentTimeMillis() - current > delay) {
 
@@ -163,6 +161,14 @@ public class main {
     }
 
     static {
+        Dimension wholeScreenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        WINDOW_WIDTH = wholeScreenSize.width / 2;
+        WINDOW_HEIGHT = wholeScreenSize.height;
+
+        size = new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT);
+
+
+
         stage = new CfgReader(MAPS_LOC + "stg" + CURRENT_LEVEL + ".cfg");
         level = new CfgReader(WAVES_LOC + "lvl" + CURRENT_LEVEL + ".cfg");
 
@@ -178,8 +184,8 @@ public class main {
         TURRET_WIDTH = TILE_WIDTH / 3 * 2;
         TURRET_HEIGHT = TILE_HEIGHT / 3 * 2;
 
-        BULLET_WIDTH = TILE_WIDTH;
-        BULLET_HEIGHT = TILE_HEIGHT;
+        BULLET_WIDTH = TURRET_WIDTH / 3;
+        BULLET_HEIGHT = TURRET_HEIGHT / 3;
 
         ENEMY_WIDTH = TILE_WIDTH * 3 / 2;
         ENEMY_HEIGHT = TILE_HEIGHT;

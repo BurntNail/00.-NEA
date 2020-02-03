@@ -10,9 +10,10 @@ public class Console extends JTextArea {
     private Thread updateThread;
 
     public Console(String text) {
-        super(text);
+        super(text + "\n");
+        setEditable(false);
 
-        txtFull += text + "\n";
+        txtFull = text + "\n";
 
         needsToUpdate = true;
 

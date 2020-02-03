@@ -1,5 +1,6 @@
 package Gameplay.player;
 
+import Gameplay.turrets.turretFrame.Console;
 import classes.CustomActionListeners.*;
 
 import java.awt.*;
@@ -9,70 +10,65 @@ import java.util.List;
 
 public class PlayerManager {
 
-    private int money;
-    private int hearts;
+    private static int money;
+    private static int hearts;
 
-    private int prevMoney;
-    private int prevHearts;
-
-
-    private List<BooleanChangeListener> listeners;
-
+    private static boolean needsToUpdate;
 
     public PlayerManager(int money, int hearts) {
         this.money = money;
         this.hearts = hearts;
-        listeners = new ArrayList<>();
-
-        prevHearts = 0;
-        prevMoney = 0;
-
+        needsToUpdate = true;
     }
 
     //region Getters
-    public int getMoney() {
+    public static int getMoney() {
         return money;
     }
 
-    public int getHearts() {
+    public static int getHearts() {
         return hearts;
     }
     //endregion
 
     //region methods
-    public boolean buy (int amnt) {
+    public static boolean buy (int amnt) {
         if(amnt > money)
             return false;
 
-
         money -= amnt;
+        needsToUpdate = true;
         return true;
     }
-    public void donateM (int amnt) {
+    public static void donateM (int amnt) {
         money += amnt;
+        needsToUpdate = true;
     }
 
-    public void takeHearts (int amnt) {
+    public static void takeHearts (int amnt) {
         hearts -= amnt;
+        needsToUpdate = true;
     }
-    public void donateH (int amnt) {
+    public static void donateH (int amnt) {
         hearts += amnt;
+        needsToUpdate = true;
+
     }
+
 
     public boolean isDead () {
         return hearts <= 0;
     }
     //endregion
 
-    public boolean hasChanedSinceLastCheck () {
-        boolean ans = prevHearts != hearts || prevMoney != money;
 
-        prevMoney = money;
-        prevHearts = hearts;
+    public static boolean needsToUpdate() { //NB: THIS CAN ONLY HAVE ONE USAGE.
+        boolean temp = needsToUpdate;
 
-        return ans;
+        if(temp) {
+            needsToUpdate = false;
+        }
+
+        return temp;
     }
-
-
-
 }

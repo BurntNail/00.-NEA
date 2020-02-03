@@ -4,7 +4,7 @@ import classes.util.Coordinate;
 
 public class TurretSquare extends Square{
 
-    public TurretSquare(String fn, Coordinate xY) {
+    public TurretSquare(Coordinate xY) {
         super("turret_base_big.png", xY);
     }
 }

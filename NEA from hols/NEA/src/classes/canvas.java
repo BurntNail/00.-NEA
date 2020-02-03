@@ -1,6 +1,7 @@
 package classes;
 
 import CfgReader.CfgReader;
+import Gameplay.turrets.turretFrame.Console;
 import classes.Entity.Entity;
 import classes.square.types.Square;
 import main.main;
@@ -41,7 +42,7 @@ public class canvas extends JComponent {
 
         BufferedImage vCanvas = new BufferedImage(
                 (getWidth() == 0 ? main.WINDOW_WIDTH : getWidth()),
-                (getHeight() == 0 ? main.REST_OF_FRAME_HEIGHT : getHeight()),
+                (getHeight() == 0 ? main.WINDOW_HEIGHT : getHeight()),
                 BufferedImage.TYPE_INT_ARGB);
 
         int xOnScrn = 0;
@@ -68,12 +69,20 @@ public class canvas extends JComponent {
 
         if(entities.size() != 0) {
             for (Entity entity : entities) {
-                Image img = entity.getImg();
+                try {
+                    Image img = entity.getImg();
 
-                int x = entity.getXYOnScrn().getX();
-                int y = entity.getXYOnScrn().getY();
+                    int x = entity.getXYOnScrn().getX();
+                    int y = entity.getXYOnScrn().getY();
 
-                vCanvas.getGraphics().drawImage(img, x, y, null);
+                    vCanvas.getGraphics().drawImage(img, x, y, null);
+                } catch (Exception e) {
+                    try {
+                        Console.addText("@Canvas: Entity Img Not Found at: " + entity.getFqdn());
+                    } catch (Exception ex) {
+                        Console.addText("@Canvas - Entity not found.");
+                    }
+                }
             }
         }
 

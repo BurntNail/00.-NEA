@@ -1,5 +1,6 @@
 package classes.turret;
 
+import Gameplay.turrets.turretFrame.Console;
 import classes.Entity.Entity;
 import classes.Entity.entityType;
 import classes.enemy.enemyActual;
@@ -37,11 +38,10 @@ public class turretActual extends Entity {
 
 
         Runnable r = () -> {
-            long current = 0;
             long msSinceLastShot = 0;
 
             while(true) {
-                current = System.currentTimeMillis();
+                long current = System.currentTimeMillis();
                 long diff = System.currentTimeMillis() - current + msSinceLastShot;
                 msSinceLastShot += diff;
 
@@ -61,6 +61,17 @@ public class turretActual extends Entity {
 
                 if(!nothingFired)
                     msSinceLastShot = 0;
+
+                for (Entity entity : shotsFired)
+                {
+                    bulletActual ba = ((bulletActual) entity);
+
+                    if(ba.isHit())
+                    {
+                        shotsFired.remove(entity);
+                        Console.addText("@Turret: Bullet removed.");
+                    }
+                }
             }
         };
 

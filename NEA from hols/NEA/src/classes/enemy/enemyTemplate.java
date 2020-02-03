@@ -56,4 +56,8 @@ public class enemyTemplate {
     public char getInitial() {
         return initial;
     }
+
+    public int getMoneyBack() {
+        return moneyBack;
+    }
 }

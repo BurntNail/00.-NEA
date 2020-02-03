@@ -1,5 +1,6 @@
 package classes.turret.bullet;
 
+import Gameplay.turrets.turretFrame.Console;
 import classes.Entity.Entity;
 import classes.Entity.entityType;
 import classes.enemy.enemyActual;
@@ -20,47 +21,71 @@ public class bulletActual extends Entity {
 
     public bulletActual(Coordinate XYInArr, String fn, enemyActual enemy, int dmg_, int spd_) {
         super(XYInArr.clone(), fn, entityType.bullet, new Coordinate(main.TILE_WIDTH / 2, main.TILE_HEIGHT / 2));
-//        super(XYInArr, fn, entityType.bullet, null);
+
         hit = false;
         enemyToHit = enemy;
         dmg = dmg_;
         spd = spd_;
+        Console.addText("@Bullet: Bullet Created");
 
         Runnable r = () -> {
-            long current;
+            long current = System.currentTimeMillis();
 
             while(!hit) {
-                current = System.currentTimeMillis();
+
 
                 if(getXYInArr().equals(enemyToHit.getXYInArr())){
-                    if(getXYInTile().distTo(enemyToHit.getXYInTile()) < 100)
+                    if(getXYInTile().distTo(enemyToHit.getXYInTile()) < main.BOUND)
                     {
                         enemyToHit.damage(dmg);
                         hit = true;
+                        Console.addText("@Bullet: Enemy Hit");
+                        return;
                     }
-                } //NTS: The enemies are just stopping
+                }
+
+                if(enemyToHit.isDead() || enemyToHit.hasHit())
+                {
+                    hit = true;
+                    Console.addText("@Bullet: Enemy dead or got past defence.");
+                    return;
+                }
 
 
-                distPerFrame = ((int) ((System.currentTimeMillis() - current / 1000) * spd));
+                distPerFrame = ((int) ((System.currentTimeMillis() - current / 1000) * spd)) / 10;
 
-                dir direction = getXYInArr().directionTo(enemyToHit.getXYInArr());
+                distPerFrame = (distPerFrame < 0 ? 1 : distPerFrame);
 
-                switch (direction) {
-                    case N:
-                        N(distPerFrame);
-                        break;
-                    case S:
-                        S(distPerFrame);
-                        break;
-                    case E:
-                        E(distPerFrame);
-                        break;
-                    case W:
-                        W(distPerFrame);
-                        break;
+                current = System.currentTimeMillis();
+
+                try {
+                    dir direction = getXYInArr().directionTo(enemyToHit.getXYInArr());
+
+                    int x = getXYOnScrn().getX();
+                    int y = getXYOnScrn().getY();
+
+                    switch (direction) {
+                        case N:
+                            y -= distPerFrame;
+                            break;
+                        case S:
+                            y += distPerFrame;
+                            break;
+                        case E:
+                            x -= distPerFrame;
+                            break;
+                        case W:
+                            x += distPerFrame;
+                            break;
+                    }
+
+                    changeXYOnScrn(x, y);
+                } catch (Exception e) {
+                    Console.addText("@Bullet: ERROR " + e.getStackTrace());
                 }
             }
 
+            Console.addText("@Bullet: No Longer Needed");
 
         };
 

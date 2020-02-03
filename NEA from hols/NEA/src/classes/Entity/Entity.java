@@ -8,12 +8,14 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.net.URL;
+import java.net.URLConnection;
 
 public abstract class Entity {
 
     private BufferedImage img;
     private Coordinate XYInArr, XYInTile;
     private entityType type;
+    private String fqdn;
 
     public Entity(Coordinate XYInArr, String fn, entityType type, Coordinate XYInTile) {
         this.XYInArr = XYInArr;
@@ -21,7 +23,7 @@ public abstract class Entity {
         this.type = type;
 
 
-        String fqdn = "";
+        fqdn = "";
 
         switch (type) {
             case enemy:
@@ -40,15 +42,16 @@ public abstract class Entity {
 
         try {
             URL url = new URL(fqdn);
+            URLConnection connor = url.openConnection();
 
             temp = ImageIO.read(url);
         } catch (Exception e) {
             temp = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
         }
 
-        Coordinate wh = getWHOnType(type); //wh == width and height
-        temp = temp.getScaledInstance(wh.getX(), wh.getY(), Image.SCALE_SMOOTH);
-        img = new BufferedImage(temp.getWidth(null), temp.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+        Dimension wh = getWHOnType(type); //wh == width and height
+        temp = temp.getScaledInstance(wh.width, wh.height, Image.SCALE_SMOOTH);
+        img = new BufferedImage(wh.width, wh.height, BufferedImage.TYPE_INT_ARGB);
         img.getGraphics().drawImage(temp, 0, 0, null);
     }
 
@@ -88,26 +91,74 @@ public abstract class Entity {
         return new Coordinate(x, y);
     }
 
-    public void changeTile (Coordinate newOne) {
-        XYInArr = newOne;
-    }
+    protected void changeXYOnScrn (int x, int y) {
+        int smallX = x % main.TILE_WIDTH;
+        int smallY = y % main.TILE_HEIGHT;
 
-    public void changePosInTile (Coordinate newOne) {
-        XYInTile = newOne;
+        int bigX = (x - smallX) / main.TILE_WIDTH;
+        int bigY = (y - smallY) / main.TILE_HEIGHT;
+
+        //region x
+        //region small
+        if(smallX < 0)
+            smallX = 0;
+        if(smallX > main.TILE_HEIGHT)
+        {
+            bigX++;
+            smallX = 0;
+        }
+        //endregion
+        //region big
+        if(bigX < 0)
+            bigX = 0;
+        if(bigX > main.NUM_OF_TILES_WIDTH)
+        {
+            bigX = main.NUM_OF_TILES_WIDTH - 1;
+        }
+        //endregion
+        //endregion
+        //region y
+        //region small
+        if(smallY < 0)
+            smallY = 0;
+        if(smallY > main.TILE_WIDTH)
+        {
+            bigY++;
+            smallY = 0;
+        }
+        //endregion
+        //region big
+        if(bigY < 0)
+            bigY = 0;
+        if(bigY > main.NUM_OF_TILES_HEIGHT)
+        {
+            bigY = main.NUM_OF_TILES_HEIGHT - 1;
+        }
+        //endregion
+        //endregion
+
+
+        XYInArr = new Coordinate(bigX, bigY);
+        XYInTile = new Coordinate(smallX, smallY);
     }
     //endregion
 
-    private static Coordinate getWHOnType (entityType type) {
+    private static Dimension getWHOnType (entityType type) {
         switch (type) {
             case enemy:
-                return new Coordinate(main.ENEMY_WIDTH, main.ENEMY_HEIGHT); //No break statement needed as it becomes an unreachable statement
+                return new Dimension(main.ENEMY_WIDTH, main.ENEMY_HEIGHT); //No break statement needed as it becomes an unreachable statement
             case bullet:
-                return new Coordinate(main.BULLET_WIDTH, main.BULLET_HEIGHT);
+                return new Dimension(main.BULLET_WIDTH, main.BULLET_HEIGHT);
             default:
-                return new Coordinate(main.TURRET_WIDTH, main.TURRET_HEIGHT);
+                return new Dimension(main.TURRET_WIDTH, main.TURRET_HEIGHT);
         }
     }
 
+    public String getFqdn() {
+        return fqdn;
+    }
+
+    //region move
     protected void N (int dst) {
         XYInTile.setY(XYInTile.getY() - dst);
 
@@ -165,4 +216,5 @@ public abstract class Entity {
             }
         }
     }
+    //endregion
 }
