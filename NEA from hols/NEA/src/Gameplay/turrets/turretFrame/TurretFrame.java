@@ -34,12 +34,11 @@ public class TurretFrame {
 
     private Icon messageIcn;
 
-    private Thread pmThread;
 
     private ArrayList<Entity> turretActuals;
 
-    public TurretFrame(ArrayList<Coordinate> usedSquares, ArrayList<Coordinate> freeSquares, Dimension size, Collection<turretTemplate> templates_collection) {
-        Console c = new Console("CONSOLE"); // Placed at top to ensue fast creation
+    public TurretFrame(ArrayList<Coordinate> usedSquares, ArrayList<Coordinate> freeSquares, Dimension size, Collection<turretTemplate> templates_collection, PlayerManager pm) {
+        Console c = new Console("");
 
         currentIndex = 0;
         try {
@@ -107,7 +106,7 @@ public class TurretFrame {
 
 
                     mostRecent = Coordinate.parseFromTS(resInStr);
-                    mostRecentType = sBtn.getText().substring(4); //TODO: Add selling capability
+                    mostRecentType = sBtn.getText().substring(4);
                 }
             });
         }
@@ -144,33 +143,40 @@ public class TurretFrame {
                     sellableTowers.add(fin);
                 }
 
-                Object location = JOptionPane.showInputDialog(panel, "Please enter a location", "Which Tower would you like to sell. Resale values and coordinates listed.", JOptionPane.QUESTION_MESSAGE, messageIcn, ((Object[]) sellableTowers.toArray()), 0);
+                Object location = JOptionPane.showInputDialog(panel, "Which Tower would you like to sell. Resale values and coordinates listed.", "Please enter a location", JOptionPane.QUESTION_MESSAGE, messageIcn, ((Object[]) sellableTowers.toArray()), 0);
+
+                if(location == null)
+                    return;
+                else if (turretActuals.size() == 0)
+                {
+                    JOptionPane.showMessageDialog(panel, "No TURRETS LEFT.", "Unfortunately, if there are no turrets to sell, you cannot sell a turret." ,JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
                 String strVersion = location.toString();
 
-                //region getting turret
-                int endTSIndex = strVersion.indexOf(']');
 
-                String indexStr = strVersion.substring(endTSIndex + 4);
-                int index = Integer.parseInt(indexStr);
-
-                turretActual turretToSell = turretsThatGoWith.get(index);
-                //endregion
 
                 //region getting coord
                 int endCoordIndex = strVersion.indexOf(']');
-                Coordinate coordThatGoesWith = Coordinate.parseFromTS(strVersion.substring(0, endCoordIndex));
+                Coordinate coordThatGoesWith = Coordinate.parseFromTS(strVersion.substring(0, endCoordIndex + 1));
+                //endregion
+
+                //region getting turret
+                int index = usedSquares.indexOf(coordThatGoesWith);
+                turretActual turretToSell = (turretActual) turretActuals.get(index);
                 //endregion
 
                 usedSquares.remove(coordThatGoesWith);
                 freeSquares.add(coordThatGoesWith);
                 turretActuals.remove(turretToSell);
 
-                PlayerManager.donateM(turretToSell.getTurret().getSellValue());
+                pm.donateM(turretToSell.getTurret().getSellValue());
 
             }
         });
 
-        JTextArea label = new JTextArea(getLabel());
+        JTextArea label = new JTextArea(getLabel(pm));
         label.setEditable(false);
 
         consolePanel = new JPanel();
@@ -188,28 +194,21 @@ public class TurretFrame {
         window.pack();
         window.setVisible(true);
 
-//        pm.addBooleanChangeListener(e -> {
-//            label.setText(getLabel(pm));
-//            window.pack();
-//        });
-        // Discarded boolActionListener because it didn't work with threads
+        pm.addBooleanChangeListener(e -> {
+            label.setText(getLabel(pm));
+            window.pack();
 
-
-        Runnable r = () -> {
-            while(true) {
-                if(PlayerManager.needsToUpdate()) {
-                    label.setText(getLabel());
-                    window.pack();
-                }
+            if(pm.isDead()) {
+                for(JButton btn : btns)
+                    btn.setEnabled(false);
+                sellBtn.setEnabled(false);
             }
-        };
+        });
 
-        pmThread = new Thread(r);
-        pmThread.start();
     }
 
-    private static String getLabel () {
-        return "Money: " + PlayerManager.getMoney() + "\nHearts remaining: " + PlayerManager.getHearts();
+    private static String getLabel(PlayerManager pm) {
+        return "Money: " + pm.getMoney() + "\nHearts remaining: " + pm.getHearts();
     }
 
     public Coordinate getMostRecent() {
@@ -226,7 +225,10 @@ public class TurretFrame {
     }
 
     public void setTurrets (ArrayList<Entity> turrets) {
-        turretActuals = turrets;
+        turretActuals = ((ArrayList<Entity>) turrets.clone());
+    }
+    public ArrayList<Entity> getTurretActuals () {
+        return turretActuals;
     }
 
     public int getCurrentIndex() {

@@ -37,27 +37,33 @@ public class sqaureParser {
 
             Coordinate ici = new Coordinate(x, y);
 
-            switch (fn) {
-                case "general_big.png":
-                    newBoi = new pathSquare(ici);
-                    break;
-                case "happy_big.png":
-                    newBoi = new homeBase(ici);
-                    home = ici;
-                    break;
-                case "satan_big.png":
-                    newBoi = new enemyStartSquare(ici);
-                    satan = ici;
-                    break;
-                case "turret_base_big.png":
-                    newBoi = new TurretSquare(ici);
-                    break;
-                case "nothing_big.png":
-                    newBoi = new nothingSquare(ici);
-                    break;
-                default:
-                    newBoi = new cornerSquare(fn, ici);
-                    break;
+            try {
+                switch (fn) {
+                    case "general_big.png":
+                        newBoi = new pathSquare(ici);
+                        break;
+                    case "happy_big.png":
+                        newBoi = new homeBase(ici);
+                        home = ici;
+                        break;
+                    case "satan_big.png":
+                        newBoi = new enemyStartSquare(ici);
+                        satan = ici;
+                        break;
+                    case "turret_base_big.png":
+                        newBoi = new TurretSquare(ici);
+                        break;
+                    case "nothing_big.png":
+                        newBoi = new nothingSquare(ici);
+                        break;
+                    default:
+                        newBoi = new cornerSquare(fn, ici);
+                        break;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+
+                newBoi = new nothingSquare(ici);
             }
 
             squares[x][y] = newBoi;

@@ -36,7 +36,7 @@ public class TurretManager {
     private Thread runThread;
 
 
-    public TurretManager (squareCollection sqc_) {
+    public TurretManager(squareCollection sqc_, PlayerManager pm) {
         sqc = sqc_;
 
         turrets = new ArrayList<>();
@@ -46,7 +46,7 @@ public class TurretManager {
         turretSquaresFree = (ArrayList<Coordinate>) turretSquaresAll.clone();
         turretSquaresUsed = new ArrayList<>();
 
-        tf = new TurretFrame(turretSquaresUsed, turretSquaresFree, new Dimension(main.WINDOW_WIDTH, main.WINDOW_HEIGHT), dictionary.getTurrets().values());
+        tf = new TurretFrame(turretSquaresUsed, turretSquaresFree, new Dimension(main.WINDOW_WIDTH, main.WINDOW_HEIGHT), dictionary.getTurrets().values(), pm);
         prevClickedCoordinate = TurretFrame.NULL_COORD;
         coordBefore = TurretFrame.NULL_COORD;
         prevClickedType = TurretFrame.NULL_STR;
@@ -56,9 +56,14 @@ public class TurretManager {
         enemies = new ArrayList<>();
 
         Runnable r = () -> {
-            while(true) {
+            while(!pm.isDead()) {
+                main.quickCoord(turretSquaresUsed);
+                main.quickEntity(turrets);
+
                 prevClickedCoordinate = tf.getMostRecent();
                 prevClickedType = tf.getMostRecentType();
+
+                turrets = tf.getTurretActuals();
 
                 if (prevClickedCoordinate != TurretFrame.NULL_COORD && prevClickedCoordinate != coordBefore && !turretSquaresUsed.contains(prevClickedCoordinate)) {
                     turretSquaresUsed.add(prevClickedCoordinate);
@@ -68,10 +73,10 @@ public class TurretManager {
                     Console.addText("@TurretManager: " + type + " has been bought.");
 
 
-                    turretActual temp = new turretActual(prevClickedCoordinate, dictionary.getTurret(type), tf.getCurrentIndex());
+                    turretActual temp = new turretActual(prevClickedCoordinate, dictionary.getTurret(type), tf.getCurrentIndex(), pm);
                     tf.incrementIndex();
 
-                    if(PlayerManager.buy(temp.getTurret().getCost()))
+                    if(pm.buy(temp.getTurret().getCost()))
                     {
                         turrets.add(temp);
                         coordBefore = prevClickedCoordinate;

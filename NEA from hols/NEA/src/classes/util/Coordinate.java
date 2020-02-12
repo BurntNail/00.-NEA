@@ -4,7 +4,7 @@ import Gameplay.turrets.turretFrame.TurretFrame;
 
 import java.util.StringJoiner;
 
-public class Coordinate {
+public class Coordinate implements Comparable<Coordinate> {
 
     private int x, y;
 
@@ -86,19 +86,23 @@ public class Coordinate {
     }
 
     public static Coordinate parseFromTS (String tbp) {
-        if(tbp.length() <= 5 || tbp == null)
+        try {
+            if(tbp.length() <= 5 || tbp == null || tbp == "")
+                return TurretFrame.NULL_COORD;
+
+            int xIndexStart = tbp.indexOf('x') + 2;
+            int xIndexEnd = tbp.indexOf('y') - 2;
+
+            int yIndexStart = tbp.indexOf('y') + 2;
+            int yIndexEnd = tbp.length() - 1;
+
+            int x = Integer.parseInt(tbp.substring(xIndexStart, xIndexEnd));
+            int y = Integer.parseInt(tbp.substring(yIndexStart, yIndexEnd));
+
+            return new Coordinate(x, y);
+        } catch (NumberFormatException e) {
             return TurretFrame.NULL_COORD;
-
-        int xIndexStart = tbp.indexOf('x') + 2;
-        int xIndexEnd = tbp.indexOf('y') - 2;
-
-        int yIndexStart = tbp.indexOf('y') + 2;
-        int yIndexEnd = tbp.length() - 1;
-
-        int x = Integer.parseInt(tbp.substring(xIndexStart, xIndexEnd));
-        int y = Integer.parseInt(tbp.substring(yIndexStart, yIndexEnd));
-
-        return new Coordinate(x, y);
+        }
     }
 
     @Override
@@ -114,18 +118,25 @@ public class Coordinate {
 
     }
 
-    public boolean isWithinBounds (int bound, Coordinate other, dir direction) { //We need to know direction, becuase otherwise enemies may get locked in a cycle of back and forth to get closer
-        switch (direction) {
-            case N:
-                return y > other.y || other.y - y <= bound;
-            case S:
-                return y < other.y || other.y - y >= bound;
-            case W:
-                return x > other.x || other.x - x <= bound;
-            case E:
-                return x < other.x || other.x - x >= bound;
-        }
+    public boolean isWithinBounds (int bound, Coordinate other) { //We need to know direction, becuase otherwise enemies may get locked in a cycle of back and forth to get closer
+        int avCoord = other.x + other.y;
+        avCoord /= 2;
 
-        return false;
+        return avCoord <= bound;
+    }
+
+    private double getAvCoord () {
+        return (x + y) / 2;
+    }
+
+    @Override
+    public int compareTo(Coordinate o) {
+        if(x == o.x)
+            return Integer.compare(x, o.x);
+        else if (y == o.y)
+            return Integer.compare(y, o.y);
+        else
+            return Double.compare(getAvCoord(), o.getAvCoord());
+
     }
 }

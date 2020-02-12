@@ -10,8 +10,6 @@ import main.main;
 
 public class bulletActual extends Entity {
 
-    private int distPerFrame = 0; //Travels a fifteenth of a tile per frame, or 2 tiles per second, assuming 30 fps
-
     private boolean hit;
     private enemyActual enemyToHit;
     private int dmg;
@@ -19,8 +17,9 @@ public class bulletActual extends Entity {
 
     private Thread runThread;
 
-    public bulletActual(Coordinate XYInArr, String fn, enemyActual enemy, int dmg_, int spd_) {
-        super(XYInArr.clone(), fn, entityType.bullet, new Coordinate(main.TILE_WIDTH / 2, main.TILE_HEIGHT / 2));
+    public bulletActual(Coordinate XYInArr, String fn, enemyActual enemy, int dmg_, int spd_, int range) {
+        super(XYInArr, fn, entityType.bullet, new Coordinate(main.TILE_WIDTH / 2, main.TILE_HEIGHT / 2));
+        System.out.println("BULLET CREATED: " + hashCode());
 
         hit = false;
         enemyToHit = enemy;
@@ -29,10 +28,8 @@ public class bulletActual extends Entity {
         Console.addText("@Bullet: Bullet Created");
 
         Runnable r = () -> {
-            long current = System.currentTimeMillis();
 
             while(!hit) {
-
 
                 if(getXYInArr().equals(enemyToHit.getXYInArr())){
                     if(getXYInTile().distTo(enemyToHit.getXYInTile()) < main.BOUND)
@@ -51,35 +48,38 @@ public class bulletActual extends Entity {
                     return;
                 }
 
+                if(getXYInArr().distTo(enemyToHit.getXYInArr()) > range + 1)
+                {
+                    hit = true;
+                    Console.addText("@Bullet: Enemy left range.");
+                    return;
+                }
 
-                distPerFrame = ((int) ((System.currentTimeMillis() - current / 1000) * spd)) / 10;
 
-                distPerFrame = (distPerFrame < 0 ? 1 : distPerFrame);
+                int av = (main.TILE_WIDTH + main.TILE_HEIGHT) / 2;
 
-                current = System.currentTimeMillis();
+                int fudgeFactor = 10;
+
+                int distInPx = ((spd * av) / 200) / fudgeFactor;
+
 
                 try {
                     dir direction = getXYInArr().directionTo(enemyToHit.getXYInArr());
 
-                    int x = getXYOnScrn().getX();
-                    int y = getXYOnScrn().getY();
-
                     switch (direction) {
                         case N:
-                            y -= distPerFrame;
+                            changeY(-distInPx);
                             break;
                         case S:
-                            y += distPerFrame;
+                            changeY(distInPx);
                             break;
                         case E:
-                            x -= distPerFrame;
+                            changeX(-distInPx);
                             break;
                         case W:
-                            x += distPerFrame;
+                            changeX(distInPx);
                             break;
                     }
-
-                    changeXYOnScrn(x, y);
                 } catch (Exception e) {
                     Console.addText("@Bullet: ERROR " + e.getStackTrace());
                 }

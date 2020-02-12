@@ -10,8 +10,9 @@ public class Console extends JTextArea {
     private Thread updateThread;
 
     public Console(String text) {
-        super(text + "\n");
+        super((txtFull == null ? "" : txtFull) + text + "\n");
         setEditable(false);
+
 
         txtFull = text + "\n";
 
@@ -28,10 +29,12 @@ public class Console extends JTextArea {
 
         updateThread = new Thread(r);
         updateThread.start();
+        addText("@Console: I have been created.");
     }
 
     public static void addText (String msg) {
         txtFull += msg + "\n";
+//        System.out.println("@Console: " + msg);
         needsToUpdate = true;
     }
 }

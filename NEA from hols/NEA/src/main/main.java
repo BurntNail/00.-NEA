@@ -3,11 +3,14 @@ package main;
 import CfgReader.CfgReader;
 import Gameplay.player.PlayerManager;
 import Gameplay.turrets.TurretManager;
+import Gameplay.turrets.turretFrame.Console;
 import Gameplay.waves.waveManager;
 import classes.Entity.Entity;
 import classes.canvas;
+import classes.saver.PlayerData;
 import classes.square.sqaureParser;
 import classes.square.squareCollection;
+import classes.util.Coordinate;
 
 import javax.sound.sampled.*;
 import javax.swing.*;
@@ -15,13 +18,12 @@ import java.awt.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class main {
 
-    //TODO: Go onto the git and add more data
-
-    //For ease of file locations and packages, I have uploaded all images to a public github repo, the URL of which can be found as BASE_LOCATION on line 10.
+    //For ease of file locations and packages, I have uploaded all images to a public github repo, the URL of which can be found as BASE_LOCATION on line 28.
 
     //region URL locations
     private static final String BASE_LOCATION = "https://raw.githubusercontent.com/Epacnoss/NEAAssets/master/Actual/";
@@ -96,26 +98,32 @@ public class main {
     //endregion
 
     public static void lvl1() {
+
         int money = Integer.parseInt(level.get("playerGets", "money").toString());
         int hearts = Integer.parseInt(level.get("playerGets", "hp").toString());
 
-        PlayerManager pm = new PlayerManager(money, hearts); //We need to have an instance to reference, even if it is never used
-        squareCollection sqc = new squareCollection(new sqaureParser(new CfgReader(main.MAPS_LOC + "stg1.cfg")));
-
         //region main window
-        canvas c = new canvas(CURRENT_LEVEL);
+
+
+
 
         JFrame window = new JFrame("Apex Turrets");
-
         window.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         window.setPreferredSize(size);
+
+        PlayerManager pm = new PlayerManager(money, hearts, window);
+        squareCollection sqc = new squareCollection(new sqaureParser(new CfgReader(main.MAPS_LOC + "stg1.cfg")));
+
+        waveManager waves = new waveManager("lvl1.cfg", sqc, pm);
+        TurretManager tm = new TurretManager(sqc, pm);
+
+        canvas c = new canvas(CURRENT_LEVEL, pm, waves);
+
+
         window.add(c);
         window.pack();
         window.setVisible(true);
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
-        waveManager waves = new waveManager("lvl1.cfg", sqc);
-        TurretManager tm = new TurretManager(sqc);
 
         Dimension newSize = new Dimension(main.TILE_WIDTH * main.NUM_OF_TILES_WIDTH, main.TILE_HEIGHT * main.NUM_OF_TILES_HEIGHT);
         window.setSize(newSize);
@@ -132,19 +140,18 @@ public class main {
                 c.paint(c.getGraphics());
 
                 while(!c.hasFinishedRendering()) {
-                    System.out.print("RENDERING");
+//                    System.out.print("RENDERING");
                 }
-                System.out.println();
 
                 if (System.currentTimeMillis() - current > delay) {
+//                    System.out.println();
 
-
-                    ArrayList<Entity> enemyActuals = waves.getEntites();
-                    ArrayList<Entity> turretActuals = tm.setEnemiesAndGetTurretsAndBullets(enemyActuals);
+                    ArrayList<Entity> enemyActuals = ((ArrayList<Entity>) waves.getEntites().clone());
+                    ArrayList<Entity> turretActuals = ((ArrayList<Entity>) tm.setEnemiesAndGetTurretsAndBullets(enemyActuals).clone());
 
                     ArrayList<Entity> finalEnties = new ArrayList<>();
-                    finalEnties.addAll(enemyActuals);
                     finalEnties.addAll(turretActuals);
+                    finalEnties.addAll(enemyActuals);
 
                     c.setEntities(finalEnties);
 
@@ -157,17 +164,14 @@ public class main {
     }
 
     public static void main(String[] args) {
+        Console c = new Console("CONSOLE:");
+        long current = System.currentTimeMillis();
+        c.addText("@Main: Console Created.");
         lvl1();
+        c.addText("@Main: Level Created, at t=" + TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - current) + "s.");
     }
 
     static {
-        Dimension wholeScreenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        WINDOW_WIDTH = wholeScreenSize.width / 2;
-        WINDOW_HEIGHT = wholeScreenSize.height;
-
-        size = new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT);
-
-
 
         stage = new CfgReader(MAPS_LOC + "stg" + CURRENT_LEVEL + ".cfg");
         level = new CfgReader(WAVES_LOC + "lvl" + CURRENT_LEVEL + ".cfg");
@@ -175,20 +179,47 @@ public class main {
         NUM_OF_TILES_WIDTH = Integer.parseInt(stage.get("mapDeets", "rows").toString());
         NUM_OF_TILES_HEIGHT = Integer.parseInt(stage.get("mapDeets", "cols").toString());
 
-        TILE_WIDTH = WINDOW_WIDTH / NUM_OF_TILES_WIDTH;
-        TILE_HEIGHT = WINDOW_HEIGHT / NUM_OF_TILES_HEIGHT;
+
+        Dimension wholeScreenSize = Toolkit.getDefaultToolkit().getScreenSize();
+
+        int wTemp = wholeScreenSize.width / 2;
+        int hTemp = wholeScreenSize.height;
+
+        //region accoutning for menu bars in Mac
+
+//        String SysType = System.getProperty("os.name");
+//        int windowHeightMod = 0;
+//
+//        switch (SysType) {
+//            case "Mac OS X":
+//                windowHeightMod = -100;
+//                break;
+//        }
+//
+//        hTemp += windowHeightMod;
+
+        //endregion
+
+        WINDOW_WIDTH = wTemp - (wTemp % NUM_OF_TILES_WIDTH);
+        WINDOW_HEIGHT = hTemp - (hTemp % NUM_OF_TILES_WIDTH);
+
+
+        size = new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT);
+
+
+        TILE_WIDTH = Math.floorDiv(WINDOW_WIDTH, NUM_OF_TILES_WIDTH);
+        TILE_HEIGHT = Math.floorDiv(WINDOW_HEIGHT, NUM_OF_TILES_HEIGHT);
 
         BOUND = (TILE_WIDTH + TILE_HEIGHT) / 2;
-
 
         TURRET_WIDTH = TILE_WIDTH / 3 * 2;
         TURRET_HEIGHT = TILE_HEIGHT / 3 * 2;
 
-        BULLET_WIDTH = TURRET_WIDTH / 3;
-        BULLET_HEIGHT = TURRET_HEIGHT / 3;
+        BULLET_WIDTH = TURRET_WIDTH * 2 / 3;
+        BULLET_HEIGHT = TURRET_HEIGHT * 2 / 3;
 
         ENEMY_WIDTH = TILE_WIDTH * 3 / 2;
-        ENEMY_HEIGHT = TILE_HEIGHT;
+        ENEMY_HEIGHT = TILE_HEIGHT * 3 / 2;
 
         TURRET_X_ON_TILE = (TILE_WIDTH - TURRET_WIDTH) / 2;
         TURRET_Y_ON_TILE = (TILE_HEIGHT - TURRET_HEIGHT) / 2;
@@ -208,7 +239,7 @@ public class main {
                 c.open(AIS);
 
                 c.addLineListener(event -> {
-                    System.out.println(fn + " has been played...");
+//                    System.out.println(fn + " has been played...");
                     long frames = AIS.getFrameLength();
                     double l = (frames+0.0) / AIS.getFormat().getFrameRate();
 
@@ -235,4 +266,136 @@ public class main {
 
         //endregion
     }
+
+    //region sorters
+    public static List<Coordinate> quickCoord (List<Coordinate> list)
+    {
+        if(list.size() > 1)
+        {
+
+            Coordinate pivot = list.get(list.size() / 2);
+            List<Coordinate> less, more, equal;
+            less = new ArrayList<>();
+            more = new ArrayList<>();
+            equal = new ArrayList<>();
+
+            for(Coordinate x : list)
+            {
+                if(x.compareTo(pivot) < 0)
+                    less.add(x);
+                else if (x.compareTo(pivot) == 0)
+                    equal.add(x);
+                else
+                    more.add(x);
+
+            }
+
+            less = quickCoord(less);
+            more = quickCoord(more);
+            list.clear();
+
+            list.addAll(less);
+            list.addAll(equal);
+            list.addAll(more);
+        }
+
+        return list;
+    }
+
+    public static List<? extends Entity> quickEntity (List<Entity> list)
+    {
+        if(list.size() > 1)
+        {
+
+            Entity pivot = list.get(list.size() / 2);
+            List<Entity> less, more, equal;
+            less = new ArrayList<>();
+            more = new ArrayList<>();
+            equal = new ArrayList<>();
+
+            for(Entity x : list)
+            {
+                if(x.compareTo(pivot) < 0)
+                    less.add(x);
+                else if (x.compareTo(pivot) == 0)
+                    equal.add(x);
+                else
+                    more.add(x);
+
+            }
+
+            less = (List<Entity>) quickEntity(less);
+            more = (List<Entity>) quickEntity(more);
+            list.clear();
+
+            list.addAll(less);
+            list.addAll(equal);
+            list.addAll(more);
+        }
+
+        return list;
+    }
+
+    public static PlayerData[] quickPlayerData (PlayerData[] list)
+    {
+        if(list.length > 1)
+        {
+
+            PlayerData pivot = list[list.length / 2];
+            PlayerData[] less, more, equal;
+            less = new PlayerData[list.length];
+            more = new PlayerData[list.length];
+            equal = new PlayerData[list.length];
+
+            int lessIndex = 0;
+            int moreIndex = 0;
+            int equalIndex = 0;
+
+            for(PlayerData x : list)
+            {
+                if(x.compareTo(pivot) < 0)
+                {
+                    less[lessIndex] = x;
+                    lessIndex++;
+                }
+                else if (x.compareTo(pivot) == 0)
+                {
+                    equal[equalIndex] = x;
+                    equalIndex++;
+                }
+                else
+                {
+                    more[moreIndex] = x;
+                    moreIndex++;
+                }
+
+            }
+
+            less = quickPlayerData(less);
+            more = quickPlayerData(more);
+
+            list = new PlayerData[list.length];
+
+            int index = 0;
+
+            for(PlayerData p : less)
+            {
+                list[index] = p;
+                index++;
+            }
+            for(PlayerData p : equal)
+            {
+                list[index] = p;
+                index++;
+            }
+            for(PlayerData p : more)
+            {
+                list[index] = p;
+                index++;
+            }
+        }
+
+        return list;
+    }
+    //endregion
 }

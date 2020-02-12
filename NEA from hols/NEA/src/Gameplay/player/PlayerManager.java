@@ -1,58 +1,62 @@
 package Gameplay.player;
 
-import Gameplay.turrets.turretFrame.Console;
 import classes.CustomActionListeners.*;
 
+import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class PlayerManager {
+public class PlayerManager implements BooleanChangeDispatcher, KeyListener {
 
-    private static int money;
-    private static int hearts;
+    private int money;
+    private int hearts;
 
-    private static boolean needsToUpdate;
+    private List<BooleanChangeListener> listeners;
 
-    public PlayerManager(int money, int hearts) {
+    public PlayerManager(int money, int hearts, JFrame win) {
         this.money = money;
         this.hearts = hearts;
-        needsToUpdate = true;
+
+        listeners = new ArrayList<>();
+
+        win.addKeyListener(this);
     }
 
     //region Getters
-    public static int getMoney() {
+    public int getMoney() {
         return money;
     }
 
-    public static int getHearts() {
+    public int getHearts() {
         return hearts;
     }
     //endregion
 
     //region methods
-    public static boolean buy (int amnt) {
+    public boolean buy (int amnt) {
         if(amnt > money)
             return false;
 
         money -= amnt;
-        needsToUpdate = true;
+        dispatchEvent();
         return true;
     }
-    public static void donateM (int amnt) {
+    public void donateM (int amnt) {
         money += amnt;
-        needsToUpdate = true;
+        dispatchEvent();
     }
 
-    public static void takeHearts (int amnt) {
+    public void takeHearts (int amnt) {
         hearts -= amnt;
-        needsToUpdate = true;
+        dispatchEvent();
     }
-    public static void donateH (int amnt) {
+    public void donateH (int amnt) {
         hearts += amnt;
-        needsToUpdate = true;
-
+        dispatchEvent();
     }
 
 
@@ -61,14 +65,53 @@ public class PlayerManager {
     }
     //endregion
 
+    @Override
+    public void addBooleanChangeListener(BooleanChangeListener listener) {
+        listeners.add(listener);
+    }
 
-    public static boolean needsToUpdate() { //NB: THIS CAN ONLY HAVE ONE USAGE.
-        boolean temp = needsToUpdate;
-
-        if(temp) {
-            needsToUpdate = false;
+    private void dispatchEvent() {
+        final BooleanChangeEvent event = new BooleanChangeEvent(this);
+        for (BooleanChangeListener l : listeners) {
+            dispatchRunnableOnEventQueue(l, event);
         }
+    }
 
-        return temp;
+    private void dispatchRunnableOnEventQueue(final BooleanChangeListener listener, final BooleanChangeEvent event) {
+        EventQueue.invokeLater(() -> listener.stateChanged(event));
+    }
+
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_D: //down
+                hearts--;
+                dispatchEvent();
+                break;
+            case KeyEvent.VK_U: //up
+                hearts++;
+                dispatchEvent();
+                break;
+            case KeyEvent.VK_R: //Rich
+                money += 100;
+                dispatchEvent();
+                break;
+            case KeyEvent.VK_P: //Poor
+                money -= 100;
+                dispatchEvent();
+                break;
+
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
     }
 }

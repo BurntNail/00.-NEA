@@ -7,6 +7,7 @@ import classes.enemy.enemyActual;
 import classes.enemy.enemyDictionary;
 import classes.enemy.enemyTemplate;
 import classes.square.squareCollection;
+import classes.turret.turretActual;
 import main.main;
 
 import java.util.ArrayList;
@@ -25,6 +26,8 @@ public class waveManager {
     private long msSinceLastEnemy;
     private long msSinceLastWave;
 
+    private int enemiesSpawned;
+
     private long enemyDist;
     private long waveDist;
 
@@ -34,13 +37,14 @@ public class waveManager {
     private Thread runThread;
 
 
-    public waveManager(String fnOfWave, squareCollection sqc_) {
+    public waveManager(String fnOfWave, squareCollection sqc_, PlayerManager pm) {
         reader = new CfgReader(main.WAVES_LOC + fnOfWave);
         waves = WaveParser.enemiesBetweenGaps(reader);
         enemyActuals = new ArrayList<>();
 
         msSinceLastEnemy = 0;
         msSinceLastWave = 0;
+        enemiesSpawned = 0;
         enemyDist = (Integer.parseInt(reader.get("enemyGaps", "enemyGap").toString())) * 1000;
         waveDist = (Integer.parseInt(reader.get("enemyGaps", "waveGap").toString())) * 1000;
 
@@ -75,6 +79,14 @@ public class waveManager {
 
             @Override
             public void run() {
+                Thread checkThread = new Thread(() -> {
+                    while(true) {
+                        check(enemyActuals, pm);
+                    }
+                });
+                checkThread.start();
+
+
                 now = System.currentTimeMillis();
 
                 int co = 0;
@@ -99,26 +111,20 @@ public class waveManager {
                         }
 
                         enemyTemplate eT = enemyDictionary.getEnemy(c);
-                        enemyActual eA = new enemyActual(eT, sqc.clone(), co);
-
-                        eA.addBooleanChangeListener(e -> {
-                            enemyActuals.remove(eA);
-
-                            boolean isDead = eA.isDead();
-                            if(!isDead)
-                                PlayerManager.takeHearts(eA.getTemplate().getHeartsCost());
-                            else
-                            {
-                                int moneyGained = eA.getTemplate().getMoneyBack();
-                                PlayerManager.donateM(moneyGained);
-                            }
-
-                        });
+                        enemyActual eA = new enemyActual(eT, sqc.clone(), co, pm);
 
                         eA.start();
 
+                        while(!eA.isHasBeenSpawned()) {
+                            //do nothing, wait
+                        }
+
                         enemyActuals.add(eA);
                         co++;
+                        enemiesSpawned++;
+
+                        if(pm.isDead())
+                            break;
                     }
 
                     then = System.currentTimeMillis();
@@ -132,5 +138,31 @@ public class waveManager {
 
     public ArrayList<Entity> getEntites () {
         return enemyActuals;
+    }
+
+    private static void check (ArrayList<Entity> enemyActuals, PlayerManager pm) {
+        for(Entity e : ((ArrayList<Entity>) enemyActuals.clone())) //Cloned to avoid ConcurrentModificationExceptions
+        {
+            enemyActual eA = ((enemyActual) e);
+            if(eA.isDone()) {
+                enemyActuals.remove(e);
+
+                boolean isDead = eA.isDead();
+                if(!isDead) {
+                    pm.takeHearts(eA.getTemplate().getHeartsCost());
+                    System.out.println("Tybalteth's victory was reported, and we no got him :-(");
+                }
+                else
+                {
+                    int moneyGained = eA.getTemplate().getMoneyBack();
+                    pm.donateM(moneyGained);
+                    System.out.println("Ladies and Gentlemen. We got him!");
+                }
+            }
+        }
+    }
+
+    public int getEnemiesSpawned() {
+        return enemiesSpawned;
     }
 }

@@ -1,21 +1,25 @@
 package classes.Entity;
 
 import Gameplay.turrets.turretFrame.TurretFrame;
+import classes.turret.turretActual;
 import classes.util.Coordinate;
 import main.main;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.net.URL;
 import java.net.URLConnection;
 
-public abstract class Entity {
+public abstract class Entity implements Comparable<Entity> {
 
     private BufferedImage img;
     private Coordinate XYInArr, XYInTile;
     private entityType type;
     private String fqdn;
+
+    private Image base;
 
     public Entity(Coordinate XYInArr, String fn, entityType type, Coordinate XYInTile) {
         this.XYInArr = XYInArr;
@@ -36,23 +40,18 @@ public abstract class Entity {
                 fqdn = main.TURRET_IMAGES_LOC + fn;
         }
 
-        Image temp;
-
-
-
         try {
             URL url = new URL(fqdn);
-            URLConnection connor = url.openConnection();
 
-            temp = ImageIO.read(url);
+            base = ImageIO.read(url);
         } catch (Exception e) {
-            temp = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
+            base = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
         }
 
         Dimension wh = getWHOnType(type); //wh == width and height
-        temp = temp.getScaledInstance(wh.width, wh.height, Image.SCALE_SMOOTH);
+        base = base.getScaledInstance(wh.width, wh.height, Image.SCALE_SMOOTH);
         img = new BufferedImage(wh.width, wh.height, BufferedImage.TYPE_INT_ARGB);
-        img.getGraphics().drawImage(temp, 0, 0, null);
+        img.getGraphics().drawImage(base, 0, 0, null);
     }
 
     //region getters and setters
@@ -100,8 +99,10 @@ public abstract class Entity {
 
         //region x
         //region small
-        if(smallX < 0)
+        if(smallX < 0) {
             smallX = 0;
+            bigX--;
+        }
         if(smallX > main.TILE_HEIGHT)
         {
             bigX++;
@@ -119,8 +120,10 @@ public abstract class Entity {
         //endregion
         //region y
         //region small
-        if(smallY < 0)
+        if(smallY < 0) {
             smallY = 0;
+            bigY--;
+        }
         if(smallY > main.TILE_WIDTH)
         {
             bigY++;
@@ -143,6 +146,72 @@ public abstract class Entity {
     }
     //endregion
 
+    protected void changeX (int dst) {
+        int newXInTile = getXYInTile().getX() + dst;
+        int newXInArr = getXYInArr().getX();
+
+        int oldYTile = getXYInTile().getY();
+        int oldYArr = getXYInArr().getY();
+
+        if(newXInTile < 0) {
+            newXInTile += main.TILE_WIDTH; // We can do this because if XInTile < 0, then by definition the dst is less than 0
+            newXInArr--;
+
+            if(newXInTile < 0)
+                newXInTile = 0;
+        }
+        else if (newXInTile > main.TILE_WIDTH)
+        {
+            newXInTile -= main.TILE_WIDTH;
+            newXInArr++;
+
+            if(newXInTile > main.TILE_WIDTH)
+                newXInTile = main.TILE_WIDTH;
+        }
+
+        if(newXInArr < 0)
+            newXInArr = 0;
+        else if (newXInArr >= main.NUM_OF_TILES_WIDTH)
+            newXInArr = main.NUM_OF_TILES_WIDTH - 1;
+
+        XYInArr = new Coordinate(newXInArr, oldYArr);
+        XYInTile = new Coordinate(newXInTile, oldYTile);
+
+//        System.out.println("I like to move it - move it " + (dst < 0 ? "<-" : "->"));
+    }
+
+    protected void changeY (int dst) {
+        int newYInTile = getXYInTile().getY() + dst;
+        int newYInArr = getXYInArr().getY();
+
+        int oldXTile = getXYInTile().getX();
+        int oldXArr = getXYInArr().getX();
+
+        if(newYInTile < 0) {
+            newYInTile += main.TILE_HEIGHT; // We can do this because if XInTile < 0, then by definition the dst is less than 0
+            newYInArr--;
+
+            if(newYInTile < 0)
+                newYInTile = main.TILE_HEIGHT;
+        }
+        else if (newYInTile >= main.TILE_HEIGHT)
+        {
+            newYInTile -= main.TILE_HEIGHT;
+            newYInArr++;
+
+            if(newYInTile > main.TILE_HEIGHT)
+                newYInTile = main.TILE_HEIGHT;
+        }
+
+        if(newYInArr < 0)
+            newYInArr = 0;
+        else if (newYInArr >= main.NUM_OF_TILES_HEIGHT)
+            newYInArr = main.NUM_OF_TILES_HEIGHT - 1;
+
+        XYInArr = new Coordinate(oldXArr, newYInArr);
+        XYInTile = new Coordinate(oldXTile, newYInTile);
+    }
+
     private static Dimension getWHOnType (entityType type) {
         switch (type) {
             case enemy:
@@ -158,63 +227,18 @@ public abstract class Entity {
         return fqdn;
     }
 
-    //region move
-    protected void N (int dst) {
-        XYInTile.setY(XYInTile.getY() - dst);
+    protected void resetImg () {
+        int w = img.getWidth();
+        int h = img.getHeight();
 
-        if(XYInTile.getY() < 0) {
-            if(XYInTile.getY() <= (main.TILE_HEIGHT * -1)){
-                XYInTile.setY(0);
-                XYInArr.setY(XYInArr.getY() - 2);
-            }else{
-                int y = (XYInTile.getY() - main.TILE_HEIGHT) * -1;
-                XYInTile.setY(y);
-                XYInArr.setY(XYInArr.getY() - 1);
-            }
-        }
-    }
-    protected void S (int dst) {
-        XYInTile.setY(XYInTile.getY() + dst);
 
-        if(XYInTile.getY() > main.TILE_HEIGHT) {
-            if(XYInTile.getY() >= (main.TILE_HEIGHT * 2)){
-                XYInTile.setY(main.TILE_HEIGHT);
-                XYInArr.setY(XYInArr.getY() + 2);
-            }else{
-                int y = (main.TILE_HEIGHT - XYInTile.getY());
-                XYInTile.setY(y);
-                XYInArr.setY(XYInArr.getY() + 1);
-            }
-        }
+        img = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+        img.getGraphics().drawImage(base, 0, 0, null);
     }
 
-    protected void W (int dst) {
-        XYInTile.setX(XYInTile.getX() - dst);
 
-        if(XYInTile.getX() < 0) {
-            if(XYInTile.getX() <= (main.TILE_WIDTH * -1)){
-                XYInTile.setX(0);
-                XYInArr.setX(XYInArr.getX() - 2);
-            }else{
-                int x = (XYInTile.getX() - main.TILE_WIDTH) * -1;
-                XYInTile.setX(x);
-                XYInArr.setX(XYInArr.getX() - 1);
-            }
-        }
+    @Override
+    public int compareTo(Entity o) {
+        return getXYOnScrn().compareTo(o.getXYOnScrn());
     }
-    protected void E (int dst) {
-        XYInTile.setX(XYInTile.getX() + dst);
-
-        if(XYInTile.getX() > main.TILE_WIDTH) {
-            if(XYInTile.getX() >= (main.TILE_WIDTH * 2)){
-                XYInTile.setX(main.TILE_WIDTH);
-                XYInArr.setX(XYInArr.getX() + 2);
-            }else{
-                int x = (main.TILE_WIDTH - XYInTile.getX());
-                XYInTile.setX(x);
-                XYInArr.setX(XYInArr.getX() + 1);
-            }
-        }
-    }
-    //endregion
 }
