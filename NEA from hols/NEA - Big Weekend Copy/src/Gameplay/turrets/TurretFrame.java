@@ -1,8 +1,8 @@
 package Gameplay.turrets;
 
 import Gameplay.player.PlayerManager;
-import classes.render.mustBeRendered.Entity.Entity;
-import classes.render.mustBeRendered.Entity.entityType;
+import classes.render.mustBeRendered.Entity.baseEntity.Entity;
+import classes.render.mustBeRendered.Entity.baseEntity.entityType;
 import classes.render.mustBeRendered.Entity.turret.turretActual;
 import classes.render.mustBeRendered.Entity.turret.turretTemplate;
 import classes.util.coordinate.Coordinate;

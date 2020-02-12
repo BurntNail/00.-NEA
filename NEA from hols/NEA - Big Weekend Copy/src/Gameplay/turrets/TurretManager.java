@@ -1,8 +1,8 @@
 package Gameplay.turrets;
 
 import Gameplay.player.PlayerManager;
-import classes.render.mustBeRendered.Entity.Entity;
-import classes.render.mustBeRendered.Entity.entityType;
+import classes.render.mustBeRendered.Entity.baseEntity.Entity;
+import classes.render.mustBeRendered.Entity.baseEntity.entityType;
 import classes.render.mustBeRendered.square.squareCollection;
 import classes.render.mustBeRendered.Entity.turret.*;
 import classes.util.coordinate.Coordinate;
@@ -108,16 +108,15 @@ public class TurretManager {
         if(!turretSquaresFree.contains(where))
             return;
 
+        turretActual temp = new turretActual(where, dictionary.getTurret(type), pm);
+
+        if(!pm.buy(temp.getTurret().getCost()))
+            return;
+
         turretSquaresUsed.add(where);
         turretSquaresFree.remove(where);
 
         System.out.println("@TurretManager: " + type + " has been bought.");
-
-
-        turretActual temp = new turretActual(where, dictionary.getTurret(type), tf.getCurrentIndex(), pm);
-
-        if(!pm.buy(temp.getTurret().getCost()))
-            return;
 
         tf.incrementIndex();
 

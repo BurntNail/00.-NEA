@@ -1,7 +1,7 @@
 package classes.render.mustBeRendered.Entity.turret.bullet;
 
-import classes.render.mustBeRendered.Entity.Entity;
-import classes.render.mustBeRendered.Entity.entityType;
+import classes.render.mustBeRendered.Entity.baseEntity.Entity;
+import classes.render.mustBeRendered.Entity.baseEntity.entityType;
 import classes.render.mustBeRendered.Entity.enemy.enemyActual;
 import classes.util.coordinate.Coordinate;
 import classes.util.coordinate.dir;
@@ -35,7 +35,7 @@ public class bulletActual extends Entity {
         Runnable r = () -> {
 
             int av = (main.TILE_WIDTH + main.TILE_HEIGHT) / 2;
-            int distInPx = ((spd * av) / 20) / 5;
+            int distInPx = (spd * av) / SPEED_DIVISOR;
 
             while(!hit && !dead) {
 

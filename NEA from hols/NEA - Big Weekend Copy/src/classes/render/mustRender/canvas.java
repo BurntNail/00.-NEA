@@ -3,7 +3,7 @@ package classes.render.mustRender;
 import classes.util.CfgReader.CfgReader;
 import Gameplay.player.PlayerManager;
 import Gameplay.waves.waveManager;
-import classes.render.mustBeRendered.Entity.Entity;
+import classes.render.mustBeRendered.Entity.baseEntity.Entity;
 import classes.render.mustBeRendered.Entity.enemy.enemyActual;
 import classes.render.mustBeRendered.square.Square;
 import main.main;
@@ -16,6 +16,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Predicate;
 
 public class canvas extends JComponent {
 
@@ -215,6 +216,13 @@ public class canvas extends JComponent {
             }
 
             ArrayList<Entity> temp = ((ArrayList<Entity>) entities.clone());
+            Predicate<Entity> nullPredicate = entity -> {
+                if (entity == null)
+                    return true;
+                return false;
+            };
+
+            temp.removeIf(nullPredicate);
 
             if(temp.size() != 0) {
                 for (Entity entity : temp) {

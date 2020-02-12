@@ -1,4 +1,4 @@
-package classes.render.mustBeRendered.Entity;
+package classes.render.mustBeRendered.Entity.baseEntity;
 
 import Gameplay.turrets.TurretFrame;
 import classes.util.coordinate.Coordinate;
@@ -11,6 +11,8 @@ import java.net.URL;
 import java.util.StringJoiner;
 
 public abstract class Entity implements Comparable<Entity> {
+
+    protected static final int SPEED_DIVISOR = 250;
 
     protected Coordinate CENTRE_OF_HITBOX;
 

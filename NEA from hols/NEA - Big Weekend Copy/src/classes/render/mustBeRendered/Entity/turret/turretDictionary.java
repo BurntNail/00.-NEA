@@ -35,8 +35,9 @@ public class turretDictionary {
             int cost = Integer.parseInt(compSees.get("cost").toString());
             int sellValue = Integer.parseInt(compSees.get("sellValue").toString());
             double fireRateDbl = Double.parseDouble(compSees.get("fireRate").toString());
+            int bulletSpd = Integer.parseInt(compSees.get("bulletSpd").toString());
 
-            turretTemplate t = new turretTemplate(name, info, dmg, fireRate, range, dmgInt, rangeInt, fnImg, fnBulletImage, cost, sellValue, fireRateDbl);
+            turretTemplate t = new turretTemplate(name, info, dmg, fireRate, range, dmgInt, rangeInt, fnImg, fnBulletImage, cost, sellValue, fireRateDbl, bulletSpd);
 
             turrets.put(name, t);
             names.add(name);

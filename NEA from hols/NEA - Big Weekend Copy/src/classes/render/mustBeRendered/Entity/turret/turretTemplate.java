@@ -14,10 +14,11 @@ public class turretTemplate {
     private String bullet_fn;
     private int cost;
     private int sellValue;
+    private int bulletSpd;
 
     private double diffBetweenFiring;
 
-    public turretTemplate(String name, String info, String dmg, String fireRate, String range, int dmgInt, int rangeInt, String fn, String bullet_fn, int cost_, int sellValue_, double fireRateDouble) {
+    public turretTemplate(String name, String info, String dmg, String fireRate, String range, int dmgInt, int rangeInt, String fn, String bullet_fn, int cost_, int sellValue_, double fireRateDouble, int bulletSpd) {
         this.name = name;
         this.info = info;
         this.dmg = dmg;
@@ -29,12 +30,14 @@ public class turretTemplate {
         this.bullet_fn = bullet_fn;
         cost = cost_;
         sellValue = sellValue_;
+        this.bulletSpd = bulletSpd;
+
         
         diffBetweenFiring = 1.0 / fireRateDouble;
         diffBetweenFiring *= 1000;
         diffBetweenFiring = Math.floor(diffBetweenFiring);
 
-        System.out.println("Turret Template Created");
+        System.out.println("Turret Template Created + " + diffBetweenFiring);
     }
 
     public String getName() {
@@ -63,6 +66,10 @@ public class turretTemplate {
 
     public int getSellValue() {
         return sellValue;
+    }
+
+    public int getBulletSpd() {
+        return bulletSpd;
     }
 
     @Override

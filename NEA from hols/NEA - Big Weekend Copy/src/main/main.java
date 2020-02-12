@@ -4,7 +4,7 @@ import classes.util.CfgReader.CfgReader;
 import Gameplay.player.PlayerManager;
 import Gameplay.turrets.TurretManager;
 import Gameplay.waves.waveManager;
-import classes.render.mustBeRendered.Entity.Entity;
+import classes.render.mustBeRendered.Entity.baseEntity.Entity;
 import classes.render.mustRender.canvas;
 import classes.util.saver.PlayerData;
 import classes.render.mustBeRendered.square.sqaureParser;
@@ -115,7 +115,6 @@ public class main {
         System.out.println("SQC DONE: " + new Timestamp(System.currentTimeMillis()));
 
         waveManager waves = new waveManager("lvl1.cfg", sqc, pm);
-        pm.setWaves(waves);
         System.out.println("WAVES DONE: " + new Timestamp(System.currentTimeMillis()));
 
         canvas c = new canvas(CURRENT_LEVEL, pm, waves);

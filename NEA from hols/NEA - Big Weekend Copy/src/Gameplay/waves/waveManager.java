@@ -2,7 +2,7 @@ package Gameplay.waves;
 
 import classes.util.CfgReader.CfgReader;
 import Gameplay.player.PlayerManager;
-import classes.render.mustBeRendered.Entity.Entity;
+import classes.render.mustBeRendered.Entity.baseEntity.Entity;
 import classes.render.mustBeRendered.Entity.enemy.enemyActual;
 import classes.render.mustBeRendered.Entity.enemy.enemyDictionary;
 import classes.render.mustBeRendered.Entity.enemy.enemyTemplate;
@@ -131,10 +131,10 @@ public class waveManager {
                         {
                             try {
                                 TimeUnit.MILLISECONDS.sleep(200);
-                                System.out.println("have i been spwned yet");
+//                                System.out.println("have i been spwned yet");
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
-                                System.out.println("have i been spwned yet");
+//                                System.out.println("have i been spwned yet");
                             }
                         }
 
@@ -145,7 +145,7 @@ public class waveManager {
 
                         if(pm.isDead())
                             break;
-                        if(areWeDoneYet())
+                        if(hasThePCWon())
                             pm.hasWon();
 
                         mostRecentTime = System.currentTimeMillis();
@@ -191,7 +191,15 @@ public class waveManager {
         return enemiesSpawned;
     }
 
-    private boolean areWeDoneYet () {
-        return (mostRecentTime - startTime > totalTime);
+    private boolean hasThePCWon () {
+        if(mostRecentTime == 0 || startTime == 0 || enemiesSpawned == 0)
+            return false;
+
+        long timeSoFar = mostRecentTime - startTime;
+        long timeLeft = totalTime - timeSoFar;
+        System.out.println(timeLeft);
+        System.out.println(timeSoFar);
+
+        return timeSoFar >= totalTime;
     }
 }

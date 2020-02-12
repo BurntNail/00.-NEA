@@ -1,8 +1,8 @@
 package classes.render.mustBeRendered.Entity.enemy;
 
 import Gameplay.player.PlayerManager;
-import classes.render.mustBeRendered.Entity.Entity;
-import classes.render.mustBeRendered.Entity.entityType;
+import classes.render.mustBeRendered.Entity.baseEntity.Entity;
+import classes.render.mustBeRendered.Entity.baseEntity.entityType;
 import classes.render.mustBeRendered.square.squareCollection;
 import classes.util.coordinate.Coordinate;
 import classes.util.coordinate.dir;
@@ -54,10 +54,10 @@ public class enemyActual extends Entity {
 
         int av = (main.TILE_WIDTH + main.TILE_HEIGHT) / 2;
 
-        distInPx = (currentSpd * av) / 500;
+        distInPx = (currentSpd * av) / SPEED_DIVISOR;
         System.out.println("DIP: " + distInPx);
         if(distInPx <= 0)
-            distInPx = 1;
+            distInPx = currentSpd;
 
         hasHit = false;
         isDead = false;
@@ -204,6 +204,11 @@ public class enemyActual extends Entity {
 
         double HPFraction = currentHP / baseHP;
         int cutOff = ((int) Math.floor(newOne.getWidth() * HPFraction));
+
+        if(HPFraction != 1)
+            System.out.println(HPFraction);
+
+
 
         for (int x = 0; x < hpBar.getWidth(); x++) {
             for (int y = 0; y < 10; y++) {
