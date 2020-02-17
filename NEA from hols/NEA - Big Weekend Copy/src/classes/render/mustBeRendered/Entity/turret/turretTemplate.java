@@ -1,6 +1,6 @@
 package classes.render.mustBeRendered.Entity.turret;
 
-public class turretTemplate {
+public class turretTemplate { //template for turret
 
     private String name;
     private String info;
@@ -16,7 +16,7 @@ public class turretTemplate {
     private int sellValue;
     private int bulletSpd;
 
-    private double diffBetweenFiring;
+    private double diffBetweenFiring; //explained in turretDict
 
     public turretTemplate(String name, String info, String dmg, String fireRate, String range, int dmgInt, int rangeInt, String fn, String bullet_fn, int cost_, int sellValue_, double fireRateDouble, int bulletSpd) {
         this.name = name;
@@ -33,13 +33,14 @@ public class turretTemplate {
         this.bulletSpd = bulletSpd;
 
         
-        diffBetweenFiring = 1.0 / fireRateDouble;
+        diffBetweenFiring = 1.0 / fireRateDouble; //make fireRate the difference
         diffBetweenFiring *= 1000;
         diffBetweenFiring = Math.floor(diffBetweenFiring);
 
         System.out.println("Turret Template Created + " + diffBetweenFiring);
     }
 
+    //getters
     public String getName() {
         return name;
     }
@@ -72,8 +73,12 @@ public class turretTemplate {
         return bulletSpd;
     }
 
+    public double getDiffBetweenFiring() {
+        return diffBetweenFiring;
+    }
+
     @Override
-    public String toString() { //TODO: Turn to java.util.StringJoiner
+    public String toString() { //toString method
         String fin = name + "\n";
         fin += info + "\n";
         fin += "\n";
@@ -90,9 +95,5 @@ public class turretTemplate {
         fin += "Would you like to buy this turret?";
 
         return fin;
-    }
-
-    public double getDiffBetweenFiring() {
-        return diffBetweenFiring;
     }
 }

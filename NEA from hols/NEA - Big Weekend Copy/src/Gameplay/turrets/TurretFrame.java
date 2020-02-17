@@ -16,232 +16,243 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.StringJoiner;
 
-public class TurretFrame extends JPanel{
+public class TurretFrame extends JPanel { //turret info and player info JPanel
 
-    private JPanel panel;
+    private JPanel panel; //info panel
+    private JPanel buttonPanel; //panel for buttons
 
-    private ArrayList<JButton> btns;
-    private ArrayList<Coordinate> usedSquares;
-    private ArrayList<Coordinate> freeSquares;
-    private int currentIndex;
+    private ArrayList<JButton> btns; //all of the buttons
+    private ArrayList<Coordinate> usedSquares; //all of the free squares
+    private ArrayList<Coordinate> freeSquares; //all of the used squares
 
-    public static final Coordinate NULL_COORD = new Coordinate(100000, 10000);
+    public static final Coordinate NULL_COORD = new Coordinate(Integer.MAX_VALUE, Integer.MAX_VALUE); //NULL_COORD for if a mistake is made with coordinates
 
-    private Icon messageIcn;
+    private Icon messageIcn; //JOptionPane icon
 
-    private ArrayList<Entity> turretActuals;
+    private ArrayList<Entity> turretActuals; //all of the turrets
 
-    public TurretFrame(ArrayList<Coordinate> usedSquares, ArrayList<Coordinate> freeSquares, Dimension size, Collection<turretTemplate> templates_collection, PlayerManager pm, JFrame toPack, TurretManager tm) {
-        super();
+    public TurretFrame(ArrayList<Coordinate> usedSquares, ArrayList<Coordinate> freeSquares, Dimension size, Collection<turretTemplate> templates_collection, PlayerManager pm, JFrame toPack, TurretManager tm)
+    {
+        super(); //super method
 
 
-        currentIndex = 0;
+        buttonPanel = new JPanel(); //init buttonPanel
         try {
-            URL url = new URL(main.ICON_LOCATIONS + "XYIcon.png");
+            URL url = new URL(main.ICON_LOCATIONS + "XYIcon.png"); //get the icon url
 
             if(url == null)
                 throw new MalformedURLException("No URL found...");
 
-            messageIcn = new ImageIcon(url, "Icon showing X and Y with crosshairs circle.");
+            messageIcn = new ImageIcon(url, "Icon showing X and Y with crosshairs circle."); //init the icon
         }catch (Exception e) {
-            messageIcn = new ImageIcon();
+            messageIcn = new ImageIcon(); //just make a blank icon
         }
 
-        ArrayList<turretTemplate> turrets = new ArrayList<>();
-        turrets.addAll(templates_collection);
+        ArrayList<turretTemplate> turrets = new ArrayList<>(); //init turretTemplates
+        turrets.addAll(templates_collection); //add the templates to it
 
-        this.usedSquares = usedSquares;
+        this.usedSquares = usedSquares; //add the used and free squares
         this.freeSquares = freeSquares;
 
-        setPreferredSize(size);
-        setLayout(new GridLayout(turrets.size() + 1, 1));
+        setPreferredSize(size); //set the preferred size
+        buttonPanel.setLayout(new GridLayout(turrets.size() + 1, 1)); //set layout of buttonPanel - buttons for tne turrets and one to sell
+        setLayout(new GridLayout(2, 1)); //set the JPanel layout - one row for the info box and one for the buttonPanel
 
-        panel = new JPanel();
-        panel.setAutoscrolls(true);
-        panel.setPreferredSize(new Dimension(main.WINDOW_WIDTH / 2, main.WINDOW_HEIGHT));
+        panel = new JPanel(); //init the other panel
+        panel.setAutoscrolls(true); //autoscroll
+        panel.setPreferredSize(new Dimension(main.WINDOW_WIDTH / 2, main.WINDOW_HEIGHT / 2)); //setPrefferredSize to half of the overall window width and height
 
-        turretActuals = new ArrayList<>();
-
-
-        btns = new ArrayList<>();
-        panel.setLayout(new GridLayout(turrets.size() + 2, 1));
-
-        for (int i = 0; i < turrets.size(); i++) {
-            turretTemplate tt = turrets.get(i);
-            String name = tt.getName();
+        turretActuals = new ArrayList<>(); //init actualTurrets list
 
 
-            JButton sBtn = new JButton("Buy " + name);
-            btns.add(sBtn);
-            panel.add(sBtn);
+        btns = new ArrayList<>(); //init buttons list
 
-            sBtn.addActionListener(e -> {
+        for (int i = 0; i < turrets.size(); i++) { //for each of the actual turrets
+            turretTemplate tt = turrets.get(i); //get the template
+            String name = tt.getName(); // get the name
 
-                if(freeSquares.size() == 0)
+
+            JButton btn = new JButton("Buy " + name); //create a button
+            btns.add(btn); //add to the list
+            buttonPanel.add(btn); //add to then panel
+
+            btn.addActionListener(e -> { //add an actionListener
+
+                if(freeSquares.size() == 0) //if there are no remaining free squares - display an error message, and return out
                 {
-                    JOptionPane.showMessageDialog(panel, "Unfortunately, there are no turret spaces left. Good luck!", "No free space.", JOptionPane.ERROR_MESSAGE, messageIcn);
+                    JOptionPane.showMessageDialog(panel, "Unfortunately, there are no turret spaces left. Good luck!", "No free space.", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
 
-                int result = JOptionPane.showConfirmDialog(panel, tt.toString(), "Confirm buy Turret: " + tt.getName(), JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, messageIcn);
+                //else, ask for confirmation and give info on turret using turretTemplate toString
+                int result = JOptionPane.showConfirmDialog(panel, tt.toString(), "Confirm buy Turret: " + tt.getName(), JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, messageIcn);
 
-                if(JOptionPane.YES_OPTION == result) {
+                if(JOptionPane.YES_OPTION == result) { //if it is a yes
 
                     main.quickEntity(turretActuals);
-                    main.quickCoord(usedSquares);
+                    main.quickCoord(usedSquares); //sort all lists using quickSort
                     main.quickCoord(freeSquares);
 
 
+                    //get location
                     Object location = JOptionPane.showInputDialog(panel, "Please enter a location", "Where would you like your tower?", JOptionPane.QUESTION_MESSAGE, messageIcn, ((Object[]) freeSquares.toArray()), 0);
 
-                    String resInStr = location + "";
+                    if(location == null) //if null - return out (ie. they cancelled)
+                        return;
 
-                    if(resInStr == null)
+                    String resInStr = location.toString(); //toString to apply string operations
+
+                    if(resInStr == null) //if null - return out
                         return;
 
 
-                    String type = sBtn.getText().substring(4);
-                    Coordinate loc = Coordinate.parseFromTS(resInStr);
+                    String type = btn.getText().substring(4); //get the type from the button
+                    Coordinate loc = Coordinate.parseFromTS(resInStr); //get the location
 
-                    tm.buyTurret(loc, type);
+                    if(loc == NULL_COORD) //if it was invalid - return out
+                        return;
+
+                    tm.buyTurret(loc, type); //buy the turret
 
                     main.quickEntity(turretActuals);
-                    main.quickCoord(usedSquares);
+                    main.quickCoord(usedSquares); //resort the lists
                     main.quickCoord(freeSquares);
                 }
             });
         }
 
-        JButton sellBtn = new JButton("Sell tower?");
+        JButton sellBtn = new JButton("Sell tower?"); // sell button
         sellBtn.addActionListener(e -> {
-            int result = JOptionPane.showConfirmDialog(panel, "Sell turret?", "Do you want to sell a turret - Beware, you may not get back the full investment.", JOptionPane.OK_CANCEL_OPTION);
+            if (turretActuals.size() == 0) { // double check for turrets to sell
+                JOptionPane.showMessageDialog(panel, "NO TURRETS LEFT.", "Unfortunately, if there are no turrets to sell, you cannot sell a turret.", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
-            if(result == JOptionPane.OK_OPTION) {
+
+            int result = JOptionPane.showConfirmDialog(panel, "Sell turret?", "Do you want to sell a turret - Beware, you will not get back the full investment.", JOptionPane.OK_CANCEL_OPTION);
+            //double check they want to sell
+
+            if(result == JOptionPane.OK_OPTION) { //if they do
 
                 main.quickCoord(usedSquares);
-                main.quickCoord(freeSquares);
+                main.quickCoord(freeSquares); //sort all lists
                 main.quickEntity(turretActuals);
 
 
-                ArrayList<String> sellableTowers = new ArrayList<>();
-                ArrayList<turretActual> turretsThatGoWith = new ArrayList<>();
-                int i = 0;
-                for (Coordinate coordinate : usedSquares) {
-                    turretActual ta = null;
-                    String fin;
+                ArrayList<String> sellableTowers = new ArrayList<>(); //init sellable towers string list
+                ArrayList<turretActual> turretsThatGoWith = new ArrayList<>(); //init turrets that go with list - the index of the str and the turret that goes with are the same
 
-                    try {
-                        for(Entity entity : turretActuals) {
+                int i = 0;
+
+                for (Coordinate coordinate : usedSquares) { //for each of the squares which have been used
+                    turretActual ta = null; //set the turret of them to null
+                    String fin = ""; //set a temp for the string value to be null
+
+                    try { //try
+                        for(Entity entity : turretActuals) { //for each of the turrets
                             if(entity.getXYInArr().equals(coordinate))
                             {
-                                ta = ((turretActual) entity);
+                                ta = ((turretActual) entity); //if the turret is the coordinate we are trying to get - set the turretActual to be that and break loop
                                 break;
                             }
                         }
 
-                        if(ta == null)
-                            throw new TurretNotFoundException();
+                        if(ta == null) //if we still have no turret
+                            throw new TurretNotFoundException(); //throw TurretNotFoundException - signifiying that we have no turret
 
                         fin = "#" + (i + 1) + " ";
-                        fin += coordinate.toString() + " - " + ta.getTurret().getSellValue();
-                        turretsThatGoWith.add(ta);
+                        fin += ta.getTurret().getName() + " "; //the turret name
+                        fin += coordinate.toString() + " - " + ta.getTurret().getSellValue(); // plus the position and sale value
+                        turretsThatGoWith.add(ta); //add the turret to the list
 
                     } catch (TurretNotFoundException ex) {
                         fin = "";
                     }
 
-                    sellableTowers.add(fin);
+                    sellableTowers.add(fin); //add the string to the list
                     i++;
                 }
 
-                Object location = JOptionPane.showInputDialog(panel, "Which Tower would you like to sell. Resale values and coordinates listed.", "Please enter a location", JOptionPane.QUESTION_MESSAGE, messageIcn, ((Object[]) sellableTowers.toArray()), 0);
+                //asking which turret
+                Object location = JOptionPane.showInputDialog(panel, "Which Tower would you like to sell. Resale values and coordinates listed.", "Please enter a location", JOptionPane.QUESTION_MESSAGE, messageIcn, sellableTowers.toArray(), 0);
 
-                if(location == null)
+                if(location == null) //if they changed their mind - return
                     return;
-                else if (turretActuals.size() == 0)
-                {
-                    JOptionPane.showMessageDialog(panel, "No TURRETS LEFT.", "Unfortunately, if there are no turrets to sell, you cannot sell a turret." ,JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
 
-                String strVersion = location.toString();
+                String strVersion = location.toString(); //else get the location in a string rather than an object
 
                 System.out.println("Selling: " + strVersion);
 
 
-                int indexStart = 1;
-                int indexEnd = strVersion.indexOf("Coordinate") - 2;
+                int indexStart = 1; //the start index of the tower
+                int indexEnd = strVersion.indexOf(" ") - 1; //the end index
 
-                int index = Integer.parseInt(strVersion.substring(indexStart, indexEnd));
-                turretActual turretToSell = turretsThatGoWith.get(index);
+                String subStringed;//substringed version
 
+                if(indexEnd == indexStart)
+                    subStringed = strVersion.charAt(indexStart) + "";
+                else
+                    subStringed = strVersion.substring(indexStart, indexEnd);
 
+                if(main.INT_REGEX.matcher(subStringed).matches()) { //regex check
+                    int index = Integer.parseInt(subStringed) - 1; //get the index, but minus one as we added one earlier to make it more logical for a non-coder end user
+                    turretActual turretToSell = turretsThatGoWith.get(index); //get the corresponding turret
 
-                tm.sellTurret(turretToSell);
+                    tm.sellTurret(turretToSell); //sell the thing
+                }
 
             }
         });
 
-        JTextArea label = new JTextArea(getLabel(pm, turretActuals));
-        label.setPreferredSize(new Dimension(size.width, size.height / 2));
-        label.setAutoscrolls(true);
-//        label.setEditable(false);
+        buttonPanel.add(sellBtn); //add the sell button to the buttonPanel
 
+        JTextArea label = new JTextArea(getLabel(pm, turretActuals)); //create the label
+        label.setPreferredSize(new Dimension(size.width, size.height / 2)); //set the size
 
-        panel.add(sellBtn);
-        panel.add(label);
+        panel.add(label); //add the label to the other panel
 
+        add(buttonPanel);
+        add(panel); //add the panels
 
-        add(panel);
-        toPack.pack();
+        toPack.pack(); //pack the main window - we are in it, and so when we update we have to pack the main window
 
-        pm.addBooleanChangeListener(e -> {
-            label.setText(getLabel(pm, turretActuals));
-            toPack.pack();
+        pm.addBooleanChangeListener(e -> { //on playerManager change
+            label.setText(getLabel(pm, turretActuals)); //set the label
 
-            if(pm.isDone()) {
+            if(pm.isDone()) { //if it is done - disable all the buttons
                 for(JButton btn : btns)
                     btn.setEnabled(false);
                 sellBtn.setEnabled(false);
-
-                toPack.pack();
             }
+
+            toPack.pack(); //pack the window
+
         });
 
     }
 
-    private static String getLabel(PlayerManager pm, ArrayList<Entity> turrets) {
-        String pmPart = "Money: " + pm.getMoney() + "\nHearts remaining: " + pm.getHearts();
+    private static String getLabel(PlayerManager pm, ArrayList<Entity> turrets) { //getLabel method for the label
+        String pmPart = "Money: " + pm.getMoney() + "\nHearts remaining: " + pm.getHearts(); //the part with the playerManager
 
         if(turrets.size() == 0)
-            return pmPart;
+            return pmPart; //if there are no turrets - return the playerManager part
 
-        StringJoiner turretJoiner = new StringJoiner("\n", "Turret Statuses: \n\n", "");
+        StringJoiner turretJoiner = new StringJoiner("\n", "Turret Statuses: \n\n", ""); //else create a StringJoiner
 
         for (Entity turret : turrets) {
-            if(turret.getType() != entityType.turret)
+            if(turret.getType() != entityType.turret) //for each of the entities - if it isn't a turret continue the loop
                 continue;
 
             turretActual casted = ((turretActual) turret);
-            String st = casted.toString();
+            String st = casted.toString(); //else cast it, and add it's toString
 
-            turretJoiner.add(st);
+            turretJoiner.add(st); //add the toString to the StringJoiner
         }
 
-        return pmPart + "\n\n" + turretJoiner.toString();
+        return pmPart + "\n\n" + turretJoiner.toString(); //return the PlayerManager part and the StringJoiner
     }
 
     public void setTurrets (ArrayList<Entity> newTurrets) {
         turretActuals = ((ArrayList<Entity>) newTurrets.clone());
-    }
-    public ArrayList<Entity> getTurretActuals () {
-        return turretActuals;
-    }
-
-    public int getCurrentIndex() {
-        return currentIndex;
-    }
-    public void incrementIndex () {
-        currentIndex++;
     }
 }

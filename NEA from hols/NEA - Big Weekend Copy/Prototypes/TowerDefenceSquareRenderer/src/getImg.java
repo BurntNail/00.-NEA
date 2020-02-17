@@ -21,7 +21,7 @@ public class getImg extends BufferedImage {
 		try {
 		    URL url = new URL("https://raw.githubusercontent.com/Epacnoss/NEAAssets/master/Tests/SquareRenderer/" + newFileName);
 
-            Image temp = ImageIO.read(url);
+            Image temp = Resource
             temp = temp.getScaledInstance(main.TILE_SIZE, main.TILE_SIZE, Image.SCALE_SMOOTH);
 
              getGraphics().drawImage(temp, 0, 0, null);

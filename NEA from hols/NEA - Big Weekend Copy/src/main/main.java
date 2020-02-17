@@ -6,8 +6,7 @@ import Gameplay.turrets.TurretManager;
 import Gameplay.waves.waveManager;
 import classes.render.mustBeRendered.Entity.baseEntity.Entity;
 import classes.render.mustRender.canvas;
-import classes.util.saver.PlayerData;
-import classes.render.mustBeRendered.square.sqaureParser;
+import classes.render.mustBeRendered.square.squareParser;
 import classes.render.mustBeRendered.square.squareCollection;
 import classes.util.coordinate.Coordinate;
 
@@ -18,50 +17,67 @@ import java.net.URL;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Pattern;
 
 public class main {
 
-    //For ease of file locations and packages, I have uploaded all images to a public github repo, the URL of which can be found as BASE_LOCATION on line 28.
+    //For ease of file locations and packages, I have uploaded all images to a public github repo, the URL of which can be found as BASE_LOCATION on line 33. TODO: Update this line
 
-    public static boolean windowHasStarted = false;
+    public static boolean windowHasStarted = false; //has the window been set visible yet
+
+    public static final Pattern INT_REGEX = Pattern.compile("[0-9]+"); //regex for integer strings - any numbers with at least one digit
+    public static final Pattern DBL_REGEX = Pattern.compile("[0-9]+\\.[0-9]+"); //regex for doubles - any numbers (>= 1 digit), a decimal point, and then more numbers
 
     //region URL locations
-    private static final String BASE_LOCATION = "https://raw.githubusercontent.com/Epacnoss/NEAAssets/master/Actual/";
-    private static final String IMAGES_LOC = BASE_LOCATION + "images/";
+    private static final String BASE_LOCATION = "https://raw.githubusercontent.com/Epacnoss/NEAAssets/master/Actual/"; //base location of git repo for assets
+    private static final String IMAGES_LOC = BASE_LOCATION + "images/"; //images location
 
-    public static final String ENEMIES_LOC = BASE_LOCATION + "enemies/";
-    public static final String TURRETS_LOC = BASE_LOCATION + "turrets/";
-    public static final String WAVES_LOC = BASE_LOCATION + "waves/";
-    public static final String MAPS_LOC = BASE_LOCATION + "maps/";
+    public static final String ENEMIES_LOC = BASE_LOCATION + "enemies/"; //enemy config locations
+    public static final String TURRETS_LOC = BASE_LOCATION + "turrets/"; //turret config locations
+    public static final String WAVES_LOC = BASE_LOCATION + "waves/"; //wave config locations
+    public static final String MAPS_LOC = BASE_LOCATION + "maps/"; //map config location
 
-    public static final String ENEMY_IMAGES_LOC = IMAGES_LOC + "enemies/";
-    public static final String TURRET_IMAGES_LOC = IMAGES_LOC + "turrets/";
-  
-    public static final String PATHS_IMAGES_LOC = IMAGES_LOC + "paths/";
+    public static final String ENEMY_IMAGES_LOC = IMAGES_LOC + "enemies/"; //enemy images location
+    public static final String TURRET_IMAGES_LOC = IMAGES_LOC + "turrets/"; //turret images location
     public static final String BULLET_IMAGE_LOC = IMAGES_LOC + "bullets/";
 
-    public static final String ICON_LOCATIONS = IMAGES_LOC + "icns/";
-    public static final String AUDIO_LOCATIONS = BASE_LOCATION + "audio/";
+    public static final String PATHS_IMAGES_LOC = IMAGES_LOC + "paths/"; //square images location
+
+    public static final String ICON_LOCATIONS = IMAGES_LOC + "icns/"; //icon location
+    public static final String AUDIO_LOCATIONS = BASE_LOCATION + "audio/"; //sound location
     //endregion
 
     //region UI sizes
-    public static int CURRENT_LEVEL = 1;
-    public static final CfgReader stage;
-    public static final CfgReader level;
-    public static final int NUM_OF_TILES_WIDTH;
-    public static final int NUM_OF_TILES_HEIGHT;
+    public static int CURRENT_LEVEL = 1; //level
+    private static final CfgReader stage; //stage config reader
+    private static final CfgReader level; //level config reader
+    public static final int NUM_OF_TILES_WIDTH; //num of tiles width
+    public static final int NUM_OF_TILES_HEIGHT; //num of tiles height
 
-    public static final int WINDOW_WIDTH;
+    /*
+    squares example (S = Square, | = boundary y axis, _ = boundary x axis)
+
+
+    _____________
+    |S|S|S|S|S|S|
+    _____________
+    |S|S|S|S|S|S|
+    _____________
+
+    NUM_OF_TILES_WIDTH = 5
+    NUM_OF_TILES_HEIGHT = 1
+     */
+
+    public static final int WINDOW_WIDTH; //overall window width and height
     public static final int WINDOW_HEIGHT;
 
-    private static Dimension size;
+    private static Dimension size; //Dimension - using above width and height
 
-    public static final int TILE_HEIGHT; //px
+    public static final int TILE_HEIGHT; //px - window width / num of tiles width and same for height
     public static final int TILE_WIDTH;
 
-    public static final int BOUND;
+    public static final int BOUND; //close enough bound
 
     //region widths and heights of entities
     public static final int TURRET_WIDTH;
@@ -74,139 +90,151 @@ public class main {
     public static final int ENEMY_HEIGHT;
     //endregion
 
-    public static final int TURRET_X_ON_TILE;
+    public static final int TURRET_X_ON_TILE; //turret x and y on a tile
     public static final int TURRET_Y_ON_TILE;
 
     //endregion
 
     //region fn arrays
-
-    public static final String[] TURRET_FNS = {"wizard.cfg", "dropTower.cfg"};
+    public static final String[] TURRET_FNS = {"wizard.cfg", "dropTower.cfg"}; // turret, enemy and enemy image file names
     public static final String[] ENEMY_FNS = {"fastButWeak.cfg", "slowButStrong.cfg"};
 
     public static final String[] ENEMY_IMG_FNS = {"skeleton_big.png", "bigButSlow_big.png"};
-
     //endregion
 
-    public static final HashMap<String, Clip> SOUNDS;
+    public static final HashMap<String, Clip> SOUNDS; //all of the audio
 
 
-    public static void lvl1() {
+    public static void lvl1 () { // level one method
 
-        int money = Integer.parseInt(level.get("playerGets", "money").toString());
-        int hearts = Integer.parseInt(level.get("playerGets", "hp").toString());
+        String moneyStr = level.get("playerGets", "money").toString(); //money and hearts from level config file
+        String heartsStr = level.get("playerGets", "hp").toString();
+
+        int money;
+        int hearts; //temporary variables
+
+        if(INT_REGEX.matcher(moneyStr).matches() && INT_REGEX.matcher(heartsStr).matches()) //if the regex doesn't match - just defaults else use string values
+        {
+            money = Integer.parseInt(moneyStr); //parse
+            hearts = Integer.parseInt(heartsStr);
+        } else {
+            money = 1;
+            hearts = 1; //default values
+        }
 
         //region main window
+        JFrame window = new JFrame("Apex Turrets"); // create JFrame
 
-
-
-
-        JFrame window = new JFrame("Apex Turrets");
-
-        window.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        window.setLayout(new GridLayout(1, 2));
+        window.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE); //set default close operation
+        window.setLayout(new GridLayout(1, 2)); //set layout - one col for canvas, one for TurretFrame
 
         System.out.println("WINDOW CREATED: " + new Timestamp(System.currentTimeMillis()));
 
 
-        PlayerManager pm = new PlayerManager(money, hearts, window);
+        PlayerManager pm = new PlayerManager(money, hearts); //create playerManager
         System.out.println("PM DONE: " + new Timestamp(System.currentTimeMillis()));
-        squareCollection sqc = new squareCollection(new sqaureParser(new CfgReader(main.MAPS_LOC + "stg1.cfg")));
+
+        squareCollection sqc = new squareCollection(new squareParser(new CfgReader(main.MAPS_LOC + "stg1.cfg"))); //create squares
         System.out.println("SQC DONE: " + new Timestamp(System.currentTimeMillis()));
 
-        waveManager waves = new waveManager("lvl1.cfg", sqc, pm);
+        waveManager waves = new waveManager("lvl1.cfg", sqc, pm, window); //create waves
         System.out.println("WAVES DONE: " + new Timestamp(System.currentTimeMillis()));
 
-        canvas c = new canvas(CURRENT_LEVEL, pm, waves);
-        window.add(c);
-
+        canvas c = new canvas(CURRENT_LEVEL, pm, waves); //create canvas
+        window.add(c); //add to window
         System.out.println("CANVAS DONE: " + new Timestamp(System.currentTimeMillis()));
 
-        TurretManager tm = new TurretManager(sqc, pm, window);
+        TurretManager tm = new TurretManager(sqc, pm, window); //create turretManager and so turretFrame
         System.out.println("TM DONE: " + new Timestamp(System.currentTimeMillis()));
 
-        window.pack();
-        window.setVisible(true);
-        window.setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
-        window.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
+        window.pack(); //pack window
+        window.setVisible(true); //set visible
+        window.setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize()); //set size - full screen size
         System.out.println("WINDOW DONE: " + new Timestamp(System.currentTimeMillis()));
         //endregion
 
-        Thread runThread = new Thread(() -> {
+        Thread runThread = new Thread(() -> { //runThread
 
-            long current = System.currentTimeMillis();
+            long current = System.currentTimeMillis(); //current time
 
-            long delay = 10;
+            long delay = 10; //delay
 
             System.out.println("RUN THREAD STARTED - ACTUAL");
-            windowHasStarted = true;
+            windowHasStarted = true; //window has started = true - stuff can happen
 
-            while (true) {
+            while (window.isVisible()) { //while (isVisible) - do this for the entire time we can see the window
 
-                c.paint(c.getGraphics());
+                c.paint(c.getGraphics()); //call the paint function
 
                 while(!c.hasFinishedRendering()) {
-//                    System.out.print("RENDERING");
+                    continue; //render
                 }
 
-                if (System.currentTimeMillis() - current > delay) {
-//                    System.out.println();
+                if (System.currentTimeMillis() - current > delay) { //if the gap is greater than the delay
 
-                    ArrayList<Entity> enemyActuals = ((ArrayList<Entity>) waves.getEntites().clone());
-                    ArrayList<Entity> turretActuals = ((ArrayList<Entity>) tm.setEnemiesAndGetTurretsAndBullets(enemyActuals).clone());
+                    ArrayList<Entity> enemyActuals = ((ArrayList<Entity>) waves.getEntites().clone()); //get the enemies
+                    ArrayList<Entity> turretActuals = ((ArrayList<Entity>) tm.setEnemiesAndGetTurretsAndBullets(enemyActuals).clone()); //get the turrets
 
-                    ArrayList<Entity> finalEnties = new ArrayList<>();
+                    ArrayList<Entity> finalEnties = new ArrayList<>(); //create a new list
                     finalEnties.addAll(turretActuals);
-                    finalEnties.addAll(enemyActuals);
+                    finalEnties.addAll(enemyActuals); //add turrets and entities
 
-                    c.setEntities(finalEnties);
+                    c.setEntities(finalEnties); //set the entities
 
-                    current = System.currentTimeMillis();
+                    current = System.currentTimeMillis(); //reset current
                 }
+            }
+
+            int playAgain = JOptionPane.showConfirmDialog(null, "Would you like to play again?");
+            if(playAgain == JOptionPane.YES_OPTION)
+            {
+                lvl1();
+                System.out.println("Its replay time");
+            }
+            else
+            {
+                System.out.println("Au revoir");
+                System.exit(0);
             }
         });
 
-        runThread.start();
+        runThread.start(); //start RunThread
 
-        System.out.println("RUN THREAD STARTED - CONTROL: " + new Timestamp(System.currentTimeMillis()));
+        System.out.println("MAIN RUN THREAD STARTED: " + new Timestamp(System.currentTimeMillis()));
     }
 
-    public static void main(String[] args) {
-        long current = System.currentTimeMillis();
-        lvl1();
+    public static void main(String[] args) { //main method
+        lvl1(); //do level one
+
     }
 
-    static {
+    static { //static initializer - for all the public static final variables that depend on each other, and for temp variables to space out code
         System.out.println("MAIN STATIC STARTING");
 
-        stage = new CfgReader(MAPS_LOC + "stg" + CURRENT_LEVEL + ".cfg");
+        stage = new CfgReader(MAPS_LOC + "stg" + CURRENT_LEVEL + ".cfg"); //start the config reader
         level = new CfgReader(WAVES_LOC + "lvl" + CURRENT_LEVEL + ".cfg");
 
-        NUM_OF_TILES_WIDTH = Integer.parseInt(stage.get("mapDeets", "rows").toString());
+        NUM_OF_TILES_WIDTH = Integer.parseInt(stage.get("mapDeets", "rows").toString()); // get the tile widths and heights
         NUM_OF_TILES_HEIGHT = Integer.parseInt(stage.get("mapDeets", "cols").toString());
 
 
-        Dimension wholeScreenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension wholeScreenSize = Toolkit.getDefaultToolkit().getScreenSize(); //get the screen size
 
-        int wTemp = wholeScreenSize.width / 2;
-        int hTemp = wholeScreenSize.height;
-
-
-        WINDOW_WIDTH = wTemp - (wTemp % NUM_OF_TILES_WIDTH);
-        WINDOW_HEIGHT = hTemp - (hTemp % NUM_OF_TILES_WIDTH);
+        int wTemp = wholeScreenSize.width / 2; //get half of the width
+        int hTemp = wholeScreenSize.height;   // and the full height
 
 
-        size = new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT);
+        WINDOW_WIDTH = wTemp - (wTemp % NUM_OF_TILES_WIDTH); //create the window width and height
+        WINDOW_HEIGHT = hTemp - (hTemp % NUM_OF_TILES_WIDTH); //minus the remainder so the tiles line up with the edge
+        size = new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT); //create the size
 
 
-        TILE_WIDTH = Math.floorDiv(WINDOW_WIDTH, NUM_OF_TILES_WIDTH);
+        TILE_WIDTH = Math.floorDiv(WINDOW_WIDTH, NUM_OF_TILES_WIDTH); //set the tile width and height
         TILE_HEIGHT = Math.floorDiv(WINDOW_HEIGHT, NUM_OF_TILES_HEIGHT);
 
-        BOUND = (TILE_WIDTH + TILE_HEIGHT) / 2;
+        BOUND = (TILE_WIDTH + TILE_HEIGHT) / 4; //create the bound
 
-        TURRET_WIDTH = TILE_WIDTH / 3 * 2;
+        TURRET_WIDTH = TILE_WIDTH / 3 * 2; // set the widths and heights for the images
         TURRET_HEIGHT = TILE_HEIGHT / 3 * 2;
 
         BULLET_WIDTH = TURRET_WIDTH * 2 / 3;
@@ -219,40 +247,39 @@ public class main {
         TURRET_Y_ON_TILE = (TILE_HEIGHT - TURRET_HEIGHT) / 2;
 
         //region sounds
-        final String[] sounds = new String[] {"Spawn.wav"};
-        SOUNDS = new HashMap<>();
+        final String[] sounds = new String[] {"Spawn.wav"}; //get the sounds - currently there is but one
+        SOUNDS = new HashMap<>(); //init hashMap
 
-        for (String fn : sounds) {
-            Clip c;
+        for (String fn : sounds) { //for all of the sounds
+            Clip c; //create a temporary clip variable
             try {
-                URL url = new URL(AUDIO_LOCATIONS + fn);
+                URL url = new URL(AUDIO_LOCATIONS + fn); //get the URL
 
-                AudioInputStream AIS = AudioSystem.getAudioInputStream(url);
+                AudioInputStream AIS = AudioSystem.getAudioInputStream(url); //get the AudioInputStream
 
                 c = AudioSystem.getClip();
-                c.open(AIS);
+                c.open(AIS); //get the clip
 
-                c.addLineListener(event -> {
-//                    System.out.println(fn + " has been played...");
-                    long frames = AIS.getFrameLength();
-                    double l = (frames+0.0) / AIS.getFormat().getFrameRate();
+                c.addLineListener(event -> { //track resets when done
+                    long frames = AIS.getFrameLength(); //get the frames
+                    double l = (frames+0.0) / AIS.getFormat().getFrameRate(); //get the length
 
-                    long l2 = ((long) Math.floor(l));
+                    long l2 = ((long) Math.floor(l)); //floor it
 
                     try {
-                        TimeUnit.SECONDS.sleep(l2);
+                        TimeUnit.SECONDS.sleep(l2); // sleep for that length
                     } catch (InterruptedException e) {
                         System.out.println("Audio Sleeper interrupted.");
                     }
 
-                    c.stop();
-                    c.setMicrosecondPosition(0l);
+                    c.stop(); //stop it
+                    c.setMicrosecondPosition(0l); //reset track
 
                 });
 
-                SOUNDS.put(fn, c);
+                SOUNDS.put(fn, c); //add it
             } catch (Exception e) {
-                e.printStackTrace();
+                System.err.println("Mamma mia - there is no sound....");
             }
 
 
@@ -263,51 +290,53 @@ public class main {
         System.out.println("MAIN STATIC DONE");
     }
 
-    //region sorters
-    public static ArrayList<Coordinate> quickCoord (ArrayList<Coordinate> listBase)
+    //region sorters and other useful stuff
+    public static ArrayList<Coordinate> quickCoord (ArrayList<Coordinate> listBase) //quick sorter for coordinates - same algorithm for the entites but just switch what we are comparing
     {
-        ArrayList<Coordinate> list = ((ArrayList<Coordinate>) listBase.clone());
+        ArrayList<Coordinate> list = ((ArrayList<Coordinate>) listBase.clone()); //clone the list to avoid concurrentModificationExceptions
 
-        if(list.size() > 1)
+        if(list.size() > 1) // if there is more than one element
         {
 
-            Coordinate pivot = list.get(list.size() / 2);
+            Coordinate pivot = list.get(list.size() / 2); //get the pivot point - the centre
             ArrayList<Coordinate> less, more, equal;
             less = new ArrayList<>();
-            more = new ArrayList<>();
+            more = new ArrayList<>(); //init arrayLists for more, less, and equal
             equal = new ArrayList<>();
 
-            for(Coordinate x : list)
+            for(Coordinate x : list) //for each coordinate - x
             {
-                if(x.compareTo(pivot) < 0)
+                if(x.compareTo(pivot) < 0) //if it is less - add it to the less list
                     less.add(x);
-                else if (x.compareTo(pivot) == 0)
+                else if (x.compareTo(pivot) == 0) //if it is equal - add it to the equal list
                     equal.add(x);
-                else
+                else //else - it must be more - add it to the more list
                     more.add(x);
 
             }
 
-            less = quickCoord(less);
+            less = quickCoord(less); //recursively sort the less and more lists using this algorithm
             more = quickCoord(more);
 
-            list.clear();
+            list.clear(); //clear the list
 
             list.addAll(less);
             list.addAll(equal);
-            list.addAll(more);
+            list.addAll(more); //add the less, more, and equal lists
         }
 
-        return list;
+        return list; //return the sorted list, or just the singular item in a list for the later stages of recursion, or just few items to sort
     }
 
-    public static List<? extends Entity> quickEntity (List<Entity> list)
+    public static ArrayList<Entity> quickEntity (ArrayList<Entity> listOriginal)
     {
+        ArrayList<Entity> list = ((ArrayList<Entity>) listOriginal.clone());
+
         if(list.size() > 1)
         {
 
             Entity pivot = list.get(list.size() / 2);
-            List<Entity> less, more, equal;
+            ArrayList<Entity> less, more, equal;
             less = new ArrayList<>();
             more = new ArrayList<>();
             equal = new ArrayList<>();
@@ -323,75 +352,13 @@ public class main {
 
             }
 
-            less = (List<Entity>) quickEntity(less);
-            more = (List<Entity>) quickEntity(more);
+            less = quickEntity(less);
+            more = quickEntity(more);
             list.clear();
 
             list.addAll(less);
             list.addAll(equal);
             list.addAll(more);
-        }
-
-        return list;
-    }
-
-    public static PlayerData[] quickPlayerData (PlayerData[] list)
-    {
-        if(list.length > 1)
-        {
-
-            PlayerData pivot = list[list.length / 2];
-            PlayerData[] less, more, equal;
-            less = new PlayerData[list.length];
-            more = new PlayerData[list.length];
-            equal = new PlayerData[list.length];
-
-            int lessIndex = 0;
-            int moreIndex = 0;
-            int equalIndex = 0;
-
-            for(PlayerData x : list)
-            {
-                if(x.compareTo(pivot) < 0)
-                {
-                    less[lessIndex] = x;
-                    lessIndex++;
-                }
-                else if (x.compareTo(pivot) == 0)
-                {
-                    equal[equalIndex] = x;
-                    equalIndex++;
-                }
-                else
-                {
-                    more[moreIndex] = x;
-                    moreIndex++;
-                }
-
-            }
-
-            less = quickPlayerData(less);
-            more = quickPlayerData(more);
-
-            list = new PlayerData[list.length];
-
-            int index = 0;
-
-            for(PlayerData p : less)
-            {
-                list[index] = p;
-                index++;
-            }
-            for(PlayerData p : equal)
-            {
-                list[index] = p;
-                index++;
-            }
-            for(PlayerData p : more)
-            {
-                list[index] = p;
-                index++;
-            }
         }
 
         return list;

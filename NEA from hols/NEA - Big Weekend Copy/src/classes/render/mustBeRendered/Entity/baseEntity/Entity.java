@@ -2,6 +2,7 @@ package classes.render.mustBeRendered.Entity.baseEntity;
 
 import Gameplay.turrets.TurretFrame;
 import classes.util.coordinate.Coordinate;
+import classes.util.resources.ResourceManager;
 import main.main;
 
 import javax.imageio.ImageIO;
@@ -10,18 +11,18 @@ import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.util.StringJoiner;
 
-public abstract class Entity implements Comparable<Entity> {
+public abstract class Entity implements Comparable<Entity> { //Entity class - easier to collect all movement and rendering stuff into one abstract class
 
-    protected static final int SPEED_DIVISOR = 250;
+    protected static final int SPEED_DIVISOR = 250; //for movement
 
-    protected Coordinate CENTRE_OF_HITBOX;
+    protected Coordinate CENTRE_OF_HITBOX; //centre of hitbox for rendering in correct place
 
-    private BufferedImage img;
-    private Coordinate XYInArr, XYInTile;
-    private entityType type;
-    private String fqdn;
+    private BufferedImage img; //img to render
+    private Coordinate XYInArr, XYInTile; //XYInArr - In Tiles, XYInTile - In the current tile
+    private entityType type; //Type of entity - used for getting url and centre of hitbox
+    private String fqdn; //url
 
-    private Image base;
+    private Image base; //base image
 
     public Entity(Coordinate XYInArr, String fn, entityType type, Coordinate XYInTile) {
         this.XYInArr = XYInArr;
@@ -33,8 +34,8 @@ public abstract class Entity implements Comparable<Entity> {
 
         switch (type) {
             case enemy:
-                fqdn = main.ENEMY_IMAGES_LOC + fn;
-                CENTRE_OF_HITBOX = new Coordinate(main.ENEMY_WIDTH / 2, main.ENEMY_HEIGHT / 2);
+                fqdn = main.ENEMY_IMAGES_LOC + fn; //using main.main file locations to get image
+                CENTRE_OF_HITBOX = new Coordinate(main.ENEMY_WIDTH / 2, main.ENEMY_HEIGHT / 2); //using main.main for centre of hitbox
                 break;
             case bullet:
                 fqdn = main.BULLET_IMAGE_LOC + fn;
@@ -46,17 +47,20 @@ public abstract class Entity implements Comparable<Entity> {
         }
 
         try {
-            URL url = new URL(fqdn);
+            URL url = new URL(fqdn); //creating new url
 
-            base = ImageIO.read(url);
+            base = ResourceManager.getImg(url);
+
+            if(base == null)
+                throw new Exception("Img not found");
         } catch (Exception e) {
             base = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
         }
 
         Dimension wh = getWHOnType(type); //wh == width and height
-        base = base.getScaledInstance(wh.width, wh.height, Image.SCALE_SMOOTH);
-        img = new BufferedImage(wh.width, wh.height, BufferedImage.TYPE_INT_ARGB);
-        img.getGraphics().drawImage(base, 0, 0, null);
+        base = base.getScaledInstance(wh.width, wh.height, Image.SCALE_SMOOTH); // scaling image to correct size
+        img = new BufferedImage(wh.width, wh.height, BufferedImage.TYPE_INT_ARGB); // creating the bufferedimage
+        img.getGraphics().drawImage(base, 0, 0, null); //drawing the image
     }
 
     //region getters and setters
@@ -77,16 +81,16 @@ public abstract class Entity implements Comparable<Entity> {
     }
 
     public Coordinate getXYOnScrn () {
-        int x = 0;
-        int y = 0;
+        int x;
+        int y;
         try {
-            int bigX = main.TILE_WIDTH * XYInArr.getX();
+            int bigX = main.TILE_WIDTH * XYInArr.getX(); //x in tileS
             int bigY = main.TILE_HEIGHT * XYInArr.getY();
 
-            int smallX = XYInTile.getX();
+            int smallX = XYInTile.getX(); //x in tile
             int smallY = XYInTile.getY();
 
-            x = bigX + smallX;
+            x = bigX + smallX; //combined
             y = bigY + smallY;
         } catch (Exception e) {
             return TurretFrame.NULL_COORD;
@@ -94,71 +98,16 @@ public abstract class Entity implements Comparable<Entity> {
 
         return new Coordinate(x, y);
     }
-
-    protected void changeXYOnScrn (int x, int y) {
-        int smallX = x % main.TILE_WIDTH;
-        int smallY = y % main.TILE_HEIGHT;
-
-        int bigX = (x - smallX) / main.TILE_WIDTH;
-        int bigY = (y - smallY) / main.TILE_HEIGHT;
-
-        //region x
-        //region small
-        if(smallX < 0) {
-            smallX = 0;
-            bigX--;
-        }
-        if(smallX > main.TILE_HEIGHT)
-        {
-            bigX++;
-            smallX = 0;
-        }
-        //endregion
-        //region big
-        if(bigX < 0)
-            bigX = 0;
-        if(bigX > main.NUM_OF_TILES_WIDTH)
-        {
-            bigX = main.NUM_OF_TILES_WIDTH - 1;
-        }
-        //endregion
-        //endregion
-        //region y
-        //region small
-        if(smallY < 0) {
-            smallY = 0;
-            bigY--;
-        }
-        if(smallY > main.TILE_WIDTH)
-        {
-            bigY++;
-            smallY = 0;
-        }
-        //endregion
-        //region big
-        if(bigY < 0)
-            bigY = 0;
-        if(bigY > main.NUM_OF_TILES_HEIGHT)
-        {
-            bigY = main.NUM_OF_TILES_HEIGHT - 1;
-        }
-        //endregion
-        //endregion
-
-
-        XYInArr = new Coordinate(bigX, bigY);
-        XYInTile = new Coordinate(smallX, smallY);
-    }
     //endregion
 
-    protected void changeX (int dst) {
-        int newXInTile = getXYInTile().getX() + dst;
-        int newXInArr = getXYInArr().getX();
+    protected void changeX (int dst) { //change the x, for movement
+        int newXInTile = getXYInTile().getX() + dst; //start x in the tile
+        int newXInArr = getXYInArr().getX(); // start x in array
 
         int oldYTile = getXYInTile().getY();
         int oldYArr = getXYInArr().getY();
 
-        if(newXInTile < 0) {
+        if(newXInTile < 0) { // checks to avoid rendering in wrong place and keeping right xyInArr
             newXInTile += main.TILE_WIDTH; // We can do this because if XInTile < 0, then by definition the dst is less than 0
             newXInArr--;
 
@@ -217,7 +166,7 @@ public abstract class Entity implements Comparable<Entity> {
         XYInTile = new Coordinate(oldXTile, newYInTile);
     }
 
-    private static Dimension getWHOnType (entityType type) {
+    private static Dimension getWHOnType (entityType type) { //get image width and height based on type
         switch (type) {
             case enemy:
                 return new Dimension(main.ENEMY_WIDTH, main.ENEMY_HEIGHT); //No break statement needed as it becomes an unreachable statement
@@ -228,27 +177,17 @@ public abstract class Entity implements Comparable<Entity> {
         }
     }
 
-    public String getFqdn() {
-        return fqdn;
-    }
-
-    protected void resetImg () {
-        int w = img.getWidth();
-        int h = img.getHeight();
-
-
-        img = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
-        img.getGraphics().drawImage(base, 0, 0, null);
-    }
-
 
     @Override
-    public int compareTo(Entity o) {
+    public int compareTo(Entity o) { //compare to other entites - for sorting
+        if(equals(o))
+            return 0;
+
         return getXYOnScrn().compareTo(o.getXYOnScrn());
     }
 
     @Override
-    public String toString() {
+    public String toString() { //tostring method
         return new StringJoiner(", ", Entity.class.getSimpleName() + "[", "]")
                 .add("XYInArr=" + XYInArr)
                 .add("XYInTile=" + XYInTile)
@@ -257,7 +196,7 @@ public abstract class Entity implements Comparable<Entity> {
                 .toString();
     }
 
-    public void setXYInTile(Coordinate XYInTile) {
+    public void setXYInTile(Coordinate XYInTile) { //set xyInArr and xyInTile
         this.XYInTile = XYInTile;
     }
 
@@ -266,7 +205,7 @@ public abstract class Entity implements Comparable<Entity> {
     }
 
 
-    protected static Coordinate turnFromArrToScrnPlusHalfTile (Coordinate original) {
+    protected static Coordinate turnFromArrToScrnPlusHalfTile (Coordinate original) { //get xy to be rendered to get the centre of the tile
         int bigX = original.getX() * main.TILE_WIDTH;
         int bigY = original.getY() * main.TILE_HEIGHT;
 
@@ -281,7 +220,7 @@ public abstract class Entity implements Comparable<Entity> {
         return fin;
     }
 
-    protected static Coordinate turnFromArrToScrnPlusHalfTile (Coordinate original, Coordinate overrideHalf) {
+    protected static Coordinate turnFromArrToScrnPlusHalfTile (Coordinate original, Coordinate overrideHalf) { //same as above but with an overrided half
         int bigX = original.getX() * main.TILE_WIDTH;
         int bigY = original.getY() * main.TILE_HEIGHT;
 
@@ -296,7 +235,7 @@ public abstract class Entity implements Comparable<Entity> {
         return fin;
     }
 
-    protected static Coordinate addHitBoxTolerances (Coordinate onScrn, Coordinate HITBOX_CENTRE) {
+    protected static Coordinate addHitBoxTolerances (Coordinate onScrn, Coordinate HITBOX_CENTRE) { //add tolerances for hitboxes, making the enetites render in the right place
         int currentX = onScrn.getX();
         int currentY = onScrn.getY();
 
@@ -307,5 +246,9 @@ public abstract class Entity implements Comparable<Entity> {
         onScrn.setY(currentY + addedY);
 
         return onScrn;
+    }
+
+    public boolean isDone () {
+        return false;
     }
 }

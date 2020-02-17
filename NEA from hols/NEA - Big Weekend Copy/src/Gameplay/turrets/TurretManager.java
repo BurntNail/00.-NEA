@@ -15,64 +15,64 @@ import java.util.Collection;
 
 public class TurretManager {
 
-    private ArrayList<Entity> turrets;
-    private turretDictionary dictionary;
+    private ArrayList<Entity> turrets; //all the turrets
+    private turretDictionary dictionary; //a turretDictionary
 
-    private squareCollection sqc;
+    private squareCollection sqc; //all of the squares
 
     private ArrayList<Coordinate> turretSquaresAll;
-    private ArrayList<Coordinate> turretSquaresFree;
+    private ArrayList<Coordinate> turretSquaresFree; //all of the free turretSquares, usedTurrets squares, and just all of the squares
     private ArrayList<Coordinate> turretSquaresUsed;
 
-    private PlayerManager pm;
+    private PlayerManager pm; //the playerManager
 
-    private TurretFrame tf;
-    private ArrayList<Entity> bullets;
+    private TurretFrame tf; //the turretFrame
+    private ArrayList<Entity> bullets; //all of the bullets and enemies
     private ArrayList<Entity> enemies;
 
-    private Thread runThread;
+    private Thread runThread; //the runThread
 
 
     public TurretManager(squareCollection sqc_, PlayerManager pm, JFrame window) {
-        sqc = sqc_;
+        sqc = sqc_; //set the squareCollection
 
-        dictionary = new turretDictionary(main.TURRET_FNS);
+        dictionary = new turretDictionary(main.TURRET_FNS); //create the dictionary
 
         turretSquaresAll = sqc.getAvailableTurretSquares();
-        turretSquaresFree = (ArrayList<Coordinate>) turretSquaresAll.clone();
+        turretSquaresFree = (ArrayList<Coordinate>) turretSquaresAll.clone(); //set the squares for the turrets
         turretSquaresUsed = new ArrayList<>();
 
-        tf = new TurretFrame(turretSquaresUsed, turretSquaresFree, new Dimension(main.WINDOW_WIDTH, main.WINDOW_HEIGHT), dictionary.getTurrets().values(), pm, window, this);
-        this.pm = pm;
+        tf = new TurretFrame(turretSquaresUsed, turretSquaresFree, new Dimension(main.WINDOW_WIDTH, main.WINDOW_HEIGHT), dictionary.getTurrets().values(), pm, window, this); //create the turretFrame
+        this.pm = pm; //set the playerManager
 
         turrets = new ArrayList<>();
-        bullets = new ArrayList<>();
+        bullets = new ArrayList<>(); //init the lists
         enemies = new ArrayList<>();
 
-        window.add(tf);
+        window.add(tf); //add the turretFrame panel to the window
 
-        Runnable r = () -> {
-            while(!pm.isDone()) {
-                main.quickCoord(turretSquaresUsed);
+        Runnable r = () -> { //runnable for the runThread
+            while(!pm.isDone()) { //whilst the playerManager hasn't won nor died
+                main.quickCoord(turretSquaresUsed); //sort the lists
                 main.quickEntity(turrets);
 
 
-                bullets.clear();
+                bullets.clear(); //clear the bullets
                 if(turrets.size() > 0) {
                     main.quickEntity(turrets);
-                    main.quickCoord(turretSquaresUsed);
+                    main.quickCoord(turretSquaresUsed); //sort the lists again
 
 
-                    for (Entity e : ((ArrayList<Entity>) turrets.clone())) {
+                    for (Entity e : ((ArrayList<Entity>) turrets.clone())) { //for each of the turrets
 
-                        if (e.getType().equals(entityType.turret)) {
-                            turretActual t = ((turretActual) e);
-                            t.setEnemies(enemies);
+                        if (e.getType().equals(entityType.turret)) { //if it is a turret
+                            turretActual t = ((turretActual) e); //cast it
+                            t.setEnemies(enemies); //give it the updated enemies
 
                             try {
                                 for (Entity b : t.getShotsFired())
                                 {
-                                    bullets.add(b);
+                                    bullets.add(b); //add all of the bullets
                                 }
                             } catch (Exception ex) {
                                 System.err.println(ex.getMessage());
@@ -81,59 +81,54 @@ public class TurretManager {
                     }
                 }
 
-
-
-                ArrayList<Entity> all = (ArrayList<Entity>) turrets.clone();
-                all.addAll(bullets);
-
-                tf.setTurrets(((ArrayList<Entity>) turrets.clone()));
+                tf.setTurrets(((ArrayList<Entity>) turrets.clone())); //give the turretFrame the turrets
 
             }
         };
 
-        runThread = new Thread(r);
+        runThread = new Thread(r); //start the runThread
         runThread.start();
     }
 
-    public ArrayList<Entity> setEnemiesAndGetTurretsAndBullets (ArrayList<Entity> enemies) {
-        this.enemies = enemies;
+    public ArrayList<Entity> setEnemiesAndGetTurretsAndBullets (ArrayList<Entity> enemies) { //get all of the turrets and bullets and set the enemies
+        this.enemies = enemies; //set the enemies
 
-        ArrayList<Entity> TABS = (ArrayList<Entity>) turrets.clone();
-        TABS.addAll((Collection<Entity>) bullets.clone());
+        ArrayList<Entity> TABS = (ArrayList<Entity>) turrets.clone(); //set a new list to the turrets
+        TABS.addAll((Collection<Entity>) bullets.clone()); // add the bullets
 
-        return TABS;
+        return TABS; //return the list
     }
 
-    protected void buyTurret (Coordinate where, String type) {
-        if(!turretSquaresFree.contains(where))
+    protected void buyTurret (Coordinate where, String type) { //buy a turret
+        if(!turretSquaresFree.contains(where)) //if the freeSquares don't contain it - return
             return;
 
-        turretActual temp = new turretActual(where, dictionary.getTurret(type), pm);
+        turretActual temp = new turretActual(where, dictionary.getTurret(type), pm); //make a turret
 
-        if(!pm.buy(temp.getTurret().getCost()))
+        if(!pm.buy(temp.getTurret().getCost())) //if we can't buy it - return
             return;
 
-        turretSquaresUsed.add(where);
+        turretSquaresUsed.add(where); //else update the squares
         turretSquaresFree.remove(where);
 
-        System.out.println("@TurretManager: " + type + " has been bought.");
+        System.out.println("TurretManager: " + type + " has been bought.");
 
-        tf.incrementIndex();
-
-        turrets.add(temp);
+        turrets.add(temp); //and add it to the list to be updated and rendered
 
     }
 
-    protected void sellTurret (turretActual ta) {
-        Coordinate where = ta.getXYInArr();
-        if(!turretSquaresUsed.contains(where))
+    protected void sellTurret (turretActual ta) { //sell a turret
+        Coordinate where = ta.getXYInArr(); //get where the turret is
+        if(!turretSquaresUsed.contains(where)) //check it is in the list, if not return
             return;
 
-        turretSquaresUsed.remove(where);
+        turretSquaresUsed.remove(where); //update the squares
         turretSquaresFree.add(where);
-        turrets.remove(ta);
+        turrets.remove(ta); //remove from update and render list
+        ta.noLongerWorking();
 
-        int moneyBack = ta.getTurret().getSellValue();
-        pm.donateM(moneyBack);
+        int moneyBack = ta.getTurret().getSellValue(); //get sale value
+        pm.donateM(moneyBack); //give money to playerManager
     }
+
 }

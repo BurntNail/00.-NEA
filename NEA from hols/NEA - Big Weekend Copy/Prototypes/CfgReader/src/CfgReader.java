@@ -78,7 +78,7 @@ public class CfgReader {
 
                     if(isInt)
                     {
-                        Integer value = Integer.parseInt(propertyValue);
+                        int value = Integer.parseInt(propertyValue);
                         currentModule.put(propertyName, value);
                     }else if (isStr)
                         currentModule.put(propertyName, propertyValue);

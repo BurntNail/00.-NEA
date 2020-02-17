@@ -1,15 +1,26 @@
 package Gameplay.waves;
 
 import classes.util.CfgReader.CfgReader;
+import main.main;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class WaveParser {
 
+    private WaveParser () { //private constructor to avoid instantiation
+    }
+
     public static ArrayList<Wave> enemiesBetweenGaps (CfgReader reader) //This method gives how many eneemies to give between each 1s gap given by the gamemanger
     {
-        int noOfWaves = Integer.parseInt(reader.get("enemyGaps", "wavesNo").toString());
+        String noOfWavesStr = reader.get("enemyGaps", "wavesNo").toString();
+        int noOfWaves;
+
+        if(main.INT_REGEX.matcher(noOfWavesStr).matches())
+            noOfWaves = Integer.parseInt(noOfWavesStr);
+        else
+            noOfWaves = 0;
+
         ArrayList<String> wavesRaw = new ArrayList<>();
         for (int i = 1; i <= noOfWaves; i++) {
             String m = "enemyGaps"; //module

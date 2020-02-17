@@ -1,6 +1,6 @@
 package classes.render.mustBeRendered.Entity.enemy;
 
-public class enemyTemplate {
+public class enemyTemplate { //template for enemy
 
     private String name;
     private int spd;
@@ -11,7 +11,7 @@ public class enemyTemplate {
     private int heartsCost;
     private char initial;
     private String fn;
-    private int moneyBack;
+    private int moneyBack; //as in the enemyDictionary
 
     public enemyTemplate(String name, int spd, String info, String heartsLost, int hp, int heartsCost, char initial, String fn, int moneyBack) {
         this.name = name;
@@ -23,12 +23,12 @@ public class enemyTemplate {
         this.initial = initial;
         this.fn = fn;
         this.moneyBack = moneyBack;
+
+        //initialise variables
     }
 
-    public String getName() {
-        return name;
-    }
 
+    //getters
     public String getFn() {
         return fn;
     }
@@ -37,24 +37,12 @@ public class enemyTemplate {
         return spd;
     }
 
-    public String getInfo() {
-        return info;
-    }
-
-    public String getHeartsLost() {
-        return heartsLost;
-    }
-
     public int getHp() {
         return hp;
     }
 
     public int getHeartsCost() {
         return heartsCost;
-    }
-
-    public char getInitial() {
-        return initial;
     }
 
     public int getMoneyBack() {

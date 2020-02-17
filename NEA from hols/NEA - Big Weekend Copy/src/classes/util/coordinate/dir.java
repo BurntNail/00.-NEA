@@ -1,6 +1,6 @@
 package classes.util.coordinate;
 
-public enum dir {
+public enum dir { //direction enumerator
 
     N,
     S,
@@ -9,7 +9,7 @@ public enum dir {
     ;
 
     @Override
-    public String toString() {
+    public String toString() { //toString with full names
         switch (this) {
             case W -> {
                 return "West";
@@ -21,9 +21,11 @@ public enum dir {
                 return "East";
             }
             case N -> {
-                return "North";
+                return "North"; //JDK 13 switch syntax
             }
         }
-        return "WHAT! HOW DID YOU DO THIS??????????????";
+        return "WHAT! HOW DID YOU DO THIS??????????????"; //confused error message
     }
+
+
 }

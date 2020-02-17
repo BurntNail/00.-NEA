@@ -2,6 +2,7 @@ package classes.render.mustBeRendered.square;
 
 import classes.util.CfgReader.CfgReader;
 import classes.util.coordinate.Coordinate;
+import main.main;
 
 import java.util.ArrayList;
 
@@ -13,9 +14,9 @@ public class squareCollection {
     private Coordinate start, end;
     private CfgReader reader;
 
-    private sqaureParser sqp;
+    private squareParser sqp;
 
-    public squareCollection(sqaureParser sqp_) {
+    public squareCollection(squareParser sqp_) {
         this.sqp = sqp_;
 
         squares = sqp.getSquares();
@@ -61,8 +62,15 @@ public class squareCollection {
             String xStr = chars[i] + "" + chars[i + 1];
             String yStr = chars[i + 2] + "" + chars[i + 3];
 
+            if(!main.INT_REGEX.matcher(xStr).matches() || !main.INT_REGEX.matcher(yStr).matches())
+                continue;
+
+
             int x = Integer.parseInt(xStr);
             int y = Integer.parseInt(yStr);
+
+
+
             Coordinate it = new Coordinate(x, y);
             path.add(it);
 
