@@ -100,8 +100,6 @@ public class Coordinate implements Comparable<Coordinate> { //coordinate class w
     public static Coordinate parseFromTS (String tbp) { //parse from ToString
 
         //new Coordinate(5, 7).toString() returns "Coordinate[x=5, y=7]"
-
-
         try {
             if(!COORDINATE_REGEX.matcher(tbp).matches())
                 return TurretFrame.NULL_COORD;
