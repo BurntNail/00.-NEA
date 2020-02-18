@@ -161,7 +161,7 @@ public class enemyActual extends Entity { //enemy class
 
     public void damage (int dmg) {
         currentHP -= dmg; //damage the enemy - called by bullet
-        System.out.println("ah, alas fare game, i may soonest be speaketh my last farewell. " + currentHP);
+        System.out.println("ah, alas fair game, i may soonest be speaketh my last farewell. " + currentHP);
     }
 
     public enemyTemplate getTemplate() {

@@ -105,8 +105,11 @@ public class TurretManager {
 
         turretActual temp = new turretActual(where, dictionary.getTurret(type), pm); //make a turret
 
-        if(!pm.buy(temp.getTurret().getCost())) //if we can't buy it - return
+        if(!pm.buy(temp.getTurret().getCost())) //if we can't buy it - return, if we can - buy it and continue
+        {
+            JOptionPane.showMessageDialog(tf, "You do not have enough remaining money to do that", "No money.", JOptionPane.ERROR_MESSAGE);
             return;
+        }
 
         turretSquaresUsed.add(where); //else update the squares
         turretSquaresFree.remove(where);

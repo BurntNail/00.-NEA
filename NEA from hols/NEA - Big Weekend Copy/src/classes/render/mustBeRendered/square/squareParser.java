@@ -60,7 +60,7 @@ public class squareParser { //parser for squareCollection
                         satan = ici;
                         break;
                     case "turret_base_big.png":
-                        newBoi = new TurretSquare();
+                        newBoi = new turretSquare();
                         break;
                     case "nothing_big.png":
                         newBoi = new nothingSquare();

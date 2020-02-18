@@ -4,7 +4,7 @@ import Gameplay.player.PlayerManager;
 import classes.render.mustBeRendered.Entity.baseEntity.Entity;
 import classes.render.mustBeRendered.Entity.baseEntity.entityType;
 import classes.render.mustBeRendered.Entity.enemy.enemyActual;
-import classes.render.mustBeRendered.Entity.bullet.bulletActual;
+import classes.render.mustBeRendered.Entity.turret.bullet.bulletActual;
 import classes.util.coordinate.Coordinate;
 import main.main;
 

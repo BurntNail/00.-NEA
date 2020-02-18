@@ -1,4 +1,4 @@
-package classes.render.mustBeRendered.Entity.bullet;
+package classes.render.mustBeRendered.Entity.turret.bullet;
 
 import classes.render.mustBeRendered.Entity.baseEntity.Entity;
 import classes.render.mustBeRendered.Entity.baseEntity.entityType;
@@ -8,7 +8,6 @@ import classes.util.coordinate.dir;
 import main.main;
 
 import java.awt.*;
-import java.awt.dnd.MouseDragGestureRecognizer;
 import java.util.concurrent.TimeUnit;
 
 public class bulletActual extends Entity { //bullet class

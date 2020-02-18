@@ -17,11 +17,7 @@ import java.util.function.Predicate;
 
 public class waveManager { //class for spawning in enemies
 
-    private static final Predicate<Object> TRUE_PREDICATE = o -> true;
-
     public static final long START_GAP = 30; //S - gap before first enemy spawns to let player build turret
-
-    private static final Predicate<enemyActual> DONE_PREDICTAE = Entity::isDone; //test for if the enemies are done
 
     private ArrayList<ArrayList<Character>> wavesInBetterForm; //Arraylist (all waves) of arraylists (individual waves)
 
@@ -112,8 +108,6 @@ public class waveManager { //class for spawning in enemies
         };
 
         checkThread = new Thread(checker); //create a thread to check for the player
-        checkThread.start(); //and start it
-
         Runnable runnable = () -> {
             System.out.println("running");
 
@@ -126,6 +120,7 @@ public class waveManager { //class for spawning in enemies
                 }
             }
 
+            checkThread.start(); // start the checker thread
             int co = 0; //code - to tell enemy if they are the first
             for (ArrayList<Character> thisWave : wavesInBetterForm) { //for each wave
                 try {
@@ -171,20 +166,18 @@ public class waveManager { //class for spawning in enemies
     }
 
     private static void check (ArrayList<Entity> enemyActuals, PlayerManager pm, JFrame win) {
-        if(!win.isVisible())
-        {
+        if(!win.isVisible()) {
             for(Entity e : enemyActuals) {
                 enemyActual casted = ((enemyActual) e);
                 casted.stop();
             }
-
-            enemyActuals.removeIf(TRUE_PREDICATE);
+            enemyActuals.clear();
         }
 
         for(Entity e : ((ArrayList<Entity>) enemyActuals.clone())) //Cloned to avoid ConcurrentModificationExceptions
         {
             enemyActual eA = ((enemyActual) e); //cast it
-            if(DONE_PREDICTAE.test(eA)) { //if it is done:
+            if(eA.isDone()) { //if it is done:
                 enemyActuals.remove(e); //take it off the rendering list
 
                 boolean isDead = eA.isDead(); //did it die
@@ -210,7 +203,7 @@ public class waveManager { //class for spawning in enemies
         if(enemiesSpawned == totEnemies) { //if we have spawned all of the enemies
             for (Entity enemyActual : enemyActuals) { // for each of the enemies remaining
                 enemyActual casted = ((enemyActual) enemyActual); //cast it
-                if(!DONE_PREDICTAE.test(casted))
+                if(casted.isDone())
                     return false;
             }
 

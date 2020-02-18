@@ -6,6 +6,7 @@ import classes.render.mustBeRendered.Entity.baseEntity.entityType;
 import classes.render.mustBeRendered.Entity.turret.turretActual;
 import classes.render.mustBeRendered.Entity.turret.turretTemplate;
 import classes.util.coordinate.Coordinate;
+import classes.util.resources.ResourceManager;
 import main.main;
 
 import javax.swing.*;
@@ -37,16 +38,13 @@ public class TurretFrame extends JPanel { //turret info and player info JPanel
 
 
         buttonPanel = new JPanel(); //init buttonPanel
+        URL url = null; //get the icon url
         try {
-            URL url = new URL(main.ICON_LOCATIONS + "XYIcon.png"); //get the icon url
-
-            if(url == null)
-                throw new MalformedURLException("No URL found...");
-
-            messageIcn = new ImageIcon(url, "Icon showing X and Y with crosshairs circle."); //init the icon
-        }catch (Exception e) {
-            messageIcn = new ImageIcon(); //just make a blank icon
+            url = new URL(main.ICON_LOCATIONS + "XYIcon.png");
+        } catch (MalformedURLException e) {
+            url = null;
         }
+        messageIcn = ResourceManager.getIcon(url);
 
         ArrayList<turretTemplate> turrets = new ArrayList<>(); //init turretTemplates
         turrets.addAll(templates_collection); //add the templates to it
@@ -84,8 +82,16 @@ public class TurretFrame extends JPanel { //turret info and player info JPanel
                     return;
                 }
 
+                URL iconUrl;
+                try {
+                    iconUrl = new URL(tt.getFn());
+                }catch (Exception ex) {
+                    iconUrl = null;
+                    System.out.println("Ex");
+                }
+
                 //else, ask for confirmation and give info on turret using turretTemplate toString
-                int result = JOptionPane.showConfirmDialog(panel, tt.toString(), "Confirm buy Turret: " + tt.getName(), JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, messageIcn);
+                int result = JOptionPane.showConfirmDialog(panel, tt.toString(), "Confirm buy Turret: " + tt.getName(), JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, ResourceManager.getIcon(iconUrl));
 
                 if(JOptionPane.YES_OPTION == result) { //if it is a yes
 
@@ -93,9 +99,8 @@ public class TurretFrame extends JPanel { //turret info and player info JPanel
                     main.quickCoord(usedSquares); //sort all lists using quickSort
                     main.quickCoord(freeSquares);
 
-
                     //get location
-                    Object location = JOptionPane.showInputDialog(panel, "Please enter a location", "Where would you like your tower?", JOptionPane.QUESTION_MESSAGE, messageIcn, ((Object[]) freeSquares.toArray()), 0);
+                    Object location = JOptionPane.showInputDialog(panel, "Please enter a location", "Where would you like your tower?", JOptionPane.QUESTION_MESSAGE, ResourceManager.getIcon(iconUrl), ((Object[]) freeSquares.toArray()), 0);
 
                     if(location == null) //if null - return out (ie. they cancelled)
                         return;

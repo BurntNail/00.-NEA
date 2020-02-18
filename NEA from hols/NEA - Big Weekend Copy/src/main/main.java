@@ -204,8 +204,10 @@ public class main {
     }
 
     public static void main(String[] args) { //main method
-        lvl1(); //do level one
-
+        if(JOptionPane.showConfirmDialog(null, "Would you like to play a game of Apex Turrets?", "Apex Turrets?", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE) == JOptionPane.YES_OPTION)
+            lvl1();
+        else
+            System.exit(0);
     }
 
     static { //static initializer - for all the public static final variables that depend on each other, and for temp variables to space out code
