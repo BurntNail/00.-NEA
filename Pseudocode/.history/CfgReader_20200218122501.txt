@@ -1,0 +1,81 @@
+BEGIN getModule (module)
+	IF !moduleNames.contains(module)
+		RETURN none
+	END IF
+	moduleIndex <- moduleNames.indexOf(module)
+	moduleToGet <- hashMaps.get(moduleIndex)
+	RETURN moduleToGet.clone()
+END getModule
+
+BEGIN get (module, property)
+	IF !moduleNames.contains(module)
+		RETURN none
+	END IF
+	
+	Value <- getModule(module).get(property)
+	RETURN Value
+END get
+
+BEGIN read ()
+	currentLine <- “”
+	thisModuleName <- “”
+	currentModule <- NEW HashMap<>()
+	
+	propertyName <- “”
+	propertyValue <- “”
+
+	equalsLocation <- 0
+
+	BEGIN TRY
+BEGIN WHILE (currentLine <- reader.readLine()) != none
+	
+	BEGIN IF currentLine <- “”
+		CONTINUE
+	END IF
+	
+	Chars <- currentLine.toCharArray()
+	
+	BEGIN IF MODULE_START_REGEX.matcher(currentLine).matches()
+		BEGIN FOR i <- 0; i < chars.length; i++
+			thisModuleName += chars[i] + “”
+		END FOR
+	END IF
+	BEGIN ELIF currentLine.contains(“}”)
+		moduleNames.add(thisModuleName)
+		HashMaps.add(currentModule.clone())
+		
+		thisModuleName <- “”
+		currentModule.clear()
+	END ELIF
+	BEGIN ELIF PROPERTY_REGEX.matcher(currentLine).matches()
+		equalsLocation <- currentLine.indexOf(“=”)
+		
+		isInt <- FALSE
+		isStr <- FALSE
+		isDbl <- FALSE
+
+		BEGIN FOR i <- 4; i < chars.length; i++
+			BEGIN IF i == equalsLocation
+				CONTINUE
+			END IF
+			BEGIN ELIF i = equalsLocation + 1
+				BEGIN IF chars[i] == ‘s’
+					isStr <- TRUE
+				END IF
+				BEGIN ELIF chars[i] == ‘i’
+					isInt <- TRUE
+				END ELIF
+				BEGIN ELIF chars[i] == ‘d’
+					isDbl <- TRUE
+				END ELIF
+			END ELIF
+			BEGIN ELIF i < equalsLocation
+				propertyName += chars[i]
+			END ELIF
+			BEGIN ELIF i > equalsLocation
+                propertyValue += chars[i]
+            END ELIF
+        END FOR
+
+        BEGIN IF isInt
+                    
